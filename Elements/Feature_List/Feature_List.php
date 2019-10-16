@@ -711,9 +711,8 @@ class Feature_List extends Widget_Base
 
         $padding = $settings['sa_el_feature_list_icon_padding']['size'];
         $font = $settings['sa_el_feature_list_icon_size']['size'];
-        $border = $settings['sa_el_feature_list_icon_border_width']['right'] + $settings['sa_el_feature_list_icon_border_width']['left'];
-
-
+        $border = $settings['sa_el_feature_list_icon_border_width']['size'] + $settings['sa_el_feature_list_icon_border_width']['size'];
+      
         if ($settings['sa_el_feature_list_icon_shape'] == 'rhombus') {
             $margin = 30;
             $connector_width = ($padding * 2) + $font + $border + $margin;
