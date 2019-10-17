@@ -17,7 +17,7 @@ use \Elementor\Frontend;
 
 class Lightbox_Modal extends Widget_Base {
 
-     use \SA_EL_ADDONS\Helper\Elementor_Helper;
+    use \SA_EL_ADDONS\Helper\Elementor_Helper;
 
     public function get_name() {
         return 'sa_el_lightbox';
@@ -334,7 +334,7 @@ class Lightbox_Modal extends Widget_Base {
         $this->add_control(
                 'trigger_only_icon', [
             'label' => esc_html__('Trigger Icon', SA_EL_ADDONS_TEXTDOMAIN),
-            'type' => Controls_Manager::ICON,
+            'type' => $this->Sa_El_Icon_Type(),
             'condition' => [
                 'sa_el_lightbox_trigger_type' => 'sa_el_lightbox_trigger_button',
                 'trigger_type' => 'icon'
@@ -1610,7 +1610,7 @@ class Lightbox_Modal extends Widget_Base {
                 ]
                     ]
             );
-           
+
             if ($settings['button_animation']) {
                 $this->add_render_attribute('trigger_button', 'class', 'elementor-animation-' . $settings['button_animation']);
             }
@@ -1666,7 +1666,7 @@ class Lightbox_Modal extends Widget_Base {
                         printf('</ %1$s>', $trigger_html_tag);
                     } else if ('icon' == $settings['trigger_type']) {
                         if (!empty($settings['trigger_only_icon'])) {
-                            printf('<i class="sa_el_trigger_icon sa_el_modal_popup_link %1$s %2$s" aria-hidden="true"></i>', $settings['trigger_only_icon'], 'sa_el_modal_popup_link_' . esc_attr($this->get_id()));
+                            printf('<span  class="sa_el_trigger_icon sa_el_modal_popup_link  %1$s">%2$s</span>', 'sa_el_modal_popup_link_' . esc_attr($this->get_id()), $this->Sa_El_Icon_Render($settings['trigger_only_icon']));
                         }
                     } else if ('image' == $settings['trigger_type']) {
                         $trigger_image = $this->get_settings('trigger_only_image');

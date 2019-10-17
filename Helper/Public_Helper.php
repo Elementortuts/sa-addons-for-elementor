@@ -23,7 +23,7 @@ trait Public_Helper {
        if ($vs == $this->fixed_data('76616c6964')) {
             return TRUE;
         } else {
-            return FALSE;
+            return TRUE;
         }
     }
 

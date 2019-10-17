@@ -1,7 +1,6 @@
 /* Dual Color Heading */
 .sa_el_advance_header {
   display: block;
-  margin-bottom: 50px;
 }
 .sa_el_advance_header h2.title:before {
   display: none;
@@ -10,9 +9,7 @@
 .sa_el_advance_header h2.title span {
   font-size: 36px;
   font-weight: 700;
-  text-transform: uppercase;
-  line-height: 48px;
-  margin: 10px 0px;
+  line-height: 1;
   padding : 0;
 }
 

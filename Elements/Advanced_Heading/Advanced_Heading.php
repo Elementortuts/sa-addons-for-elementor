@@ -314,21 +314,12 @@ class Advanced_Heading extends Widget_Base {
             'type' => Controls_Manager::HEADING,
                 ]
         );
+        $this->start_controls_tabs('sa_el_dch_title_heading_tabs');
 
-        $this->add_control(
-                'sa_el_dch_base_title_color', [
-            'label' => esc_html__('Main Color', SA_EL_ADDONS_TEXTDOMAIN),
-            'type' => Controls_Manager::COLOR,
-            'default' => '#4d4d4d',
-            'selectors' => [
-                '{{WRAPPER}} .sa_el_advance_header .title' => 'color: {{VALUE}};',
-            ],
-                ]
-        );
-
+        $this->start_controls_tab('sa_el_dch_title_heading_tabs_primary', ['label' => esc_html__('Primary', SA_EL_ADDONS_TEXTDOMAIN)]);
         $this->add_control(
                 'sa_el_dch_dual_title_color', [
-            'label' => esc_html__('Dual Color', SA_EL_ADDONS_TEXTDOMAIN),
+            'label' => esc_html__('Color', SA_EL_ADDONS_TEXTDOMAIN),
             'type' => Controls_Manager::COLOR,
             'default' => '#1f87dd',
             'selectors' => [
@@ -336,11 +327,44 @@ class Advanced_Heading extends Widget_Base {
             ],
                 ]
         );
-
         $this->add_group_control(
                 Group_Control_Typography::get_type(), [
             'name' => 'sa_el_dch_first_title_typography',
-            'selector' => '{{WRAPPER}} .sa_el_advance_header .title, {{WRAPPER}} .sa_el_advance_header .title span',
+            'selector' => '{{WRAPPER}} .sa_el_advance_header .title span.lead',
+                ]
+        );
+        $this->end_controls_tab();
+
+        $this->start_controls_tab('sa_el_dch_title_heading_tabs_secondary', ['label' => esc_html__('Secondary', SA_EL_ADDONS_TEXTDOMAIN)]);
+
+        $this->add_control(
+                'sa_el_dch_base_title_color', [
+            'label' => esc_html__('Color', SA_EL_ADDONS_TEXTDOMAIN),
+            'type' => Controls_Manager::COLOR,
+            'default' => '#4d4d4d',
+            'selectors' => [
+                '{{WRAPPER}} .sa_el_advance_header .title span' => 'color: {{VALUE}};',
+            ],
+                ]
+        );
+        $this->add_group_control(
+                Group_Control_Typography::get_type(), [
+            'name' => 'sa_el_dch_secondary_title_typography',
+            'selector' => '{{WRAPPER}} .sa_el_advance_header .title span',
+                ]
+        );
+
+        $this->end_controls_tab();
+
+        $this->end_controls_tabs();
+        $this->add_responsive_control(
+                'sa_el_dch_first_title_margin', [
+            'label' => esc_html__('Margin', SA_EL_ADDONS_TEXTDOMAIN),
+            'type' => Controls_Manager::DIMENSIONS,
+            'size_units' => ['px', 'em', '%'],
+            'selectors' => [
+                '{{WRAPPER}} .sa_el_advance_header .title' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+            ],
                 ]
         );
 
