@@ -18,6 +18,7 @@ class Rest_API {
 
     const MENU = 'get_oxilab_addons_menu';
     const TRANSIENT_TEMPLATE = 'sa_el_addons_template';
+    const TRANSIENT_REGISTER_ELEMENTS = 'sa_el_addons_register_elements5';
     const TRANSIENT_CATEGORY = 'sa_el_addons_category';
     const TEMPLATES = 'https://www.shortcode-addons.com/wp-json/shortcode-elementor/v1/category/template';
     const CATEGORIES = 'https://www.shortcode-addons.com/wp-json/shortcode-elementor/v1/category/';
@@ -139,6 +140,33 @@ class Rest_API {
             return new \WP_Error('template_data_error', 'An invalid data was returned.');
         }
         return $template_content;
+    }
+
+    /**
+     * Get a single template content.
+     *
+     * @param int $template_id Template ID.
+     * @return mixed|\WP_Error
+     */
+    public function Register_Elements($force_update = FALSE) {
+        $Register = get_transient(self::TRANSIENT_REGISTER_ELEMENTS);
+        if (!$Register || $force_update) {
+            $folder = ['Elements', 'Extensions'];
+            foreach ($folder as $location) {
+                $file = glob(SA_EL_ADDONS_PATH . $location . '/*', GLOB_ONLYDIR);
+                foreach ($file as $V) {
+                    $F = explode('sa-addons-for-elementor/' . $location . '/', $V);
+                    if (file_exists(SA_EL_ADDONS_PATH . $location . '/' . $F[1] . '/Register.php')):
+                        $R = include_once SA_EL_ADDONS_PATH . $location . '/' . $F[1] . '/Register.php';
+                        if (is_array($R) && array_key_exists('name', $R)):
+                            $Register[$R['name']] = $R;
+                        endif;
+                    endif;
+                }
+            }
+            set_transient(self::TRANSIENT_REGISTER_ELEMENTS, $Register, 5 * DAY_IN_SECONDS);
+        }
+        return $Register;
     }
 
 }
