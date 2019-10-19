@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'single_product',
+    'name' => 'Single_Product',
     'class' => '\SA_EL_ADDONS\Elements\Single_Product\Single_Product',
     'dependency' => [
         'css' => [

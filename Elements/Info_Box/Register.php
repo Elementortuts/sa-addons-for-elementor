@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'info_box',
+    'name' => 'Info_Box',
     'class' => '\SA_EL_ADDONS\Elements\Info_Box\Info_Box',
     'dependency' => [
         'css' => [

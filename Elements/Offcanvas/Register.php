@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' =>'offcanvas' ,
+    'name' =>'Offcanvas' ,
         'class' => '\SA_EL_ADDONS\Elements\Offcanvas\Offcanvas',
         'dependency' => [
             'css' => [

@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'count_down',
+    'name' => 'Count_Down',
     'class' => '\SA_EL_ADDONS\Elements\Count_Down\Count_Down',
     'dependency' => [
         'css' => [

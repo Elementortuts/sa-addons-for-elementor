@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'card',
+    'name' => 'Card',
     'class' => '\SA_EL_ADDONS\Elements\Card\Card',
     'dependency' => [
         'css' => [

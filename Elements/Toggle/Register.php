@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'toggle',
+    'name' => 'Toggle',
     'class' => '\SA_EL_ADDONS\Elements\Toggle\Toggle',
     'dependency' => [
         'css' => [

@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'logo_carousel',
+    'name' => 'Logo_Carousel',
     'class' => '\SA_EL_ADDONS\Elements\Logo_Carousel\Logo_Carousel',
     'dependency' => [
         'css' => [

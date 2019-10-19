@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'interactive_card',
+    'name' => 'Interactive_Card',
     'class' => '\SA_EL_ADDONS\Elements\Interactive_Card\Interactive_Card',
     'dependency' => [
         'css' => [

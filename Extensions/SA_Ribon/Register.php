@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'ribon',
+    'name' => 'Ribon',
     'class' => '\SA_EL_ADDONS\Extensions\SA_Ribon\SA_Ribon',
     'dependency' => [
         'css' => [

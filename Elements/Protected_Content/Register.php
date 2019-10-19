@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'protected_content',
+    'name' => 'Protected_Content',
     'class' => '\SA_EL_ADDONS\Elements\Protected_Content\Protected_Content',
     'dependency' => [
         'css' => [

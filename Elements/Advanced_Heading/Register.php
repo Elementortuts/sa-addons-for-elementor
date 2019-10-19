@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'advanced_heading',
+    'name' => 'Advanced_Heading',
     'class' => '\SA_EL_ADDONS\Elements\Advanced_Heading\Advanced_Heading',
     'dependency' => [
         'css' => [

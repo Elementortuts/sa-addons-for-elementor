@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'call_to_action',
+    'name' => 'Call_To_Action',
     'class' => '\SA_EL_ADDONS\Elements\Call_To_Action\Call_To_Action',
     'dependency' => [
         'css' => [

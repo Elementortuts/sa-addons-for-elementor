@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'pricing_table',
+    'name' => 'Pricing_Table',
     'class' => '\SA_EL_ADDONS\Elements\Pricing_Table\Pricing_Table',
     'dependency' => [
         'css' => [

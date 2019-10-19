@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'tooltip',
+    'name' => 'Tooltip',
     'class' => '\SA_EL_ADDONS\Elements\Tooltip\Tooltip',
     'dependency' => [
         'css' => [

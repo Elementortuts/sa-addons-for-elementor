@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'image_comparison',
+    'name' => 'Image_Comparison',
     'class' => '\SA_EL_ADDONS\Elements\Image_Comparison\Image_Comparison',
     'dependency' => [
         'css' => [

@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'image_accordion',
+    'name' => 'Image_Accordion',
     'class' => '\SA_EL_ADDONS\Elements\Image_Accordion\Image_Accordion',
     'dependency' => [
         'css' => [

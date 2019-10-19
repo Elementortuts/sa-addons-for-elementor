@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'divider',
+    'name' => 'Divider',
     'class' => '\SA_EL_ADDONS\Elements\Divider\Divider',
     'dependency' => [
         'css' => [

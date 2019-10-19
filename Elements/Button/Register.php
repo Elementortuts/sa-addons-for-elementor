@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'button',
+    'name' => 'Button',
     'class' => '\SA_EL_ADDONS\Elements\Button\Button',
     'dependency' => [
         'css' => [

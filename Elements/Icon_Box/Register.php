@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' =>  'icon_box',
+    'name' =>  'Icon_Box',
         'class' => '\SA_EL_ADDONS\Elements\Icon_Box\Icon_Box',
         'dependency' => [
             'css' => [

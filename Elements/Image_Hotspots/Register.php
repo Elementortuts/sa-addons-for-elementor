@@ -1,7 +1,7 @@
 <?php
 
 return [
-     'name' => 'image_hotspots' ,
+     'name' => 'Image_Hotspots' ,
         'class' => '\SA_EL_ADDONS\Elements\Image_Hotspots\Image_Hotspots',
         'dependency' => [
             'css' => [

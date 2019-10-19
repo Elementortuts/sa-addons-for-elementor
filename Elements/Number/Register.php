@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'number',
+    'name' => 'Number',
     'class' => '\SA_EL_ADDONS\Elements\Number\Number',
     'dependency' => [
         'css' => [

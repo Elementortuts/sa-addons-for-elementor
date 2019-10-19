@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'lightbox_and_modal',
+    'name' => 'Lightbox_Modal',
     'class' => '\SA_EL_ADDONS\Elements\Lightbox_Modal\Lightbox_Modal',
     'dependency' => [
         'css' => [

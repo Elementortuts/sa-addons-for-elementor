@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'flip_carousel',
+    'name' => 'Flip_Carousel',
     'class' => '\SA_EL_ADDONS\Elements\Flip_Carousel\Flip_Carousel',
     'dependency' => [
         'css' => [

@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'tabs',
+    'name' => 'Tabs',
     'class' => '\SA_EL_ADDONS\Elements\Tabs\Tabs',
     'dependency' => [
         'css' => [

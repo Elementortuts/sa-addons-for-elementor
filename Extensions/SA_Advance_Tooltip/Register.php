@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'advance_tooltip',
+    'name' => 'Advance_Tooltip',
     'class' => '\SA_EL_ADDONS\Extensions\SA_Advance_Tooltip\SA_Advance_Tooltip',
     'dependency' => [
         'css' => [

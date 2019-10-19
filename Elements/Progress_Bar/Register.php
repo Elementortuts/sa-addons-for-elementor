@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'progress_bar',
+    'name' => 'Progress_Bar',
     'class' => '\SA_EL_ADDONS\Elements\Progress_Bar\Progress_Bar',
     'dependency' => [
         'css' => [

@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'interactive_promo',
+    'name' => 'Interactive_Promo',
     'class' => '\SA_EL_ADDONS\Elements\Interactive_Promo\Interactive_Promo',
     'dependency' => [
         'css' => [

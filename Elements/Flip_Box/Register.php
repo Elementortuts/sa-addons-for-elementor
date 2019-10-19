@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'flip_box',
+    'name' => 'Flip_Box',
     'class' => '\SA_EL_ADDONS\Elements\Flip_Box\Flip_Box',
     'dependency' => [
         'css' => [

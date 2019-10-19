@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'testimonial_slider',
+    'name' => 'Testimonial_Slider',
     'class' => '\SA_EL_ADDONS\Elements\Testimonial_Slider\Testimonial_Slider',
     'dependency' => [
         'css' => [

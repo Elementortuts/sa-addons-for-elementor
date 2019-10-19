@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'team_member_carousel',
+    'name' => 'Team_Member_Carousel',
     'class' => '\SA_EL_ADDONS\Elements\Team_Member_Carousel\Team_Member_Carousel',
     'dependency' => [
         'css' => [

@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'justified_gallery',
+    'name' => 'Justified_Gallery',
     'class' => '\SA_EL_ADDONS\Elements\Justified_Gallery\Justified_Gallery',
     'dependency' => [
         'css' => [

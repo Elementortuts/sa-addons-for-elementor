@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'dual_button',
+    'name' => 'Dual_Button',
     'class' => '\SA_EL_ADDONS\Elements\Dual_Button\Dual_Button',
     'dependency' => [
         'css' => [

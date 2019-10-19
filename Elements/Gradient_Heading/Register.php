@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'gradient_heading',
+    'name' => 'Gradient_Heading',
     'class' => '\SA_EL_ADDONS\Elements\Gradient_Heading\Gradient_Heading',
     'dependency' => [
         'css' => [

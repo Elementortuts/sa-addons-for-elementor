@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'team_member',
+    'name' => 'Team_Member',
     'class' => '\SA_EL_ADDONS\Elements\Team_Member\Team_Member',
     'dependency' => [
         'css' => [

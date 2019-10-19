@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'testimonial',
+    'name' => 'Testimonial',
     'class' => '\SA_EL_ADDONS\Elements\Testimonial\Testimonial',
     'dependency' => [
         'css' => [

@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'feature_list',
+    'name' => 'Feature_List',
     'class' => '\SA_EL_ADDONS\Elements\Feature_List\Feature_List',
     'dependency' => [
         'css' => [

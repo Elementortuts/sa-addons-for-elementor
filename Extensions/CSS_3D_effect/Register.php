@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => '3D_css_effect',
+    'name' => '3D_Css_Effect',
     'class' => '\SA_EL_ADDONS\Extensions\CSS_3D_effect\CSS_3D_effect',
     'dependency' => [
         'js' => [

@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'counter',
+    'name' => 'Counter',
     'class' => '\SA_EL_ADDONS\Elements\Counter\Counter',
     'dependency' => [
         'css' => [

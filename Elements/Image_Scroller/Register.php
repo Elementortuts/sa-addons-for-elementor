@@ -1,7 +1,7 @@
 <?php
 
 return [
-   'name' => 'image_scroller',
+   'name' => 'Image_Scroller',
         'class' => '\SA_EL_ADDONS\Elements\Image_Scroller\Image_Scroller',
         'dependency' => [
             'css' => [

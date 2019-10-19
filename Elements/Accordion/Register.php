@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'accordion',
+    'name' => 'Accordion',
     'class' => '\SA_EL_ADDONS\Elements\Accordion\Accordion',
     'dependency' => [
         'css' => [

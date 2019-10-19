@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'filterable_gallery',
+    'name' => 'Filterable_Gallery',
     'class' => '\SA_EL_ADDONS\Elements\Filterable_Gallery\Filterable_Gallery',
     'dependency' => [
         'css' => [

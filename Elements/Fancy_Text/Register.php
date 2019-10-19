@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'fancy_text',
+    'name' => 'Fancy_Text',
     'class' => '\SA_EL_ADDONS\Elements\Fancy_Text\Fancy_Text',
     'dependency' => [
         'css' => [

@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'data_table',
+    'name' => 'Data_Table',
     'class' => '\SA_EL_ADDONS\Elements\Data_Table\Data_Table',
     'dependency' => [
         'css' => [
