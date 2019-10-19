@@ -18,7 +18,7 @@ class Rest_API {
 
     const MENU = 'get_oxilab_addons_menu';
     const TRANSIENT_TEMPLATE = 'sa_el_addons_template';
-    const TRANSIENT_REGISTER_ELEMENTS = 'sa_el_addons_register_elements5';
+    const TRANSIENT_REGISTER_ELEMENTS = 'sa_el_addons_register_elements';
     const TRANSIENT_CATEGORY = 'sa_el_addons_category';
     const TEMPLATES = 'https://www.shortcode-addons.com/wp-json/shortcode-elementor/v1/category/template';
     const CATEGORIES = 'https://www.shortcode-addons.com/wp-json/shortcode-elementor/v1/category/';
@@ -148,7 +148,7 @@ class Rest_API {
      * @param int $template_id Template ID.
      * @return mixed|\WP_Error
      */
-    public function Register_Elements($force_update = FALSE) {
+    public function Register_Elements($force_update = TRUE) {
         $Register = get_transient(self::TRANSIENT_REGISTER_ELEMENTS);
         if (!$Register || $force_update) {
             $folder = ['Elements', 'Extensions'];

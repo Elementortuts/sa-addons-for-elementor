@@ -77,7 +77,7 @@ class Addons {
      */
     public function Render() {
         $registered_element = $element = $array1 = array('Extension' => array());
-        $registered_el = $this->Get_Registered_elements();
+        $registered_el = $this->Get_Registered_elements(true);
         foreach ($registered_el as $key => $value) {
             $array1[$value['category']] = $value['category'];
             $element[$value['category']][$key] = array('name' => $key, 'Premium' => $value['Premium'], 'condition' => $value['condition'], 'API' => $value['API']);
