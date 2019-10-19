@@ -344,7 +344,7 @@ class Filterable_Gallery extends Widget_Base
                         'label' => esc_html__('Image', SA_EL_ADDONS_TEXTDOMAIN),
                         'type' => Controls_Manager::MEDIA,
                         'default' => [
-                            'url' => SA_EL_ADDONS_URL . 'image/demo.jpg',
+                            'url' => 'https://www.shortcode-addons.com/wp-content/uploads/2019/07/black-background-camera-color-1619654-1.jpg',
                         ],
                     ],
                     [
@@ -352,7 +352,7 @@ class Filterable_Gallery extends Widget_Base
                         'label' => __('Video play icon', SA_EL_ADDONS_TEXTDOMAIN),
                         'type' => Controls_Manager::MEDIA,
                         'default' => [
-                            'url' => SA_EL_ADDONS_URL . 'image/logo.png',
+                            'url' => 'https://www.shortcode-addons.com/wp-content/uploads/2019/07/play-icon.png',
                         ],
                         'condition' => [
                             'fg_video_gallery_switch' => 'true',
@@ -537,7 +537,7 @@ class Filterable_Gallery extends Widget_Base
         );
 
         $this->end_controls_section();
-        if (apply_filters(SA_EL_ADDONS_TEXTDOMAIN . '/check_version', TRUE) == FALSE) {
+        if (!apply_filters(SA_EL_ADDONS_TEXTDOMAIN . '/pro-enable', ['', '', TRUE])) {
             $this->start_controls_section(
                 'sa_el_section_pro',
                 [
