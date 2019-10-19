@@ -148,7 +148,7 @@ class Rest_API {
      * @param int $template_id Template ID.
      * @return mixed|\WP_Error
      */
-    public function Register_Elements($force_update = TRUE) {
+    public function Register_Elements($force_update = false) {
         $Register = get_transient(self::TRANSIENT_REGISTER_ELEMENTS);
         if (!$Register || $force_update) {
             $folder = ['Elements', 'Extensions'];
