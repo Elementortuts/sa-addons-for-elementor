@@ -751,8 +751,7 @@ class Dual_Button extends Widget_Base
         if ($settings['left_button_icon']) {
             $this->add_render_attribute('left_button_icon', 'class', [
                 'sa-el-dual-btn-icon',
-                'sa-el-dual-btn-icon--' . esc_attr($settings['left_button_icon_position']),
-                esc_attr($settings['left_button_icon'])
+                'sa-el-dual-btn-icon--' . esc_attr($settings['left_button_icon_position'])
             ]);
         }
 
@@ -781,8 +780,7 @@ class Dual_Button extends Widget_Base
         if ($settings['right_button_icon']) {
             $this->add_render_attribute('right_button_icon', 'class', [
                 'sa-el-dual-btn-icon',
-                'sa-el-dual-btn-icon--' . esc_attr($settings['right_button_icon_position']),
-                esc_attr($settings['right_button_icon'])
+                'sa-el-dual-btn-icon--' . esc_attr($settings['right_button_icon_position'])
             ]);
         }
         ?>
