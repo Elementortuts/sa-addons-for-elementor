@@ -176,7 +176,7 @@ class Progress_Bar extends Widget_Base {
 
         $this->end_controls_section();
 
-        if (apply_filters(SA_EL_ADDONS_TEXTDOMAIN . '/check_version', TRUE) == FALSE) {
+        if (apply_filters(SA_EL_ADDONS_TEXTDOMAIN . '/check_version', TRUE) == false) {
             $this->start_controls_section(
                     'sa_el_section_pro',
                     [
@@ -212,10 +212,6 @@ class Progress_Bar extends Widget_Base {
          */
         $style_condition = ['line', 'line_rainbow'];
 
-        if (apply_filters(SA_EL_ADDONS_TEXTDOMAIN . '/check_version', TRUE)) {
-            $style_condition = array_merge($style_condition, ['circle_fill', 'half_circle_fill', 'box']);
-        }
-        // print_r($style_condition);
         $this->start_controls_section(
                 'progress_bar_section_style_general_line',
                 [
@@ -369,13 +365,6 @@ class Progress_Bar extends Widget_Base {
                 ]
         );
 
-        if (apply_filters(SA_EL_ADDONS_TEXTDOMAIN . '/check_version', TRUE) == FALSE) {
-            $line_fill_color_condition = [
-                'progress_bar_layout' => 'line',
-            ];
-        } else {
-            $line_fill_color_condition = [];
-        }
         $this->add_group_control(
                 Group_Control_Background::get_type(),
                 [
@@ -385,7 +374,9 @@ class Progress_Bar extends Widget_Base {
                     'exclude' => [
                         'image',
                     ],
-                    'condition' => $line_fill_color_condition,
+                    'condition' => [
+                        'progress_bar_layout' => 'line',
+                    ],
                     'selector' => '{{WRAPPER}} .sa-el-progressbar-line-fill',
                     'separator' => 'before',
                 ]
@@ -397,7 +388,9 @@ class Progress_Bar extends Widget_Base {
                     'label' => __('Show Stripe', SA_EL_ADDONS_TEXTDOMAIN),
                     'type' => \Elementor\Controls_Manager::SWITCHER,
                     'return_value' => 'yes',
-                    'condition' => $line_fill_color_condition,
+                    'condition' => [
+                        'progress_bar_layout' => 'line',
+                    ],
                     'default' => 'no',
                     'separator' => 'before',
                 ]
@@ -426,18 +419,18 @@ class Progress_Bar extends Widget_Base {
         /**
          * Style Tab: General(Circle)
          */
-        $circle_general_condition = ['circle', 'half_circle'];
         if (apply_filters(SA_EL_ADDONS_TEXTDOMAIN . '/check_version', TRUE)) {
-            $circle_general_condition = array_merge($circle_general_condition, ['circle_fill', 'half_circle_fill']);
+            $circle_general_condition = ['circle', 'half_circle', 'circle_fill', 'half_circle_fill'];
+        } else {
+            $circle_general_condition = ['circle', 'half_circle'];
         }
-
         $this->start_controls_section(
                 'progress_bar_section_style_general_circle',
                 [
                     'label' => __('General', SA_EL_ADDONS_TEXTDOMAIN),
                     'tab' => Controls_Manager::TAB_STYLE,
                     'condition' => [
-                        'progress_bar_layout' => [$circle_general_condition],
+                        'progress_bar_layout' => $circle_general_condition,
                     ],
                 ]
         );
@@ -542,7 +535,7 @@ class Progress_Bar extends Widget_Base {
                 ]
         );
 
-        if (apply_filters(SA_EL_ADDONS_TEXTDOMAIN . '/check_version', TRUE)) {
+         if (apply_filters(SA_EL_ADDONS_TEXTDOMAIN . '/check_version', TRUE)) {
             $circle_fill_color_condition = [
                 '{{WRAPPER}} .sa-el-progressbar-circle-half' => 'border-color: {{VALUE}}',
                 '{{WRAPPER}} .sa-el-progressbar-circle-fill .sa-el-progressbar-circle-half' => 'background-color: {{VALUE}}',
@@ -559,7 +552,7 @@ class Progress_Bar extends Widget_Base {
                 [
                     'label' => __('Fill Color', SA_EL_ADDONS_TEXTDOMAIN),
                     'type' => Controls_Manager::COLOR,
-                    'default' => '#000',
+                    'default' => '#F15540',
                     'selectors' => $circle_fill_color_condition,
                     'separator' => 'before',
                 ]
@@ -582,7 +575,7 @@ class Progress_Bar extends Widget_Base {
 
         // Import progress bar style controlls
         // do_action('add_progress_bar_control', $this);
-        if (apply_filters(SA_EL_ADDONS_TEXTDOMAIN . '/check_version', TRUE)) {
+         if (apply_filters(SA_EL_ADDONS_TEXTDOMAIN . '/check_version', TRUE)) {
             /**
              * Style Tab: General(Box)
              */
@@ -685,7 +678,7 @@ class Progress_Bar extends Widget_Base {
                     [
                         'label' => __('Fill Color', SA_EL_ADDONS_TEXTDOMAIN),
                         'type' => Controls_Manager::COLOR,
-                        'default' => '#000',
+                        'default' => '#F15540',
                         'selectors' => [
                             '{{WRAPPER}} .sa-el-progressbar-box-fill' => 'background-color: {{VALUE}}',
                         ],
@@ -827,7 +820,7 @@ class Progress_Bar extends Widget_Base {
         $wrap_classes = ['sa-el-progressbar'];
         $circle_wrapper = [];
 
-        if (apply_filters(SA_EL_ADDONS_TEXTDOMAIN . '/check_version', TRUE) == FALSE) {
+        if (apply_filters(SA_EL_ADDONS_TEXTDOMAIN . '/check_version', TRUE) == false) {
             if (in_array($settings['progress_bar_layout'], ['line', 'line_rainbow', 'circle_fill', 'half_circle_fill', 'box'])) {
                 $settings['progress_bar_layout'] = 'line';
             }
@@ -875,16 +868,14 @@ class Progress_Bar extends Widget_Base {
                 </div>
             </div>';
         }
-        if ($settings['progress_bar_layout'] == 'circle' || $settings['progress_bar_layout'] == 'circle_fill') {
 
+        if ($settings['progress_bar_layout'] == 'circle' || $settings['progress_bar_layout'] == 'circle_fill') {
             $wrap_classes[] = 'sa-el-progressbar-circle';
-            // $wrap_classes = apply_filters('sa_el_progressbar_circle_fill_wrap_class', $wrap_classes, $settings);
-            if (apply_filters(SA_EL_ADDONS_TEXTDOMAIN . '/check_version', TRUE)) {
+             if (apply_filters(SA_EL_ADDONS_TEXTDOMAIN . '/check_version', TRUE)) {
                 if ($settings['progress_bar_layout'] == 'circle_fill') {
-                    $wrap_classes[] = 'sa-el-progressbar-circle-fill';
+                    $wrap_classes[] .= 'sa-el-progressbar-circle-fill';
                 }
             }
-
             $this->add_render_attribute(
                     'sa-el-progressbar-circle',
                     [
@@ -913,7 +904,7 @@ class Progress_Bar extends Widget_Base {
                 ' . ($settings['progress_bar_circle_box_shadow_box_shadow'] ? '</div>' : '') . '
             </div>';
         }
-        if (apply_filters(SA_EL_ADDONS_TEXTDOMAIN . '/check_version', TRUE)) {
+         if (apply_filters(SA_EL_ADDONS_TEXTDOMAIN . '/check_version', TRUE)) {
             $circle_condition = $settings['progress_bar_layout'] == 'half_circle' || $settings['progress_bar_layout'] == 'half_circle_fill';
         } else {
             $circle_condition = $settings['progress_bar_layout'] == 'half_circle';
@@ -922,7 +913,7 @@ class Progress_Bar extends Widget_Base {
             $wrap_classes[] = 'sa-el-progressbar-half-circle';
             // $wrap_classes = apply_filters('sa_el_progressbar_half_circle_wrap_class', $wrap_classes, $settings);
 
-            if (apply_filters(SA_EL_ADDONS_TEXTDOMAIN . '/check_version', TRUE)) {
+             if (apply_filters(SA_EL_ADDONS_TEXTDOMAIN . '/check_version', TRUE)) {
                 if ($settings['progress_bar_layout'] == 'half_circle_fill') {
                     $wrap_classes[] = 'sa-el-progressbar-half-circle-fill';
                 }
