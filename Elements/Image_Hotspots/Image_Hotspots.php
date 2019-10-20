@@ -109,8 +109,7 @@ class Image_Hotspots extends Widget_Base {
         $repeater->add_control(
                 'hotspot_icon', [
             'label' => __('Icon', SA_EL_ADDONS_TEXTDOMAIN),
-            'type' => Controls_Manager::ICON,
-            'default' => 'fa fa-plus',
+            'type' => $this->Sa_El_Icon_Type(),
             'condition' => [
                 'hotspot_type' => 'icon',
             ],
@@ -754,7 +753,7 @@ class Image_Hotspots extends Widget_Base {
                         <span <?php echo $this->get_render_attribute_string('hotspot_inner_' . $i); ?>>
                             <?php
                             if ($item['hotspot_type'] == 'icon') {
-                                printf('<span class="sa-el-hotspot-icon-wrap"><span class="sa-el-hotspot-icon tooltip %1$s"></span></span>', esc_attr($item['hotspot_icon']));
+                                printf('<span class="sa-el-hotspot-icon-wrap"><span class="sa-el-hotspot-icon tooltip ">%1$s</span></span>', $this->Sa_El_Icon_Render($item['hotspot_icon']));
                             } elseif ($item['hotspot_type'] == 'text') {
                                 printf('<span class="sa-el-hotspot-icon-wrap"><span class="sa-el-hotspot-text">%1$s</span></span>', esc_attr($item['hotspot_text']));
                             }
