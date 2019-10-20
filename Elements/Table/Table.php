@@ -1,6 +1,6 @@
 <?php
 
-namespace SA_EL_ADDONS\Elements\Data_Table;
+namespace SA_EL_ADDONS\Elements\Table;
 
 if (!defined('ABSPATH')) {
     exit;
@@ -15,16 +15,16 @@ use \Elementor\Utils as Utils;
 use \Elementor\Widget_Base as Widget_Base;
 
 
-class Data_Table extends Widget_Base {
+class Table extends Widget_Base {
 
     use \SA_EL_ADDONS\Helper\Elementor_Helper;
 
     public function get_name() {
-        return 'sa_el_data_table';
+        return 'sa_el_table';
     }
 
     public function get_title() {
-        return esc_html__('Data Table', SA_EL_ADDONS_TEXTDOMAIN);
+        return esc_html__('Table', SA_EL_ADDONS_TEXTDOMAIN);
     }
 
     public function get_icon() {
@@ -41,13 +41,13 @@ class Data_Table extends Widget_Base {
          * Data Table Header
          */
         $this->start_controls_section(
-                'sa_el_section_data_table_header', [
+                'sa_el_section_table_header', [
             'label' => esc_html__('Header', SA_EL_ADDONS_TEXTDOMAIN)
                 ]
         );
 
         $this->add_control(
-                'sa_el_section_data_table_enabled', [
+                'sa_el_section_table_enabled', [
             'label' => __('Enable Table Sorting', SA_EL_ADDONS_TEXTDOMAIN),
             'type' => Controls_Manager::SWITCHER,
             'label_on' => esc_html__('Yes', SA_EL_ADDONS_TEXTDOMAIN),
@@ -56,32 +56,32 @@ class Data_Table extends Widget_Base {
                 ]
         );
         $this->add_control(
-                'sa_el_data_table_header_cols_data', [
+                'sa_el_table_header_cols_data', [
             'type' => Controls_Manager::REPEATER,
             'seperator' => 'before',
             'default' => [
-                ['sa_el_data_table_header_col' => 'Table Header'],
-                ['sa_el_data_table_header_col' => 'Table Header'],
-                ['sa_el_data_table_header_col' => 'Table Header'],
-                ['sa_el_data_table_header_col' => 'Table Header'],
+                ['sa_el_table_header_col' => 'Table Header'],
+                ['sa_el_table_header_col' => 'Table Header'],
+                ['sa_el_table_header_col' => 'Table Header'],
+                ['sa_el_table_header_col' => 'Table Header'],
             ],
             'fields' => [
                 [
-                    'name' => 'sa_el_data_table_header_col',
+                    'name' => 'sa_el_table_header_col',
                     'label' => esc_html__('Column Name', SA_EL_ADDONS_TEXTDOMAIN),
                     'default' => 'Table Header',
                     'type' => Controls_Manager::TEXT,
                     'label_block' => false,
                 ],
                 [
-                    'name' => 'sa_el_data_table_header_col_span',
+                    'name' => 'sa_el_table_header_col_span',
                     'label' => esc_html__('Column Span', SA_EL_ADDONS_TEXTDOMAIN),
                     'default' => '',
                     'type' => Controls_Manager::TEXT,
                     'label_block' => false,
                 ],
                 [
-                    'name' => 'sa_el_data_table_header_col_icon_enabled',
+                    'name' => 'sa_el_table_header_col_icon_enabled',
                     'label' => esc_html__('Enable Header Icon', SA_EL_ADDONS_TEXTDOMAIN),
                     'type' => Controls_Manager::SWITCHER,
                     'label_on' => __('yes', SA_EL_ADDONS_TEXTDOMAIN),
@@ -90,7 +90,7 @@ class Data_Table extends Widget_Base {
                     'return_value' => 'true',
                 ],
                 [
-                    'name' => 'sa_el_data_table_header_icon_type',
+                    'name' => 'sa_el_table_header_icon_type',
                     'label' => esc_html__('Header Icon Type', SA_EL_ADDONS_TEXTDOMAIN),
                     'type' => Controls_Manager::CHOOSE,
                     'options' => [
@@ -109,54 +109,54 @@ class Data_Table extends Widget_Base {
                     ],
                     'default' => 'icon',
                     'condition' => [
-                        'sa_el_data_table_header_col_icon_enabled' => 'true'
+                        'sa_el_table_header_col_icon_enabled' => 'true'
                     ]
                 ],
                 [
-                    'name' => 'sa_el_data_table_header_col_icon',
+                    'name' => 'sa_el_table_header_col_icon',
                     'label' => esc_html__('Icon', SA_EL_ADDONS_TEXTDOMAIN),
                     'type' => Controls_Manager::ICON,
                     'default' => '',
                     'condition' => [
-                        'sa_el_data_table_header_col_icon_enabled' => 'true',
-                        'sa_el_data_table_header_icon_type' => 'icon'
+                        'sa_el_table_header_col_icon_enabled' => 'true',
+                        'sa_el_table_header_icon_type' => 'icon'
                     ]
                 ],
                 [
-                    'name' => 'sa_el_data_table_header_col_img',
+                    'name' => 'sa_el_table_header_col_img',
                     'label' => esc_html__('Image', SA_EL_ADDONS_TEXTDOMAIN),
                     'type' => Controls_Manager::MEDIA,
                     'default' => [
                         'url' => Utils::get_placeholder_image_src(),
                     ],
                     'condition' => [
-                        'sa_el_data_table_header_icon_type' => 'image'
+                        'sa_el_table_header_icon_type' => 'image'
                     ]
                 ],
                 [
-                    'name' => 'sa_el_data_table_header_col_img_size',
+                    'name' => 'sa_el_table_header_col_img_size',
                     'label' => esc_html__('Image Size(px)', SA_EL_ADDONS_TEXTDOMAIN),
                     'default' => '25',
                     'type' => Controls_Manager::NUMBER,
                     'label_block' => false,
                     'condition' => [
-                        'sa_el_data_table_header_icon_type' => 'image'
+                        'sa_el_table_header_icon_type' => 'image'
                     ]
                 ],
                 [
-                    'name' => 'sa_el_data_table_header_css_class',
+                    'name' => 'sa_el_table_header_css_class',
                     'label' => esc_html__('CSS Class', SA_EL_ADDONS_TEXTDOMAIN),
                     'type' => Controls_Manager::TEXT,
                     'label_block' => false,
                 ],
                 [
-                    'name' => 'sa_el_data_table_header_css_id',
+                    'name' => 'sa_el_table_header_css_id',
                     'label' => esc_html__('CSS ID', SA_EL_ADDONS_TEXTDOMAIN),
                     'type' => Controls_Manager::TEXT,
                     'label_block' => false,
                 ],
             ],
-            'title_field' => '{{sa_el_data_table_header_col}}',
+            'title_field' => '{{sa_el_table_header_col}}',
                 ]
         );
 
@@ -166,25 +166,25 @@ class Data_Table extends Widget_Base {
          * Data Table Content
          */
         $this->start_controls_section(
-                'sa_el_section_data_table_cotnent', [
+                'sa_el_section_table_cotnent', [
             'label' => esc_html__('Content', SA_EL_ADDONS_TEXTDOMAIN)
                 ]
         );
 
         $this->add_control(
-                'sa_el_data_table_content_rows', [
+                'sa_el_table_content_rows', [
             'type' => Controls_Manager::REPEATER,
             'seperator' => 'before',
             'default' => [
-                ['sa_el_data_table_content_row_type' => 'row'],
-                ['sa_el_data_table_content_row_type' => 'col'],
-                ['sa_el_data_table_content_row_type' => 'col'],
-                ['sa_el_data_table_content_row_type' => 'col'],
-                ['sa_el_data_table_content_row_type' => 'col'],
+                ['sa_el_table_content_row_type' => 'row'],
+                ['sa_el_table_content_row_type' => 'col'],
+                ['sa_el_table_content_row_type' => 'col'],
+                ['sa_el_table_content_row_type' => 'col'],
+                ['sa_el_table_content_row_type' => 'col'],
             ],
             'fields' => [
                 [
-                    'name' => 'sa_el_data_table_content_row_type',
+                    'name' => 'sa_el_table_content_row_type',
                     'label' => esc_html__('Row Type', SA_EL_ADDONS_TEXTDOMAIN),
                     'type' => Controls_Manager::SELECT,
                     'default' => 'row',
@@ -195,7 +195,7 @@ class Data_Table extends Widget_Base {
                     ]
                 ],
                 [
-                    'name' => 'sa_el_data_table_content_row_colspan',
+                    'name' => 'sa_el_table_content_row_colspan',
                     'label' => esc_html__('Col Span', SA_EL_ADDONS_TEXTDOMAIN),
                     'type' => Controls_Manager::NUMBER,
                     'description' => esc_html__('Default: 1 (optional).'),
@@ -203,11 +203,11 @@ class Data_Table extends Widget_Base {
                     'min' => 1,
                     'label_block' => true,
                     'condition' => [
-                        'sa_el_data_table_content_row_type' => 'col'
+                        'sa_el_table_content_row_type' => 'col'
                     ]
                 ],
                 [
-                    'name' => 'sa_el_data_table_content_row_rowspan',
+                    'name' => 'sa_el_table_content_row_rowspan',
                     'label' => esc_html__('Row Span', SA_EL_ADDONS_TEXTDOMAIN),
                     'type' => Controls_Manager::NUMBER,
                     'description' => esc_html__('Default: 1 (optional).'),
@@ -215,11 +215,11 @@ class Data_Table extends Widget_Base {
                     'min' => 1,
                     'label_block' => true,
                     'condition' => [
-                        'sa_el_data_table_content_row_type' => 'col'
+                        'sa_el_table_content_row_type' => 'col'
                     ]
                 ],
                 [
-                    'name' => 'sa_el_data_table_content_type',
+                    'name' => 'sa_el_table_content_type',
                     'label' => esc_html__('Content Type', SA_EL_ADDONS_TEXTDOMAIN),
                     'type' => Controls_Manager::CHOOSE,
                     'options' => [
@@ -238,7 +238,7 @@ class Data_Table extends Widget_Base {
                     ],
                     'default' => 'textarea',
                     'condition' => [
-                        'sa_el_data_table_content_row_type' => 'col'
+                        'sa_el_table_content_row_type' => 'col'
                     ]
                 ],
                 [
@@ -247,33 +247,33 @@ class Data_Table extends Widget_Base {
                     'type' => Controls_Manager::SELECT,
                     'options' => $this->get_elementor_page_templates(),
                     'condition' => [
-                        'sa_el_data_table_content_type' => 'template',
+                        'sa_el_table_content_type' => 'template',
                     ],
                 ],
                 [
-                    'name' => 'sa_el_data_table_content_row_title',
+                    'name' => 'sa_el_table_content_row_title',
                     'label' => esc_html__('Cell Text', SA_EL_ADDONS_TEXTDOMAIN),
                     'type' => Controls_Manager::TEXTAREA,
                     'label_block' => true,
                     'default' => esc_html__('Content', SA_EL_ADDONS_TEXTDOMAIN),
                     'condition' => [
-                        'sa_el_data_table_content_row_type' => 'col',
-                        'sa_el_data_table_content_type' => 'textarea'
+                        'sa_el_table_content_row_type' => 'col',
+                        'sa_el_table_content_type' => 'textarea'
                     ]
                 ],
                 [
-                    'name' => 'sa_el_data_table_content_row_content',
+                    'name' => 'sa_el_table_content_row_content',
                     'label' => esc_html__('Cell Text', SA_EL_ADDONS_TEXTDOMAIN),
                     'type' => Controls_Manager::WYSIWYG,
                     'label_block' => true,
                     'default' => esc_html__('Content', SA_EL_ADDONS_TEXTDOMAIN),
                     'condition' => [
-                        'sa_el_data_table_content_row_type' => 'col',
-                        'sa_el_data_table_content_type' => 'editor'
+                        'sa_el_table_content_row_type' => 'col',
+                        'sa_el_table_content_type' => 'editor'
                     ]
                 ],
                 [
-                    'name' => 'sa_el_data_table_content_row_title_link',
+                    'name' => 'sa_el_table_content_row_title_link',
                     'label' => esc_html__('Link', SA_EL_ADDONS_TEXTDOMAIN),
                     'type' => Controls_Manager::URL,
                     'label_block' => true,
@@ -284,30 +284,30 @@ class Data_Table extends Widget_Base {
                     'show_external' => true,
                     'separator' => 'before',
                     'condition' => [
-                        'sa_el_data_table_content_row_type' => 'col',
-                        'sa_el_data_table_content_type' => 'textarea'
+                        'sa_el_table_content_row_type' => 'col',
+                        'sa_el_table_content_type' => 'textarea'
                     ],
                 ],
                 [
-                    'name' => 'sa_el_data_table_content_row_css_class',
+                    'name' => 'sa_el_table_content_row_css_class',
                     'label' => esc_html__('CSS Class', SA_EL_ADDONS_TEXTDOMAIN),
                     'type' => Controls_Manager::TEXT,
                     'label_block' => false,
                     'condition' => [
-                        'sa_el_data_table_content_row_type' => 'col'
+                        'sa_el_table_content_row_type' => 'col'
                     ]
                 ],
                 [
-                    'name' => 'sa_el_data_table_content_row_css_id',
+                    'name' => 'sa_el_table_content_row_css_id',
                     'label' => esc_html__('CSS ID', SA_EL_ADDONS_TEXTDOMAIN),
                     'type' => Controls_Manager::TEXT,
                     'label_block' => false,
                     'condition' => [
-                        'sa_el_data_table_content_row_type' => 'col'
+                        'sa_el_table_content_row_type' => 'col'
                     ]
                 ]
             ],
-            'title_field' => '{{sa_el_data_table_content_row_type}}::{{sa_el_data_table_content_row_title || sa_el_data_table_content_row_content}}',
+            'title_field' => '{{sa_el_table_content_row_type}}::{{sa_el_table_content_row_title || sa_el_table_content_row_content}}',
                 ]
         );
 
@@ -321,7 +321,7 @@ class Data_Table extends Widget_Base {
          * -------------------------------------------
          */
         $this->start_controls_section(
-                'sa_el_section_data_table_style_settings', [
+                'sa_el_section_table_style_settings', [
             'label' => esc_html__('General Style', SA_EL_ADDONS_TEXTDOMAIN),
             'tab' => Controls_Manager::TAB_STYLE
                 ]
@@ -347,7 +347,7 @@ class Data_Table extends Widget_Base {
                 ],
             ],
             'selectors' => [
-                '{{WRAPPER}} .sa-el-data-table' => 'max-width: {{SIZE}}{{UNIT}};',
+                '{{WRAPPER}} .sa-el-table' => 'max-width: {{SIZE}}{{UNIT}};',
             ],
                 ]
         );
@@ -384,7 +384,7 @@ class Data_Table extends Widget_Base {
          * -------------------------------------------
          */
         $this->start_controls_section(
-                'sa_el_section_data_table_title_style_settings', [
+                'sa_el_section_table_title_style_settings', [
             'label' => esc_html__('Header Style', SA_EL_ADDONS_TEXTDOMAIN),
             'tab' => Controls_Manager::TAB_STYLE
                 ]
@@ -392,7 +392,7 @@ class Data_Table extends Widget_Base {
 
 
         $this->add_control(
-                'sa_el_section_data_table_header_radius', [
+                'sa_el_section_table_header_radius', [
             'label' => esc_html__('Header Border Radius', SA_EL_ADDONS_TEXTDOMAIN),
             'type' => Controls_Manager::SLIDER,
             'range' => [
@@ -401,35 +401,35 @@ class Data_Table extends Widget_Base {
                 ],
             ],
             'selectors' => [
-                '{{WRAPPER}} .sa-el-data-table thead tr th:first-child' => 'border-radius: {{SIZE}}px 0px 0px 0px;',
-                '{{WRAPPER}} .sa-el-data-table thead tr th:last-child' => 'border-radius: 0px {{SIZE}}px 0px 0px;',
+                '{{WRAPPER}} .sa-el-table thead tr th:first-child' => 'border-radius: {{SIZE}}px 0px 0px 0px;',
+                '{{WRAPPER}} .sa-el-table thead tr th:last-child' => 'border-radius: 0px {{SIZE}}px 0px 0px;',
             ],
                 ]
         );
 
         $this->add_responsive_control(
-                'sa_el_data_table_each_header_padding', [
+                'sa_el_table_each_header_padding', [
             'label' => esc_html__('Padding', SA_EL_ADDONS_TEXTDOMAIN),
             'type' => Controls_Manager::DIMENSIONS,
             'size_units' => ['px', 'em'],
             'selectors' => [
-                '{{WRAPPER}} .sa-el-data-table .table-header th' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-                '{{WRAPPER}} .sa-el-data-table tbody tr td .th-mobile-screen' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                '{{WRAPPER}} .sa-el-table .table-header th' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                '{{WRAPPER}} .sa-el-table tbody tr td .th-mobile-screen' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
                 ]
         );
 
-        $this->start_controls_tabs('sa_el_data_table_header_title_clrbg');
+        $this->start_controls_tabs('sa_el_table_header_title_clrbg');
 
-        $this->start_controls_tab('sa_el_data_table_header_title_normal', ['label' => esc_html__('Normal', SA_EL_ADDONS_TEXTDOMAIN)]);
+        $this->start_controls_tab('sa_el_table_header_title_normal', ['label' => esc_html__('Normal', SA_EL_ADDONS_TEXTDOMAIN)]);
 
         $this->add_control(
-                'sa_el_data_table_header_title_color', [
+                'sa_el_table_header_title_color', [
             'label' => esc_html__('Color', SA_EL_ADDONS_TEXTDOMAIN),
             'type' => Controls_Manager::COLOR,
             'default' => '#fff',
             'selectors' => [
-                '{{WRAPPER}} .sa-el-data-table thead tr th' => 'color: {{VALUE}};',
+                '{{WRAPPER}} .sa-el-table thead tr th' => 'color: {{VALUE}};',
                 '{{WRAPPER}} table.dataTable thead .sorting:after' => 'color: {{VALUE}};',
                 '{{WRAPPER}} table.dataTable thead .sorting_asc:after' => 'color: {{VALUE}};',
                 '{{WRAPPER}} table.dataTable thead .sorting_desc:after' => 'color: {{VALUE}};',
@@ -438,35 +438,35 @@ class Data_Table extends Widget_Base {
         );
 
         $this->add_control(
-                'sa_el_data_table_header_title_bg_color', [
+                'sa_el_table_header_title_bg_color', [
             'label' => esc_html__('Background Color', SA_EL_ADDONS_TEXTDOMAIN),
             'type' => Controls_Manager::COLOR,
             'default' => '#00c6c7',
             'selectors' => [
-                '{{WRAPPER}} .sa-el-data-table thead tr th' => 'background-color: {{VALUE}};'
+                '{{WRAPPER}} .sa-el-table thead tr th' => 'background-color: {{VALUE}};'
             ],
                 ]
         );
 
         $this->add_group_control(
                 Group_Control_Border::get_type(), [
-            'name' => 'sa_el_data_table_header_border',
+            'name' => 'sa_el_table_header_border',
             'label' => esc_html__('Border', SA_EL_ADDONS_TEXTDOMAIN),
-            'selector' => '{{WRAPPER}} .sa-el-data-table thead tr th'
+            'selector' => '{{WRAPPER}} .sa-el-table thead tr th'
                 ]
         );
 
         $this->end_controls_tab();
 
-        $this->start_controls_tab('sa_el_data_table_header_title_hover', ['label' => esc_html__('Hover', SA_EL_ADDONS_TEXTDOMAIN)]);
+        $this->start_controls_tab('sa_el_table_header_title_hover', ['label' => esc_html__('Hover', SA_EL_ADDONS_TEXTDOMAIN)]);
 
         $this->add_control(
-                'sa_el_data_table_header_title_hover_color', [
+                'sa_el_table_header_title_hover_color', [
             'label' => esc_html__('Color', SA_EL_ADDONS_TEXTDOMAIN),
             'type' => Controls_Manager::COLOR,
             'default' => '#fff',
             'selectors' => [
-                '{{WRAPPER}} .sa-el-data-table thead tr th:hover' => 'color: {{VALUE}};',
+                '{{WRAPPER}} .sa-el-table thead tr th:hover' => 'color: {{VALUE}};',
                 '{{WRAPPER}} table.dataTable thead .sorting:after:hover' => 'color: {{VALUE}};',
                 '{{WRAPPER}} table.dataTable thead .sorting_asc:after:hover' => 'color: {{VALUE}};',
                 '{{WRAPPER}} table.dataTable thead .sorting_desc:after:hover' => 'color: {{VALUE}};',
@@ -475,20 +475,20 @@ class Data_Table extends Widget_Base {
         );
 
         $this->add_control(
-                'sa_el_data_table_header_title_hover_bg_color', [
+                'sa_el_table_header_title_hover_bg_color', [
             'label' => esc_html__('Background Color', SA_EL_ADDONS_TEXTDOMAIN),
             'type' => Controls_Manager::COLOR,
             'selectors' => [
-                '{{WRAPPER}} .sa-el-data-table thead tr th:hover' => 'background-color: {{VALUE}};',
+                '{{WRAPPER}} .sa-el-table thead tr th:hover' => 'background-color: {{VALUE}};',
             ],
                 ]
         );
 
         $this->add_group_control(
                 Group_Control_Border::get_type(), [
-            'name' => 'sa_el_data_table_header_hover_border',
+            'name' => 'sa_el_table_header_hover_border',
             'label' => esc_html__('Border', SA_EL_ADDONS_TEXTDOMAIN),
-            'selector' => '{{WRAPPER}} .sa-el-data-table thead tr th:hover',
+            'selector' => '{{WRAPPER}} .sa-el-table thead tr th:hover',
                 ]
         );
 
@@ -498,13 +498,13 @@ class Data_Table extends Widget_Base {
 
         $this->add_group_control(
                 Group_Control_Typography::get_type(), [
-            'name' => 'sa_el_data_table_header_title_typography',
-            'selector' => '{{WRAPPER}} .sa-el-data-table thead > tr th',
+            'name' => 'sa_el_table_header_title_typography',
+            'selector' => '{{WRAPPER}} .sa-el-table thead > tr th',
                 ]
         );
 
         $this->add_responsive_control(
-                'sa_el_data_table_header_title_alignment', [
+                'sa_el_table_header_title_alignment', [
             'label' => esc_html__('Title Alignment', SA_EL_ADDONS_TEXTDOMAIN),
             'type' => Controls_Manager::CHOOSE,
             'label_block' => true,
@@ -535,47 +535,47 @@ class Data_Table extends Widget_Base {
          * -------------------------------------------
          */
         $this->start_controls_section(
-                'sa_el_section_data_table_content_style_settings', [
+                'sa_el_section_table_content_style_settings', [
             'label' => esc_html__('Content Style', SA_EL_ADDONS_TEXTDOMAIN),
             'tab' => Controls_Manager::TAB_STYLE
                 ]
         );
 
-        $this->start_controls_tabs('sa_el_data_table_content_row_cell_styles');
+        $this->start_controls_tabs('sa_el_table_content_row_cell_styles');
 
-        $this->start_controls_tab('sa_el_data_table_odd_cell_style', ['label' => esc_html__('Normal', SA_EL_ADDONS_TEXTDOMAIN)]);
+        $this->start_controls_tab('sa_el_table_odd_cell_style', ['label' => esc_html__('Normal', SA_EL_ADDONS_TEXTDOMAIN)]);
 
         $this->add_control(
-                'sa_el_data_table_content_odd_style_heading', [
+                'sa_el_table_content_odd_style_heading', [
             'label' => esc_html__('ODD Cell', SA_EL_ADDONS_TEXTDOMAIN),
             'type' => Controls_Manager::HEADING,
                 ]
         );
 
         $this->add_control(
-                'sa_el_data_table_content_color_odd', [
+                'sa_el_table_content_color_odd', [
             'label' => esc_html__('Color ( Odd Row )', SA_EL_ADDONS_TEXTDOMAIN),
             'type' => Controls_Manager::COLOR,
             'default' => '#6d7882',
             'selectors' => [
-                '{{WRAPPER}} .sa-el-data-table tbody > tr:nth-child(2n) td' => 'color: {{VALUE}};',
+                '{{WRAPPER}} .sa-el-table tbody > tr:nth-child(2n) td' => 'color: {{VALUE}};',
             ],
                 ]
         );
 
         $this->add_control(
-                'sa_el_data_table_content_bg_odd', [
+                'sa_el_table_content_bg_odd', [
             'label' => esc_html__('Background ( Odd Row )', SA_EL_ADDONS_TEXTDOMAIN),
             'type' => Controls_Manager::COLOR,
             'default' => '#f2f2f2',
             'selectors' => [
-                '{{WRAPPER}} .sa-el-data-table tbody > tr:nth-child(2n) td' => 'background: {{VALUE}};',
+                '{{WRAPPER}} .sa-el-table tbody > tr:nth-child(2n) td' => 'background: {{VALUE}};',
             ],
                 ]
         );
 
         $this->add_control(
-                'sa_el_data_table_content_even_style_heading', [
+                'sa_el_table_content_even_style_heading', [
             'label' => esc_html__('Even Cell', SA_EL_ADDONS_TEXTDOMAIN),
             'type' => Controls_Manager::HEADING,
             'separator' => 'before'
@@ -583,96 +583,96 @@ class Data_Table extends Widget_Base {
         );
 
         $this->add_control(
-                'sa_el_data_table_content_even_color', [
+                'sa_el_table_content_even_color', [
             'label' => esc_html__('Color ( Even Row )', SA_EL_ADDONS_TEXTDOMAIN),
             'type' => Controls_Manager::COLOR,
             'default' => '#6d7882',
             'selectors' => [
-                '{{WRAPPER}} .sa-el-data-table tbody > tr:nth-child(2n+1) td' => 'color: {{VALUE}};',
+                '{{WRAPPER}} .sa-el-table tbody > tr:nth-child(2n+1) td' => 'color: {{VALUE}};',
             ],
                 ]
         );
 
         $this->add_control(
-                'sa_el_data_table_content_bg_even_color', [
+                'sa_el_table_content_bg_even_color', [
             'label' => esc_html__('Background Color (Even Row)', SA_EL_ADDONS_TEXTDOMAIN),
             'type' => Controls_Manager::COLOR,
             'default' => '',
             'selectors' => [
-                '{{WRAPPER}} .sa-el-data-table tbody > tr:nth-child(2n+1) td' => 'background-color: {{VALUE}};',
+                '{{WRAPPER}} .sa-el-table tbody > tr:nth-child(2n+1) td' => 'background-color: {{VALUE}};',
             ],
                 ]
         );
 
         $this->add_group_control(
                 Group_Control_Border::get_type(), [
-            'name' => 'sa_el_data_table_cell_border',
+            'name' => 'sa_el_table_cell_border',
             'label' => esc_html__('Border', SA_EL_ADDONS_TEXTDOMAIN),
-            'selector' => '{{WRAPPER}} .sa-el-data-table tbody tr td',
+            'selector' => '{{WRAPPER}} .sa-el-table tbody tr td',
             'separator' => 'before'
                 ]
         );
 
         $this->add_responsive_control(
-                'sa_el_data_table_each_cell_padding', [
+                'sa_el_table_each_cell_padding', [
             'label' => esc_html__('Padding', SA_EL_ADDONS_TEXTDOMAIN),
             'type' => Controls_Manager::DIMENSIONS,
             'size_units' => ['px', 'em'],
             'selectors' => [
-                '{{WRAPPER}} .sa-el-data-table tbody tr td' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                '{{WRAPPER}} .sa-el-table tbody tr td' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
                 ]
         );
 
         $this->end_controls_tab();
 
-        $this->start_controls_tab('sa_el_data_table_odd_cell_hover_style', ['label' => esc_html__('Hover', SA_EL_ADDONS_TEXTDOMAIN)]);
+        $this->start_controls_tab('sa_el_table_odd_cell_hover_style', ['label' => esc_html__('Hover', SA_EL_ADDONS_TEXTDOMAIN)]);
 
         $this->add_control(
-                'sa_el_data_table_content_hover_color_odd', [
+                'sa_el_table_content_hover_color_odd', [
             'label' => esc_html__('Color ( Odd Row )', SA_EL_ADDONS_TEXTDOMAIN),
             'type' => Controls_Manager::COLOR,
             'selectors' => [
-                '{{WRAPPER}} .sa-el-data-table tbody > tr:nth-child(2n) td:hover' => 'color: {{VALUE}};',
+                '{{WRAPPER}} .sa-el-table tbody > tr:nth-child(2n) td:hover' => 'color: {{VALUE}};',
             ],
                 ]
         );
 
         $this->add_control(
-                'sa_el_data_table_content_hover_bg_odd', [
+                'sa_el_table_content_hover_bg_odd', [
             'label' => esc_html__('Background ( Odd Row )', SA_EL_ADDONS_TEXTDOMAIN),
             'type' => Controls_Manager::COLOR,
             'selectors' => [
-                '{{WRAPPER}} .sa-el-data-table tbody > tr:nth-child(2n) td:hover' => 'background: {{VALUE}};',
+                '{{WRAPPER}} .sa-el-table tbody > tr:nth-child(2n) td:hover' => 'background: {{VALUE}};',
             ],
                 ]
         );
 
         $this->add_control(
-                'sa_el_data_table_content_even_hover_style_heading', [
+                'sa_el_table_content_even_hover_style_heading', [
             'label' => esc_html__('Even Cell', SA_EL_ADDONS_TEXTDOMAIN),
             'type' => Controls_Manager::HEADING,
                 ]
         );
 
         $this->add_control(
-                'sa_el_data_table_content_hover_color_even', [
+                'sa_el_table_content_hover_color_even', [
             'label' => esc_html__('Color ( Even Row )', SA_EL_ADDONS_TEXTDOMAIN),
             'type' => Controls_Manager::COLOR,
             'default' => '#6d7882',
             'selectors' => [
-                '{{WRAPPER}} .sa-el-data-table tbody > tr:nth-child(2n+1) td:hover' => 'color: {{VALUE}};',
+                '{{WRAPPER}} .sa-el-table tbody > tr:nth-child(2n+1) td:hover' => 'color: {{VALUE}};',
             ],
                 ]
         );
 
         $this->add_control(
-                'sa_el_data_table_content_bg_even_hover_color', [
+                'sa_el_table_content_bg_even_hover_color', [
             'label' => esc_html__('Background Color (Even Row)', SA_EL_ADDONS_TEXTDOMAIN),
             'type' => Controls_Manager::COLOR,
             'default' => '',
             'selectors' => [
-                '{{WRAPPER}} .sa-el-data-table tbody > tr:nth-child(2n+1) td:hover' => 'background-color: {{VALUE}};',
+                '{{WRAPPER}} .sa-el-table tbody > tr:nth-child(2n+1) td:hover' => 'background-color: {{VALUE}};',
             ],
                 ]
         );
@@ -683,13 +683,13 @@ class Data_Table extends Widget_Base {
 
         $this->add_group_control(
                 Group_Control_Typography::get_type(), [
-            'name' => 'sa_el_data_table_content_typography',
-            'selector' => '{{WRAPPER}} .sa-el-data-table tbody tr td'
+            'name' => 'sa_el_table_content_typography',
+            'selector' => '{{WRAPPER}} .sa-el-table tbody tr td'
                 ]
         );
 
         $this->add_control(
-                'sa_el_data_table_content_link_typo', [
+                'sa_el_table_content_link_typo', [
             'label' => esc_html__('Link Color', SA_EL_ADDONS_TEXTDOMAIN),
             'type' => Controls_Manager::HEADING,
             'separator' => 'before'
@@ -697,18 +697,18 @@ class Data_Table extends Widget_Base {
         );
 
         /* Table Content Link */
-        $this->start_controls_tabs('sa_el_data_table_link_tabs');
+        $this->start_controls_tabs('sa_el_table_link_tabs');
 
         // Normal State Tab
-        $this->start_controls_tab('sa_el_data_table_link_normal', ['label' => esc_html__('Normal', SA_EL_ADDONS_TEXTDOMAIN)]);
+        $this->start_controls_tab('sa_el_table_link_normal', ['label' => esc_html__('Normal', SA_EL_ADDONS_TEXTDOMAIN)]);
 
         $this->add_control(
-                'sa_el_data_table_link_normal_text_color', [
+                'sa_el_table_link_normal_text_color', [
             'label' => esc_html__('Text Color', SA_EL_ADDONS_TEXTDOMAIN),
             'type' => Controls_Manager::COLOR,
             'default' => '#c15959',
             'selectors' => [
-                '{{WRAPPER}} .sa-el-data-table-wrap table td a' => 'color: {{VALUE}};',
+                '{{WRAPPER}} .sa-el-table-wrap table td a' => 'color: {{VALUE}};',
             ],
                 ]
         );
@@ -716,15 +716,15 @@ class Data_Table extends Widget_Base {
         $this->end_controls_tab();
 
         // Hover State Tab
-        $this->start_controls_tab('sa_el_data_table_link_hover', ['label' => esc_html__('Hover', SA_EL_ADDONS_TEXTDOMAIN)]);
+        $this->start_controls_tab('sa_el_table_link_hover', ['label' => esc_html__('Hover', SA_EL_ADDONS_TEXTDOMAIN)]);
 
         $this->add_control(
-                'sa_el_data_table_link_hover_text_color', [
+                'sa_el_table_link_hover_text_color', [
             'label' => esc_html__('Text Color', SA_EL_ADDONS_TEXTDOMAIN),
             'type' => Controls_Manager::COLOR,
             'default' => '#6d7882',
             'selectors' => [
-                '{{WRAPPER}} .sa-el-data-table-wrap table td a:hover' => 'color: {{VALUE}};',
+                '{{WRAPPER}} .sa-el-table-wrap table td a:hover' => 'color: {{VALUE}};',
             ],
                 ]
         );
@@ -734,7 +734,7 @@ class Data_Table extends Widget_Base {
         $this->end_controls_tabs();
 
         $this->add_responsive_control(
-                'sa_el_data_table_content_alignment', [
+                'sa_el_table_content_alignment', [
             'label' => esc_html__('Content Alignment', SA_EL_ADDONS_TEXTDOMAIN),
             'type' => Controls_Manager::CHOOSE,
             'label_block' => true,
@@ -765,7 +765,7 @@ class Data_Table extends Widget_Base {
          * -------------------------------------------
          */
         $this->start_controls_section(
-                'sa_el_section_data_table_responsive_style_settings', [
+                'sa_el_section_table_responsive_style_settings', [
             'label' => esc_html__('Responsive Options', SA_EL_ADDONS_TEXTDOMAIN),
             'devices' => ['tablet', 'mobile'],
             'tab' => Controls_Manager::TAB_STYLE
@@ -799,7 +799,7 @@ class Data_Table extends Widget_Base {
                 ],
             ],
             'selectors' => [
-                '{{WRAPPER}} .sa-el-data-table .th-mobile-screen' => 'flex-basis: {{SIZE}}px;',
+                '{{WRAPPER}} .sa-el-table .th-mobile-screen' => 'flex-basis: {{SIZE}}px;',
             ],
             'condition' => [
                 'sa_el_enable_responsive_header_styles' => 'yes'
@@ -808,12 +808,12 @@ class Data_Table extends Widget_Base {
         );
 
         $this->add_responsive_control(
-                'sa_el_data_table_responsive_header_color', [
+                'sa_el_table_responsive_header_color', [
             'label' => esc_html__('Color', SA_EL_ADDONS_TEXTDOMAIN),
             'type' => Controls_Manager::COLOR,
             'default' => '',
             'selectors' => [
-                '{{WRAPPER}} .sa-el-data-table tbody .th-mobile-screen' => 'color: {{VALUE}};'
+                '{{WRAPPER}} .sa-el-table tbody .th-mobile-screen' => 'color: {{VALUE}};'
             ],
             'condition' => [
                 'sa_el_enable_responsive_header_styles' => 'yes'
@@ -822,12 +822,12 @@ class Data_Table extends Widget_Base {
         );
 
         $this->add_responsive_control(
-                'sa_el_data_table_responsive_header_bg_color', [
+                'sa_el_table_responsive_header_bg_color', [
             'label' => esc_html__('Background Color', SA_EL_ADDONS_TEXTDOMAIN),
             'type' => Controls_Manager::COLOR,
             'default' => '',
             'selectors' => [
-                '{{WRAPPER}} .sa-el-data-table tbody .th-mobile-screen' => 'background-color: {{VALUE}};'
+                '{{WRAPPER}} .sa-el-table tbody .th-mobile-screen' => 'background-color: {{VALUE}};'
             ],
             'condition' => [
                 'sa_el_enable_responsive_header_styles' => 'yes'
@@ -837,8 +837,8 @@ class Data_Table extends Widget_Base {
 
         $this->add_group_control(
                 Group_Control_Typography::get_type(), [
-            'name' => 'sa_el_data_table_responsive_header_typography',
-            'selector' => '{{WRAPPER}} .sa-el-data-table .th-mobile-screen',
+            'name' => 'sa_el_table_responsive_header_typography',
+            'selector' => '{{WRAPPER}} .sa-el-table .th-mobile-screen',
             'condition' => [
                 'sa_el_enable_responsive_header_styles' => 'yes'
             ]
@@ -847,7 +847,7 @@ class Data_Table extends Widget_Base {
 
         $this->add_group_control(
                 Group_Control_Border::get_type(), [
-            'name' => 'sa_el_data_table_responsive_header_border',
+            'name' => 'sa_el_table_responsive_header_border',
             'label' => esc_html__('Border', SA_EL_ADDONS_TEXTDOMAIN),
             'selector' => '{{WRAPPER}} tbody td .th-mobile-screen',
             'condition' => [
@@ -868,52 +868,52 @@ class Data_Table extends Widget_Base {
         $table_td = [];
 
         // Storing Data table content values
-        foreach ($settings['sa_el_data_table_content_rows'] as $content_row) {
+        foreach ($settings['sa_el_table_content_rows'] as $content_row) {
 
             $row_id = uniqid();
-            if ($content_row['sa_el_data_table_content_row_type'] == 'row') {
+            if ($content_row['sa_el_table_content_row_type'] == 'row') {
                 $table_tr[] = [
                     'id' => $row_id,
-                    'type' => $content_row['sa_el_data_table_content_row_type'],
+                    'type' => $content_row['sa_el_table_content_row_type'],
                 ];
             }
-            if ($content_row['sa_el_data_table_content_row_type'] == 'col') {
-                $target = $content_row['sa_el_data_table_content_row_title_link']['is_external'] ? 'target="_blank"' : '';
-                $nofollow = $content_row['sa_el_data_table_content_row_title_link']['nofollow'] ? 'rel="nofollow"' : '';
+            if ($content_row['sa_el_table_content_row_type'] == 'col') {
+                $target = $content_row['sa_el_table_content_row_title_link']['is_external'] ? 'target="_blank"' : '';
+                $nofollow = $content_row['sa_el_table_content_row_title_link']['nofollow'] ? 'rel="nofollow"' : '';
 
                 $table_tr_keys = array_keys($table_tr);
                 $last_key = end($table_tr_keys);
 
-                $tbody_content = ($content_row['sa_el_data_table_content_type'] == 'editor') ? $content_row['sa_el_data_table_content_row_content'] : $content_row['sa_el_data_table_content_row_title'];
+                $tbody_content = ($content_row['sa_el_table_content_type'] == 'editor') ? $content_row['sa_el_table_content_row_content'] : $content_row['sa_el_table_content_row_title'];
 
                 $table_td[] = [
                     'row_id' => $table_tr[$last_key]['id'],
-                    'type' => $content_row['sa_el_data_table_content_row_type'],
-                    'content_type' => $content_row['sa_el_data_table_content_type'],
+                    'type' => $content_row['sa_el_table_content_row_type'],
+                    'content_type' => $content_row['sa_el_table_content_type'],
                     'template' => $content_row['sa_el_primary_templates_for_tables'],
                     'title' => $tbody_content,
-                    'link_url' => $content_row['sa_el_data_table_content_row_title_link']['url'],
+                    'link_url' => $content_row['sa_el_table_content_row_title_link']['url'],
                     'link_target' => $target,
                     'nofollow' => $nofollow,
-                    'colspan' => $content_row['sa_el_data_table_content_row_colspan'],
-                    'rowspan' => $content_row['sa_el_data_table_content_row_rowspan'],
-                    'tr_class' => $content_row['sa_el_data_table_content_row_css_class'],
-                    'tr_id' => $content_row['sa_el_data_table_content_row_css_id']
+                    'colspan' => $content_row['sa_el_table_content_row_colspan'],
+                    'rowspan' => $content_row['sa_el_table_content_row_rowspan'],
+                    'tr_class' => $content_row['sa_el_table_content_row_css_class'],
+                    'tr_id' => $content_row['sa_el_table_content_row_css_id']
                 ];
             }
         }
-        $table_th_count = count($settings['sa_el_data_table_header_cols_data']);
-        $this->add_render_attribute('sa_el_data_table_wrap', [
-            'class' => 'sa-el-data-table-wrap',
+        $table_th_count = count($settings['sa_el_table_header_cols_data']);
+        $this->add_render_attribute('sa_el_table_wrap', [
+            'class' => 'sa-el-table-wrap',
             'data-table_id' => esc_attr($this->get_id()),
             'data-custom_responsive' => $settings['sa_el_enable_responsive_header_styles'] ? 'true' : 'false'
         ]);
        
-            $this->add_render_attribute('sa_el_data_table_wrap', 'data-table_enabled', 'true');
+            $this->add_render_attribute('sa_el_table_wrap', 'data-table_enabled', 'true');
    
-        $this->add_render_attribute('sa_el_data_table', [
-            'class' => ['tablesorter sa-el-data-table', esc_attr($settings['table_alignment'])],
-            'id' => 'sa-el-data-table-' . esc_attr($this->get_id())
+        $this->add_render_attribute('sa_el_table', [
+            'class' => ['tablesorter sa-el-table', esc_attr($settings['table_alignment'])],
+            'id' => 'sa-el-table-' . esc_attr($this->get_id())
         ]);
 
         $this->add_render_attribute('td_content', [
@@ -921,20 +921,20 @@ class Data_Table extends Widget_Base {
         ]);
 
         if ('yes' == $settings['sa_el_enable_responsive_header_styles']) {
-            $this->add_render_attribute('sa_el_data_table_wrap', 'class', 'custom-responsive-option-enable');
+            $this->add_render_attribute('sa_el_table_wrap', 'class', 'custom-responsive-option-enable');
         }
         ?>
-        <div <?php echo $this->get_render_attribute_string('sa_el_data_table_wrap'); ?>>
-            <table <?php echo $this->get_render_attribute_string('sa_el_data_table'); ?>>
+        <div <?php echo $this->get_render_attribute_string('sa_el_table_wrap'); ?>>
+            <table <?php echo $this->get_render_attribute_string('sa_el_table'); ?>>
                 <thead>
                     <tr class="table-header">
                         <?php
                         $i = 0;
-                        foreach ($settings['sa_el_data_table_header_cols_data'] as $header_title) :
+                        foreach ($settings['sa_el_table_header_cols_data'] as $header_title) :
                             $this->add_render_attribute('th_class' . $i, [
-                                'class' => [$header_title['sa_el_data_table_header_css_class']],
-                                'id' => $header_title['sa_el_data_table_header_css_id'],
-                                'colspan' => $header_title['sa_el_data_table_header_col_span']
+                                'class' => [$header_title['sa_el_table_header_css_class']],
+                                'id' => $header_title['sa_el_table_header_css_id'],
+                                'colspan' => $header_title['sa_el_table_header_col_span']
                             ]);
 
                            
@@ -943,22 +943,22 @@ class Data_Table extends Widget_Base {
                             ?>
                             <th <?php echo $this->get_render_attribute_string('th_class' . $i); ?>>
                                 <?php
-                                if ($header_title['sa_el_data_table_header_col_icon_enabled'] == 'true' && $header_title['sa_el_data_table_header_icon_type'] == 'icon') :
+                                if ($header_title['sa_el_table_header_col_icon_enabled'] == 'true' && $header_title['sa_el_table_header_icon_type'] == 'icon') :
                                     $this->add_render_attribute('table_header_col_icon' . $i, [
-                                        'class' => ['data-header-icon', esc_attr($header_title['sa_el_data_table_header_col_icon'])]
+                                        'class' => ['data-header-icon', esc_attr($header_title['sa_el_table_header_col_icon'])]
                                     ]);
                                     ?>
                                     <i <?php echo $this->get_render_attribute_string('table_header_col_icon' . $i); ?>></i>
                                 <?php endif; ?>
                                 <?php
-                                if ($header_title['sa_el_data_table_header_col_icon_enabled'] == 'true' && $header_title['sa_el_data_table_header_icon_type'] == 'image') :
-                                    $this->add_render_attribute('data_table_th_img' . $i, [
-                                        'src' => esc_url($header_title['sa_el_data_table_header_col_img']['url']),
-                                        'class' => 'sa-el-data-table-th-img',
-                                        'style' => "width:{$header_title['sa_el_data_table_header_col_img_size']}px;",
-                                        'alt' => esc_attr(get_post_meta($header_title['sa_el_data_table_header_col_img']['id'], '_wp_attachment_image_alt', true))
+                                if ($header_title['sa_el_table_header_col_icon_enabled'] == 'true' && $header_title['sa_el_table_header_icon_type'] == 'image') :
+                                    $this->add_render_attribute('table_th_img' . $i, [
+                                        'src' => esc_url($header_title['sa_el_table_header_col_img']['url']),
+                                        'class' => 'sa-el-table-th-img',
+                                        'style' => "width:{$header_title['sa_el_table_header_col_img_size']}px;",
+                                        'alt' => esc_attr(get_post_meta($header_title['sa_el_table_header_col_img']['id'], '_wp_attachment_image_alt', true))
                                     ]);
-                                    ?><img <?php echo $this->get_render_attribute_string('data_table_th_img' . $i); ?>><?php endif; ?><?php echo __($header_title['sa_el_data_table_header_col'], SA_EL_ADDONS_TEXTDOMAIN); ?></th>
+                                    ?><img <?php echo $this->get_render_attribute_string('table_th_img' . $i); ?>><?php endif; ?><?php echo __($header_title['sa_el_table_header_col'], SA_EL_ADDONS_TEXTDOMAIN); ?></th>
                                 <?php $i++;
                             endforeach;
                             ?>
