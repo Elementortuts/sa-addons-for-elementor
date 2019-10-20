@@ -245,13 +245,13 @@ class Flip_Carousel extends Widget_Base
                 'type' => Controls_Manager::REPEATER,
                 'seperator' => 'before',
                 'default' => [
-                    ['sa_el_flip_carousel_slide' => SA_EL_ADDONS_URL . 'image/demo.jpg'],
-                    ['sa_el_flip_carousel_slide' => SA_EL_ADDONS_URL . 'image/demo.jpg'],
-                    ['sa_el_flip_carousel_slide' => SA_EL_ADDONS_URL . 'image/demo.jpg'],
-                    ['sa_el_flip_carousel_slide' => SA_EL_ADDONS_URL . 'image/demo.jpg'],
-                    ['sa_el_flip_carousel_slide' => SA_EL_ADDONS_URL . 'image/demo.jpg'],
-                    ['sa_el_flip_carousel_slide' => SA_EL_ADDONS_URL . 'image/demo.jpg'],
-                    ['sa_el_flip_carousel_slide' => SA_EL_ADDONS_URL . 'image/demo.jpg'],
+                    ['sa_el_flip_carousel_slide' => 'https://www.shortcode-addons.com/wp-content/uploads/2019/07/Untitled-1.jpg'],
+                    ['sa_el_flip_carousel_slide' => 'https://www.shortcode-addons.com/wp-content/uploads/2019/07/Untitled-1.jpg'],
+                    ['sa_el_flip_carousel_slide' => 'https://www.shortcode-addons.com/wp-content/uploads/2019/07/Untitled-1.jpg'],
+                    ['sa_el_flip_carousel_slide' => 'https://www.shortcode-addons.com/wp-content/uploads/2019/07/Untitled-1.jpg'],
+                    ['sa_el_flip_carousel_slide' => 'https://www.shortcode-addons.com/wp-content/uploads/2019/07/Untitled-1.jpg'],
+                    ['sa_el_flip_carousel_slide' => 'https://www.shortcode-addons.com/wp-content/uploads/2019/07/Untitled-1.jpg'],
+                    ['sa_el_flip_carousel_slide' => 'https://www.shortcode-addons.com/wp-content/uploads/2019/07/Untitled-1.jpg'],
                 ],
                 'fields' => [
                     [
@@ -259,7 +259,7 @@ class Flip_Carousel extends Widget_Base
                         'label' => esc_html__('Slide', SA_EL_ADDONS_TEXTDOMAIN),
                         'type' => Controls_Manager::MEDIA,
                         'default' => [
-                            'url' => SA_EL_ADDONS_URL . 'image/demo.jpg',
+                            'url' => 'https://www.shortcode-addons.com/wp-content/uploads/2019/07/Untitled-1.jpg',
                         ],
                     ],
                     [
@@ -337,7 +337,24 @@ class Flip_Carousel extends Widget_Base
                 'tab' => Controls_Manager::TAB_STYLE
             ]
         );
-
+        $this->add_control(
+            'sa_el_flip_carousel_width',
+            [
+                'label' => esc_html__('Item Width', SA_EL_ADDONS_TEXTDOMAIN),
+                'type' => Controls_Manager::SLIDER,
+                'default' => [
+                    'size' => 500,
+                ],
+                'range' => [
+                    'px' => [
+                        'max' => 1000,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .sa_el_flip_carousel.flip-carousel-{{ID}} .flipster__item' => 'width: {{SIZE}}px;',
+                ],
+            ]
+        );
         $this->add_control(
             'sa_el_flip_carousel_bg_color',
             [
