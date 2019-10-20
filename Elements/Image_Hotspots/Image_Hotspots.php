@@ -110,6 +110,7 @@ class Image_Hotspots extends Widget_Base {
                 'hotspot_icon', [
             'label' => __('Icon', SA_EL_ADDONS_TEXTDOMAIN),
             'type' => $this->Sa_El_Icon_Type(),
+            'default' => $this->Sa_El_Default_Icon('fas fa-plus', 'solid', 'fa fa-plus'),
             'condition' => [
                 'hotspot_type' => 'icon',
             ],
