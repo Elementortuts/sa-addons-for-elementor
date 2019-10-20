@@ -17,7 +17,7 @@ use \Elementor\Widget_Base as Widget_Base;
 
 class Data_Table extends Widget_Base {
 
-     use \SA_EL_ADDONS\Helper\Elementor_Helper;
+    use \SA_EL_ADDONS\Helper\Elementor_Helper;
 
     public function get_name() {
         return 'sa_el_data_table';

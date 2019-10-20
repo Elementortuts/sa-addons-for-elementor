@@ -151,18 +151,26 @@ class Rest_API {
     public function Register_Elements($force_update = false) {
         $Register = get_transient(self::TRANSIENT_REGISTER_ELEMENTS);
         if (!$Register || $force_update) {
-            $folder = ['Elements', 'Extensions'];
-            foreach ($folder as $location) {
-                $file = glob(SA_EL_ADDONS_PATH . $location . '/*', GLOB_ONLYDIR);
-                foreach ($file as $V) {
-                    $F = explode('sa-addons-for-elementor/' . $location . '/', $V);
-                    if (file_exists(SA_EL_ADDONS_PATH . $location . '/' . $F[1] . '/Register.php')):
-                        $R = include_once SA_EL_ADDONS_PATH . $location . '/' . $F[1] . '/Register.php';
-                        if (is_array($R) && array_key_exists('name', $R)):
-                            $Register[$R['name']] = $R;
-                        endif;
+            $Register = [];
+            $file = glob(SA_EL_ADDONS_PATH . 'Elements' . '/*', GLOB_ONLYDIR);
+            foreach ($file as $V) {
+                $F = explode('sa-addons-for-elementor/' . 'Elements' . '/', $V);
+                if (file_exists(SA_EL_ADDONS_PATH . 'Elements' . '/' . $F[1] . '/Register.php')):
+                    $R = include_once SA_EL_ADDONS_PATH . 'Elements' . '/' . $F[1] . '/Register.php';
+                    if (is_array($R) && array_key_exists('name', $R)):
+                        $Register[$R['name']] = $R;
                     endif;
-                }
+                endif;
+            }
+            $file = glob(SA_EL_ADDONS_PATH . 'Extensions' . '/*', GLOB_ONLYDIR);
+            foreach ($file as $V) {
+                $F = explode('sa-addons-for-elementor/' . 'Extensions' . '/', $V);
+                if (file_exists(SA_EL_ADDONS_PATH . 'Extensions' . '/' . $F[1] . '/Register.php')):
+                    $R = include_once SA_EL_ADDONS_PATH . 'Extensions' . '/' . $F[1] . '/Register.php';
+                    if (is_array($R) && array_key_exists('name', $R)):
+                        $Register[$R['name']] = $R;
+                    endif;
+                endif;
             }
             set_transient(self::TRANSIENT_REGISTER_ELEMENTS, $Register, 5 * DAY_IN_SECONDS);
         }

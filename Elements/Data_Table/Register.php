@@ -8,8 +8,8 @@ return [
             SA_EL_ADDONS_PATH . 'Elements/Data_Table/assets/index.min.css',
         ],
         'js' => [
-            SA_EL_ADDONS_PATH . 'Elements/Data_Table/assets/index.min.js',
             SA_EL_ADDONS_PATH . 'assets/vendor/table-sorter/js/jquery.tablesorter.min.js',
+            SA_EL_ADDONS_PATH . 'Elements/Data_Table/assets/index.min.js',
         ],
     ],
     'category' => 'Dynamic Contents',
