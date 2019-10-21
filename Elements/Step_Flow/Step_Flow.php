@@ -1,6 +1,6 @@
 <?php
 
-namespace SA_EL_ADDONS\Elements\Tooltip;
+namespace SA_EL_ADDONS\Elements\Step_Flow;
 
 if (!defined('ABSPATH')) {
     exit;
@@ -14,7 +14,7 @@ use Elementor\Group_Control_Text_Shadow;
 use Elementor\Scheme_Typography;
 use \Elementor\Widget_Base as Widget_Base;
 
-class Tooltip extends Widget_Base {
+class Step_Flow extends Widget_Base {
 
      use \SA_EL_ADDONS\Helper\Elementor_Helper;
 
@@ -27,7 +27,7 @@ class Tooltip extends Widget_Base {
     }
 
     public function get_icon() {
-        return 'fas fa-step-forward oxi-el-admin-icon';
+        return 'eicon-flow oxi-el-admin-icon';
     }
 
     public function get_categories() {
