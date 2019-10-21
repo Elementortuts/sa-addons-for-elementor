@@ -229,4 +229,80 @@ trait Elementor_Helper {
         return $rt;
     }
 
+
+    
+    /**
+     * Get a list of all the allowed html tags.
+     *
+     * @param string $level Allowed levels are basic and intermediate
+     * @return array
+     */
+    public function sa_el_get_allowed_html_tags( $level = 'basic' ) {
+        $allowed_html = [
+            'b' => [],
+            'i' => [],
+            'u' => [],
+            'em' => [],
+            'br' => [],
+            'abbr' => [
+                'title' => [],
+            ],
+            'span' => [
+                'class' => [],
+            ],
+            'strong' => [],
+        ];
+
+        if ( $level === 'intermediate' ) {
+            $allowed_html['a'] = [
+                'href' => [],
+                'title' => [],
+                'class' => [],
+                'id' => [],
+            ];
+        }
+
+        return $allowed_html;
+    }
+
+    /**
+     * Strip all the tags except allowed html tags
+     *
+     * The name is based on inline editing toolbar name
+     *
+     * @param string $string
+     * @return string
+     */
+    public function sa_el_kses_intermediate( $string = '' ) {
+        return wp_kses( $string, $this->sa_el_get_allowed_html_tags( 'intermediate' ) );
+    }
+
+    /**
+     * Strip all the tags except allowed html tags
+     *
+     * The name is based on inline editing toolbar name
+     *
+     * @param string $string
+     * @return string
+     */
+    public function sa_el_kses_basic( $string = '' ) {
+        return wp_kses( $string, $this->sa_el_get_allowed_html_tags( 'basic' ) );
+    }
+
+    /**
+     * Get a translatable string with allowed html tags.
+     *
+     * @param string $level Allowed levels are basic and intermediate
+     * @return string
+     */
+    public function sa_el_get_allowed_html_desc( $level = 'basic' ) {
+        if ( ! in_array( $level, [ 'basic', 'intermediate' ] ) ) {
+            $level = 'basic';
+        }
+
+        $tags_str = '<' . implode( '>,<', array_keys( $this->sa_el_get_allowed_html_tags( $level ) ) ) . '>';
+        return sprintf( __( 'This input field has support for the following HTML tags: %1$s', SA_EL_ADDONS_TEXTDOMAIN ), '<code>' . esc_html( $tags_str ) . '</code>' );
+    }
+
+
 }
