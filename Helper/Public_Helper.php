@@ -178,12 +178,12 @@ trait Public_Helper {
      * @since 2.0.0
      */
     public function admin_notice() {
-//        if (!empty($this->admin_notice_status())):
-//            return;
-//        endif;
-//        if (strtotime('-7 days') < $this->installation_date()):
-//            return;
-//        endif;
+        if (!empty($this->admin_notice_status())):
+            return;
+        endif;
+        if (strtotime('-7 days') < $this->installation_date()):
+            return;
+        endif;
         new \SA_EL_ADDONS\Classes\Admin\Support_Reviews();
     }
 
