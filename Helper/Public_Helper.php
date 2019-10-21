@@ -141,4 +141,9 @@ trait Public_Helper {
         }
     }
 
+    //register our settings
+    public function plugin_settings() {
+        register_setting('oxielementoraddonsuserdata-group', 'oxi_addons_user_permission');
+    }
+
 }

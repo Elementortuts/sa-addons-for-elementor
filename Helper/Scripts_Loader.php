@@ -84,7 +84,7 @@ trait Scripts_Loader {
         $js_paths = array_merge($js_paths, $this->generate_dependency($elements, 'js'));
         $css_paths = array_merge($css_paths, $this->generate_dependency($elements, 'css'));
 //        // combine files
-        
+
         $this->combine_files($css_paths, ($file_name ? $file_name : 'sa-el-addons') . '.min.css');
         $this->combine_files($js_paths, ($file_name ? $file_name : 'sa-el-addons') . '.min.js');
     }
@@ -104,7 +104,6 @@ trait Scripts_Loader {
      * @since v1.0.0
      */
     public function saelemetoraddons_settings() {
-
         if (isset($_POST['_wpnonce']) && wp_verify_nonce(sanitize_key(wp_unslash($_POST['_wpnonce'])), 'sa_elemetor_addons')):
             $functionname = isset($_POST['functionname']) ? sanitize_text_field($_POST['functionname']) : '';
             $rawdata = isset($_POST['rawdata']) ? sanitize_post($_POST['rawdata']) : '';

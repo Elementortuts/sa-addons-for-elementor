@@ -453,16 +453,46 @@ label:active:after {
 }
 
 .oxi-addons-ce-heading{
-    width: 100%;
+    position: absolute;
     font-size: 30px;
     text-align: left;
     font-weight: 600;
     font-style: normal;
     line-height: 1;
     font-family: "Source Sans Pro";
-    padding: 10px 10px 30px 15px;
+    padding: 20px 10px 20px 25px;
+    top: 0px;
+    left: 0;
+    right: 0;
+    cursor: pointer;
+    border-radius: 5px 5px 0 0;
 }
-
+.oxi-addons-ce-heading:hover{
+    background: #f7f8fc;
+}
+.oxi-addons-ce-heading:before{
+    font-family: dashicons;
+    position: absolute;
+    color: #727272;
+    font-size: 40px;
+    right: 15px;
+    height: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    content: "\f140";
+}
+.oxi-sa-cards-hidden .oxi-addons-ce-heading:before{
+    content: "\f139";
+}
+.oxi-sa-cards-wrapper.oxi-sa-cards-hidden{
+    padding-top: 40px;
+    overflow: hidden;
+} 
+.oxi-sa-cards-hidden .row{
+    height: 0px;
+    overflow: hidden;
+}
 .oxi-sa-cards-wrapper {
     border: 1px solid rgba(197, 197, 197, 0.50);
     padding: 20px 20px 30px;
@@ -470,6 +500,8 @@ label:active:after {
     border-radius: 5px;
     margin: 0 0 0 0;
     margin-bottom: 60px;
+    padding-top: 100px;
+    position: relative;
 }
 
 
@@ -1078,7 +1110,7 @@ label:active:after {
     width: 100%;
     height: 100vh;
     position: absolute;
-        top: 10px;
+    top: 10px;
     left: 0;
     background: #F1F1F1;
     z-index: 1000;
@@ -1865,4 +1897,11 @@ label:active:after {
     padding:0; 
     overflow:hidden;
     z-index:10;
+}
+.oxi-addons-settings-tab-general{
+    max-width: 600px;
+    display: block;
+}
+.oxi-addons-settings-tab-general p.submit{
+    padding-left: 130px;
 }

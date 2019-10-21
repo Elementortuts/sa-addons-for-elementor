@@ -109,17 +109,20 @@ jQuery(document).ready(function ($) {
     var fristtabs = '#tabs-elements';
     var hash = window.location.hash;
     fristtabs = (hash !== '' ? hash : fristtabs);
-    jQuery(".ctu-ulimate-style-2 .vc-tabs-li[ref='" + fristtabs + "']").addClass("active");
-    jQuery(".ctu-ulitate-style-2-tabs" + fristtabs).css("display", "block");
-    jQuery(".ctu-ulimate-style-2 .vc-tabs-li").click(function () {
-        if (jQuery(this).hasClass("active")) {
+    $(".ctu-ulimate-style-2 .vc-tabs-li[ref='" + fristtabs + "']").addClass("active");
+    $(".ctu-ulitate-style-2-tabs" + fristtabs).css("display", "block");
+    $(".ctu-ulimate-style-2 .vc-tabs-li").click(function () {
+        if ($(this).hasClass("active")) {
             return false;
         } else {
-            jQuery(".ctu-ulimate-style-2 .vc-tabs-li").removeClass("active");
-            jQuery(this).toggleClass("active");
-            jQuery(".ctu-ulitate-style-2-tabs").css("display", "none");
-            var activeTab = jQuery(this).attr("ref");
-            jQuery(activeTab).css("display", "block");
+            $(".ctu-ulimate-style-2 .vc-tabs-li").removeClass("active");
+            $(this).toggleClass("active");
+            $(".ctu-ulitate-style-2-tabs").css("display", "none");
+            var activeTab = $(this).attr("ref");
+            $(activeTab).css("display", "block");
         }
+    });
+    $(".oxi-addons-ce-heading").click(function () {
+        $(this).parent().toggleClass('oxi-sa-cards-hidden');
     });
 });

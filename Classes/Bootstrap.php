@@ -78,6 +78,22 @@ class Bootstrap {
         load_plugin_textdomain('sa-el-addons');
     }
 
+    public function Admin() {
+        add_action('admin_init', [$this, 'plugin_settings']);
+        new \SA_EL_ADDONS\Classes\Admin\Admin();
+        add_action('wp_ajax_saelemetoraddons_settings', array($this, 'saelemetoraddons_settings'));
+    }
+
+    // Elements
+    public function register_hooks() {
+        add_action('elementor/elements/categories_registered', array($this, 'register_widget_categories'));
+        add_action('elementor/controls/controls_registered', array($this, 'register_controls_group'));
+        add_action('elementor/widgets/widgets_registered', array($this, 'register_elements'));
+
+        add_action('elementor/frontend/after_enqueue_scripts', array($this, 'sl_enqueue_scripts'));
+        add_action('elementor/editor/after_enqueue_scripts', array($this, 'enqueue_editor_scripts'));
+    }
+
     /**
      * Initialize the plugin
      *
@@ -125,7 +141,7 @@ class Bootstrap {
             if (!current_user_can('activate_plugins')) {
                 return;
             }
-            $activation_url = wp_nonce_url(admin_url('plugins.php?action=activate&plugin='.$file_path), 'activate-plugin_'.$file_path);
+            $activation_url = wp_nonce_url(admin_url('plugins.php?action=activate&plugin=' . $file_path), 'activate-plugin_' . $file_path);
 
             $message = '<p><strong>' . __('Elementor Addons - Premium Elementor Addons with Templates & Blocks', SA_EL_ADDONS_TEXTDOMAIN) . '</strong>' . __(' widgets not working because you need to activate the Elementor plugin.', SA_EL_ADDONS_TEXTDOMAIN) . '</p>';
             $message .= '<p>' . sprintf('<a href="%s" class="button-primary">%s</a>', $activation_url, __('Activate Elementor Now', SA_EL_ADDONS_TEXTDOMAIN)) . '</p>';
@@ -133,7 +149,7 @@ class Bootstrap {
             if (!current_user_can('install_plugins')) {
                 return;
             }
-            $install_url =  wp_nonce_url(add_query_arg( array('action' => 'install-plugin','plugin' => $plugin),admin_url('update.php')),'install-plugin' . '_' . $plugin);
+            $install_url = wp_nonce_url(add_query_arg(array('action' => 'install-plugin', 'plugin' => $plugin), admin_url('update.php')), 'install-plugin' . '_' . $plugin);
             $message = '<p><strong>' . __('Elementor Addons - Premium Elementor Addons with Templates & Blocks', SA_EL_ADDONS_TEXTDOMAIN) . '</strong>' . __(' widgets not working because you need to install the Elementor plugin', SA_EL_ADDONS_TEXTDOMAIN) . '</p>';
             $message .= '<p>' . sprintf('<a href="%s" class="button-primary">%s</a>', $install_url, __('Install Elementor Now', SA_EL_ADDONS_TEXTDOMAIN)) . '</p>';
         }
@@ -183,21 +199,6 @@ class Bootstrap {
         );
 
         printf('<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message);
-    }
-
-    public function Admin() {
-        new \SA_EL_ADDONS\Classes\Admin\Admin();
-        add_action('wp_ajax_saelemetoraddons_settings', array($this, 'saelemetoraddons_settings'));
-    }
-
-    // Elements
-    public function register_hooks() {
-        add_action('elementor/elements/categories_registered', array($this, 'register_widget_categories'));
-        add_action('elementor/controls/controls_registered', array($this, 'register_controls_group'));
-        add_action('elementor/widgets/widgets_registered', array($this, 'register_elements'));
-
-        add_action('elementor/frontend/after_enqueue_scripts', array($this, 'sl_enqueue_scripts'));
-        add_action('elementor/editor/after_enqueue_scripts', array($this, 'enqueue_editor_scripts'));
     }
 
 }

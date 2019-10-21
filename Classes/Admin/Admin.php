@@ -142,7 +142,7 @@ class Admin {
     }
 
     public function settings() {
-        
+        new \SA_EL_ADDONS\Classes\Admin\Settings();
     }
 
     /**
