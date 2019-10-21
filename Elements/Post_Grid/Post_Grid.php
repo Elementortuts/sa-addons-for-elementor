@@ -17,7 +17,7 @@ use \Elementor\Widget_Base as Widget_Base;
 class Post_Grid extends Widget_Base {
     
     use \SA_EL_ADDONS\Helper\Elementor_Helper;
-    use SA_EL_ADDONS\Elements\Post_Grid\Files\Post_Query;
+    use \SA_EL_ADDONS\Elements\Post_Grid\Files\Post_Query;
 
     public function get_name() {
         return 'sa_el_post_grid';
