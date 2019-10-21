@@ -16,6 +16,14 @@ use \Elementor\Widget_Base as Widget_Base;
 
 class Contact_Form_7 extends Widget_Base {
 
+    use \SA_EL_ADDONS\Helper\Elementor_Helper;
+
+    /**
+     * Sanitize html class string
+     *
+     * @param $class
+     * @return string
+     */
     public function get_name() {
         return 'sa_el_cf7';
     }
@@ -25,33 +33,80 @@ class Contact_Form_7 extends Widget_Base {
     }
 
     public function get_icon() {
-        return 'eicon-barcode  oxi-el-admin-icon';
+        return 'fa fa-envelope-o  oxi-el-admin-icon';
     }
 
     public function get_keywords() {
-        return ['wpf', 'wpform', 'form', 'contact', 'cf7', 'contact form', 'gravity', 'ninja'];
+        return ['form', 'contact', 'cf7', 'contact form', 'gravity', 'ninja'];
     }
 
     public function get_categories() {
         return ['sa-el-addons'];
     }
 
+    /**
+     * Check if contact form 7 is activated
+     *
+     * @return bool
+     */
+    public function sa_el_cf7_activated() {
+        return class_exists('WPCF7');
+    }
+
+    /**
+     * Get a list of all CF7 forms
+     *
+     * @return array
+     */
+    public function sa_el_get_cf7_forms() {
+        $forms = get_posts([
+            'post_type' => 'wpcf7_contact_form',
+            'post_status' => 'publish',
+            'posts_per_page' => -1,
+            'orderby' => 'title',
+            'order' => 'ASC',
+        ]);
+
+        if (!empty($forms)) {
+            return wp_list_pluck($forms, 'post_title', 'ID');
+        }
+        return [];
+    }
+
+    /**
+     * Sanitize html class string
+     *
+     * @param $class
+     * @return string
+     */
+    public function sa_el_sanitize_html_class_param($class) {
+        $classes = !empty($class) ? explode(' ', $class) : [];
+        $sanitized = [];
+        if (!empty($classes)) {
+            $sanitized = array_map(function( $cls ) {
+                return sanitize_html_class($cls);
+            }, $classes);
+        }
+        return implode(' ', $sanitized);
+    }
+
     protected function _register_controls() {
+
         $this->start_controls_section(
                 '_section_cf7',
                 [
-                    'label' => ha_is_cf7_activated() ? __('Contact Form 7', 'happy-elementor-addons') : __('Notice', 'happy-elementor-addons'),
+                    'label' => $this->sa_el_cf7_activated() ? __('Contact Form 7', SA_EL_ADDONS_TEXTDOMAIN) : __('Notice', SA_EL_ADDONS_TEXTDOMAIN),
                     'tab' => Controls_Manager::TAB_CONTENT,
                 ]
         );
 
-        if (!ha_is_cf7_activated()) {
+        if (!$this->sa_el_cf7_activated()) {
             $this->add_control(
                     'cf7_missing_notice',
                     [
                         'type' => Controls_Manager::RAW_HTML,
                         'raw' => sprintf(
-                                __('Hi, it seems %1$s is missing in your site. Please install and activate %1$s first.', 'happy-elementor-addons'),
+                                __('Hi, it seems %1$s is missing in your site. Please install and activate %1$s first.', SA_EL_ADDONS_TEXTDOMAIN),
                                 '<a href="https://wordpress.org/plugins/contact-form-7/" target="_blank" rel="noopener">Contact Form 7</a>'
                         ),
                         'content_classes' => 'elementor-panel-alert elementor-panel-alert-warning',
@@ -64,29 +119,28 @@ class Contact_Form_7 extends Widget_Base {
         $this->add_control(
                 'form_id',
                 [
-                    'label' => __('Select Your Form', 'happy-elementor-addons'),
+                    'label' => __('Select Your Form', SA_EL_ADDONS_TEXTDOMAIN),
                     'type' => Controls_Manager::SELECT,
                     'label_block' => true,
-                    'options' => ['' => __('', 'happy-elementor-addons')] + \ha_get_cf7_forms(),
+                    'options' => ['' => __('', SA_EL_ADDONS_TEXTDOMAIN)] + $this->sa_el_get_cf7_forms(),
                 ]
         );
 
         $this->add_control(
                 'html_class',
                 [
-                    'label' => __('HTML Class', 'happy-elementor-addons'),
+                    'label' => __('HTML Class', SA_EL_ADDONS_TEXTDOMAIN),
                     'type' => Controls_Manager::TEXT,
                     'label_block' => true,
-                    'description' => __('Add CSS custom class to the form.', 'happy-elementor-addons'),
+                    'description' => __('Add CSS custom class to the form.', SA_EL_ADDONS_TEXTDOMAIN),
                 ]
         );
 
         $this->end_controls_section();
-
         $this->start_controls_section(
                 '_section_fields_style',
                 [
-                    'label' => __('Form Fields', 'happy-elementor-addons'),
+                    'label' => __('Form Fields', SA_EL_ADDONS_TEXTDOMAIN),
                     'tab' => Controls_Manager::TAB_STYLE,
                 ]
         );
@@ -94,7 +148,7 @@ class Contact_Form_7 extends Widget_Base {
         $this->add_responsive_control(
                 'field_width',
                 [
-                    'label' => __('Width', 'happy-elementor-addons'),
+                    'label' => __('Width', SA_EL_ADDONS_TEXTDOMAIN),
                     'type' => Controls_Manager::SLIDER,
                     'default' => [
                         'unit' => '%',
@@ -118,7 +172,7 @@ class Contact_Form_7 extends Widget_Base {
                     ],
                     'selectors' => [
                         '{{WRAPPER}} .wpcf7-form-control:not(.wpcf7-submit)' => 'width: {{SIZE}}{{UNIT}};',
-                        '{{WRAPPER}} .ha-cf7-form label' => 'width: {{SIZE}}{{UNIT}};',
+                        '{{WRAPPER}} .sa-el-cf7-form label' => 'width: {{SIZE}}{{UNIT}};',
                     ],
                 ]
         );
@@ -126,7 +180,7 @@ class Contact_Form_7 extends Widget_Base {
         $this->add_responsive_control(
                 'field_margin',
                 [
-                    'label' => __('Spacing Bottom', 'happy-elementor-addons'),
+                    'label' => __('Spacing Bottom', SA_EL_ADDONS_TEXTDOMAIN),
                     'type' => Controls_Manager::SLIDER,
                     'size_units' => ['px'],
                     'range' => [
@@ -144,7 +198,7 @@ class Contact_Form_7 extends Widget_Base {
         $this->add_responsive_control(
                 'field_padding',
                 [
-                    'label' => __('Padding', 'happy-elementor-addons'),
+                    'label' => __('Padding', SA_EL_ADDONS_TEXTDOMAIN),
                     'type' => Controls_Manager::DIMENSIONS,
                     'size_units' => ['px', 'em', '%'],
                     'selectors' => [
@@ -156,7 +210,7 @@ class Contact_Form_7 extends Widget_Base {
         $this->add_responsive_control(
                 'field_border_radius',
                 [
-                    'label' => __('Border Radius', 'happy-elementor-addons'),
+                    'label' => __('Border Radius', SA_EL_ADDONS_TEXTDOMAIN),
                     'type' => Controls_Manager::DIMENSIONS,
                     'size_units' => ['px', '%'],
                     'selectors' => [
@@ -177,7 +231,7 @@ class Contact_Form_7 extends Widget_Base {
                 Group_Control_Typography::get_type(),
                 [
                     'name' => 'field_typography',
-                    'label' => __('Typography', 'happy-elementor-addons'),
+                    'label' => __('Typography', SA_EL_ADDONS_TEXTDOMAIN),
                     'selector' => '{{WRAPPER}} .wpcf7-form-control:not(.wpcf7-submit)',
                     'scheme' => Scheme_Typography::TYPOGRAPHY_3
                 ]
@@ -186,7 +240,7 @@ class Contact_Form_7 extends Widget_Base {
         $this->add_control(
                 'field_color',
                 [
-                    'label' => __('Text Color', 'happy-elementor-addons'),
+                    'label' => __('Text Color', SA_EL_ADDONS_TEXTDOMAIN),
                     'type' => Controls_Manager::COLOR,
                     'selectors' => [
                         '{{WRAPPER}} .wpcf7-form-control:not(.wpcf7-submit)' => 'color: {{VALUE}}',
@@ -197,7 +251,7 @@ class Contact_Form_7 extends Widget_Base {
         $this->add_control(
                 'field_placeholder_color',
                 [
-                    'label' => __('Placeholder Text Color', 'happy-elementor-addons'),
+                    'label' => __('Placeholder Text Color', SA_EL_ADDONS_TEXTDOMAIN),
                     'type' => Controls_Manager::COLOR,
                     'selectors' => [
                         '{{WRAPPER}} ::-webkit-input-placeholder' => 'color: {{VALUE}};',
@@ -212,7 +266,7 @@ class Contact_Form_7 extends Widget_Base {
         $this->start_controls_tab(
                 'tab_field_normal',
                 [
-                    'label' => __('Normal', 'happy-elementor-addons'),
+                    'label' => __('Normal', SA_EL_ADDONS_TEXTDOMAIN),
                 ]
         );
 
@@ -235,7 +289,7 @@ class Contact_Form_7 extends Widget_Base {
         $this->add_control(
                 'field_bg_color',
                 [
-                    'label' => __('Background Color', 'happy-elementor-addons'),
+                    'label' => __('Background Color', SA_EL_ADDONS_TEXTDOMAIN),
                     'type' => Controls_Manager::COLOR,
                     'selectors' => [
                         '{{WRAPPER}} .wpcf7-form-control:not(.wpcf7-submit)' => 'background-color: {{VALUE}}',
@@ -248,7 +302,7 @@ class Contact_Form_7 extends Widget_Base {
         $this->start_controls_tab(
                 'tab_field_focus',
                 [
-                    'label' => __('Focus', 'happy-elementor-addons'),
+                    'label' => __('Focus', SA_EL_ADDONS_TEXTDOMAIN),
                 ]
         );
 
@@ -274,7 +328,7 @@ class Contact_Form_7 extends Widget_Base {
         $this->add_control(
                 'field_focus_bg_color',
                 [
-                    'label' => __('Background Color', 'happy-elementor-addons'),
+                    'label' => __('Background Color', SA_EL_ADDONS_TEXTDOMAIN),
                     'type' => Controls_Manager::COLOR,
                     'selectors' => [
                         '{{WRAPPER}} .wpcf7-form-control:not(.wpcf7-submit):focus' => 'background-color: {{VALUE}}',
@@ -291,7 +345,7 @@ class Contact_Form_7 extends Widget_Base {
         $this->start_controls_section(
                 'cf7-form-label',
                 [
-                    'label' => __('Form Fields Label', 'happy-elementor-addons'),
+                    'label' => __('Form Fields Label', SA_EL_ADDONS_TEXTDOMAIN),
                     'tab' => Controls_Manager::TAB_STYLE,
                 ]
         );
@@ -299,7 +353,7 @@ class Contact_Form_7 extends Widget_Base {
         $this->add_responsive_control(
                 'label_margin',
                 [
-                    'label' => __('Spacing Bottom', 'happy-elementor-addons'),
+                    'label' => __('Spacing Bottom', SA_EL_ADDONS_TEXTDOMAIN),
                     'type' => Controls_Manager::SLIDER,
                     'size_units' => ['px'],
                     'range' => [
@@ -326,7 +380,7 @@ class Contact_Form_7 extends Widget_Base {
                 Group_Control_Typography::get_type(),
                 [
                     'name' => 'label_typography',
-                    'label' => __('Typography', 'happy-elementor-addons'),
+                    'label' => __('Typography', SA_EL_ADDONS_TEXTDOMAIN),
                     'selector' => '{{WRAPPER}} label',
                     'scheme' => Scheme_Typography::TYPOGRAPHY_3
                 ]
@@ -335,7 +389,7 @@ class Contact_Form_7 extends Widget_Base {
         $this->add_control(
                 'label_color',
                 [
-                    'label' => __('Text Color', 'happy-elementor-addons'),
+                    'label' => __('Text Color', SA_EL_ADDONS_TEXTDOMAIN),
                     'type' => Controls_Manager::COLOR,
                     'selectors' => [
                         '{{WRAPPER}} label' => 'color: {{VALUE}}',
@@ -348,7 +402,7 @@ class Contact_Form_7 extends Widget_Base {
         $this->start_controls_section(
                 'submit',
                 [
-                    'label' => __('Submit Button', 'happy-elementor-addons'),
+                    'label' => __('Submit Button', SA_EL_ADDONS_TEXTDOMAIN),
                     'tab' => Controls_Manager::TAB_STYLE,
                 ]
         );
@@ -356,7 +410,7 @@ class Contact_Form_7 extends Widget_Base {
         $this->add_responsive_control(
                 'submit_margin',
                 [
-                    'label' => __('Margin', 'happy-elementor-addons'),
+                    'label' => __('Margin', SA_EL_ADDONS_TEXTDOMAIN),
                     'type' => Controls_Manager::DIMENSIONS,
                     'size_units' => ['px', '%'],
                     'selectors' => [
@@ -368,7 +422,7 @@ class Contact_Form_7 extends Widget_Base {
         $this->add_responsive_control(
                 'submit_padding',
                 [
-                    'label' => __('Padding', 'happy-elementor-addons'),
+                    'label' => __('Padding', SA_EL_ADDONS_TEXTDOMAIN),
                     'type' => Controls_Manager::DIMENSIONS,
                     'size_units' => ['px', 'em', '%'],
                     'selectors' => [
@@ -397,7 +451,7 @@ class Contact_Form_7 extends Widget_Base {
         $this->add_control(
                 'submit_border_radius',
                 [
-                    'label' => __('Border Radius', 'happy-elementor-addons'),
+                    'label' => __('Border Radius', SA_EL_ADDONS_TEXTDOMAIN),
                     'type' => Controls_Manager::DIMENSIONS,
                     'size_units' => ['px', '%'],
                     'selectors' => [
@@ -427,14 +481,14 @@ class Contact_Form_7 extends Widget_Base {
         $this->start_controls_tab(
                 'tab_button_normal',
                 [
-                    'label' => __('Normal', 'happy-elementor-addons'),
+                    'label' => __('Normal', SA_EL_ADDONS_TEXTDOMAIN),
                 ]
         );
 
         $this->add_control(
                 'submit_color',
                 [
-                    'label' => __('Text Color', 'happy-elementor-addons'),
+                    'label' => __('Text Color', SA_EL_ADDONS_TEXTDOMAIN),
                     'type' => Controls_Manager::COLOR,
                     'default' => '',
                     'selectors' => [
@@ -446,7 +500,7 @@ class Contact_Form_7 extends Widget_Base {
         $this->add_control(
                 'submit_bg_color',
                 [
-                    'label' => __('Background Color', 'happy-elementor-addons'),
+                    'label' => __('Background Color', SA_EL_ADDONS_TEXTDOMAIN),
                     'type' => Controls_Manager::COLOR,
                     'selectors' => [
                         '{{WRAPPER}} .wpcf7-submit' => 'background-color: {{VALUE}};',
@@ -459,14 +513,14 @@ class Contact_Form_7 extends Widget_Base {
         $this->start_controls_tab(
                 'tab_button_hover',
                 [
-                    'label' => __('Hover', 'happy-elementor-addons'),
+                    'label' => __('Hover', SA_EL_ADDONS_TEXTDOMAIN),
                 ]
         );
 
         $this->add_control(
                 'submit_hover_color',
                 [
-                    'label' => __('Text Color', 'happy-elementor-addons'),
+                    'label' => __('Text Color', SA_EL_ADDONS_TEXTDOMAIN),
                     'type' => Controls_Manager::COLOR,
                     'selectors' => [
                         '{{WRAPPER}} .wpcf7-submit:hover, {{WRAPPER}} .wpcf7-submit:focus' => 'color: {{VALUE}};',
@@ -477,7 +531,7 @@ class Contact_Form_7 extends Widget_Base {
         $this->add_control(
                 'submit_hover_bg_color',
                 [
-                    'label' => __('Background Color', 'happy-elementor-addons'),
+                    'label' => __('Background Color', SA_EL_ADDONS_TEXTDOMAIN),
                     'type' => Controls_Manager::COLOR,
                     'selectors' => [
                         '{{WRAPPER}} .wpcf7-submit:hover, {{WRAPPER}} .wpcf7-submit:focus' => 'background-color: {{VALUE}};',
@@ -488,7 +542,7 @@ class Contact_Form_7 extends Widget_Base {
         $this->add_control(
                 'submit_hover_border_color',
                 [
-                    'label' => __('Border Color', 'happy-elementor-addons'),
+                    'label' => __('Border Color', SA_EL_ADDONS_TEXTDOMAIN),
                     'type' => Controls_Manager::COLOR,
                     'selectors' => [
                         '{{WRAPPER}} .wpcf7-submit:hover, {{WRAPPER}} .wpcf7-submit:focus' => 'border-color: {{VALUE}};',
@@ -502,22 +556,19 @@ class Contact_Form_7 extends Widget_Base {
         $this->end_controls_section();
     }
 
-}
+    protected function render() {
+        if (!$this->sa_el_cf7_activated()) {
+            return;
+        }
 
-protected
+        $settings = $this->get_settings_for_display();
 
-function render() {
-    if (!$this->sa_el_is_wpf_activated()) {
-        return;
+        if (!empty($settings['form_id'])) {
+            echo $this->sa_el_do_shortcode('contact-form-7', [
+                'id' => $settings['form_id'],
+                'html_class' => 'sa-el-cf7-form ' . $this->sa_el_sanitize_html_class_param($settings['html_class']),
+            ]);
+        }
     }
 
-    $settings = $this->get_settings_for_display();
-
-
-
-    if (!empty($settings['form_id'])) {
-        echo $this->sa_el_do_shortcode('wpforms', [
-            'id' => $settings['form_id'],
-        ]);
-    }
 }

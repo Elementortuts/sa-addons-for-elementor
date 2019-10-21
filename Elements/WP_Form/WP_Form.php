@@ -1,6 +1,6 @@
 <?php
 
-namespace SA_EL_ADDONS\Elements\WPForm;
+namespace SA_EL_ADDONS\Elements\WP_Form;
 
 // If this file is called directly, abort.
 if (!defined('ABSPATH')) {
@@ -14,14 +14,16 @@ use Elementor\Group_Control_Typography;
 use Elementor\Scheme_Typography;
 use \Elementor\Widget_Base as Widget_Base;
 
-class WPForm extends Widget_Base {
+class WP_Form extends Widget_Base {
+
+    use \SA_EL_ADDONS\Helper\Elementor_Helper;
 
     public function get_name() {
-        return 'sa_el_wpform';
+        return 'sa_el_wp_form';
     }
 
     public function get_title() {
-        return esc_html__('WPFrom', SA_EL_ADDONS_TEXTDOMAIN);
+        return esc_html__('WP From', SA_EL_ADDONS_TEXTDOMAIN);
     }
 
     public function get_icon() {
@@ -63,25 +65,6 @@ class WPForm extends Widget_Base {
             return wp_list_pluck($forms, 'post_title', 'ID');
         }
         return [];
-    }
-
-    /**
-     * Call a shortcode function by tag name.
-     *
-     * @since  1.0.0
-     *
-     * @param string $tag     The shortcode whose function to call.
-     * @param array  $atts    The attributes to pass to the shortcode function. Optional.
-     * @param array  $content The shortcode's content. Default is null (none).
-     *
-     * @return string|bool False on failure, the result of the shortcode on success.
-     */
-    public function sa_el_do_shortcode($tag, array $atts = array(), $content = null) {
-        global $shortcode_tags;
-        if (!isset($shortcode_tags[$tag])) {
-            return false;
-        }
-        return call_user_func($shortcode_tags[$tag], $atts, $content, $tag);
     }
 
     protected function _register_controls() {
