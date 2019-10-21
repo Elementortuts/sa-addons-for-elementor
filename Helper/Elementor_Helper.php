@@ -106,7 +106,10 @@ trait Elementor_Helper {
         echo '</div>';
     }
 
-    // Get all WordPress registered widgets
+    /**
+     *  Get all WordPress registered widgets
+     *  @return array
+     */
     public function sa_get_registered_sidebars() {
         global $wp_registered_sidebars;
         $options = [];
@@ -192,17 +195,27 @@ trait Elementor_Helper {
         <?php
     }
 
-    // Elementor icon libray type
+    /**
+     * Elementor icon libray type
+
+     */
     public function Sa_El_Icon_Type() {
         return (version_compare(ELEMENTOR_VERSION, '2.6', '>=') ? Controls_Manager::ICONS : Controls_Manager::ICON);
     }
 
-    // Default icon class fa5 and fa4
+    /**
+     * Default icon class fa5 and fa4
+     *
+     */
     public function Sa_El_Default_Icon($FA5_Class, $libray, $FA4_Class) {
         return (version_compare(ELEMENTOR_VERSION, '2.6', '>=') ? ['value' => $FA5_Class, 'library' => $libray,] : $FA4_Class);
     }
 
-    // #Elementor icon render
+    /**
+     * Elementor icon render
+     *
+     * @return void
+     */
     public function Sa_El_Icon_Render($settings) {
         if (version_compare(ELEMENTOR_VERSION, '2.6', '>=')) {
             ob_start();
@@ -214,6 +227,54 @@ trait Elementor_Helper {
             $rt = '<i aria-hidden="true" class="' . esc_attr($settings) . '"></i>';
         }
         return $rt;
+    }
+
+    /**
+     * Check if WPForms is activated
+     *
+     * @return bool
+     */
+    public function sa_el_is_wpf_activated() {
+        return class_exists('WPForms_Lite');
+    }
+
+    /**
+     * Get a list of all WPForms
+     *
+     * @return array
+     */
+    public function sa_el_get_wpforms() {
+        $forms = get_posts([
+            'post_type' => 'wpforms',
+            'post_status' => 'publish',
+            'posts_per_page' => -1,
+            'orderby' => 'title',
+            'order' => 'ASC',
+        ]);
+
+        if (!empty($forms)) {
+            return wp_list_pluck($forms, 'post_title', 'ID');
+        }
+        return [];
+    }
+
+    /**
+     * Call a shortcode function by tag name.
+     *
+     * @since  1.0.0
+     *
+     * @param string $tag     The shortcode whose function to call.
+     * @param array  $atts    The attributes to pass to the shortcode function. Optional.
+     * @param array  $content The shortcode's content. Default is null (none).
+     *
+     * @return string|bool False on failure, the result of the shortcode on success.
+     */
+    public function sa_el_do_shortcode($tag, array $atts = array(), $content = null) {
+        global $shortcode_tags;
+        if (!isset($shortcode_tags[$tag])) {
+            return false;
+        }
+        return call_user_func($shortcode_tags[$tag], $atts, $content, $tag);
     }
 
 }
