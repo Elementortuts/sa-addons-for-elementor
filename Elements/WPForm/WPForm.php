@@ -28,6 +28,10 @@ class WPForm extends Widget_Base {
         return 'eicon-barcode  oxi-el-admin-icon';
     }
 
+    public function get_keywords() {
+        return ['wpf', 'wpform', 'form', 'contact', 'cf7', 'contact form', 'gravity', 'ninja'];
+    }
+
     public function get_categories() {
         return ['sa-el-addons'];
     }
