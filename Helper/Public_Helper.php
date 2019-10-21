@@ -146,4 +146,45 @@ trait Public_Helper {
         register_setting('oxielementoraddonsuserdata-group', 'oxi_addons_user_permission');
     }
 
+    /**
+     * Admin Notice Check
+     *
+     * @since 2.0.0
+     */
+    public function admin_notice_status() {
+       
+        $data = get_option('elementor-addons-reviews-notice');
+         print_r($data);
+        return $data;
+    }
+
+    /**
+     * Admin Install date Check
+     *
+     * @since 2.0.0
+     */
+    public function installation_date() {
+        $data = get_option('elementor-addons-reviews-date');
+        if (empty($data)):
+            $data = strtotime("now");
+            update_option('elementor-addons-reviews-date', $data);
+        endif;
+        return $data;
+    }
+
+    /**
+     * Admin Notice
+     *
+     * @since 2.0.0
+     */
+    public function admin_notice() {
+//        if (!empty($this->admin_notice_status())):
+//            return;
+//        endif;
+//        if (strtotime('-7 days') < $this->installation_date()):
+//            return;
+//        endif;
+        new \SA_EL_ADDONS\Classes\Admin\Support_Reviews();
+    }
+
 }

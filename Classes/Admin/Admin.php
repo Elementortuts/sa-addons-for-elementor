@@ -10,8 +10,46 @@ class Admin {
 
     public function __construct() {
         add_action('admin_menu', array($this, 'admin_menu'));
-        add_action('admin_head', array($this, 'menu_icon'));
         add_filter('sa-el-addons/admin_nav_menu', array($this, 'admin_nav_menu'));
+        add_action('admin_head', array($this, 'menu_icon'));
+    }
+
+    /**
+     * SA Elementor Addons menu Icon
+     * @since 1.0.0
+     */
+    public function menu_icon() {
+        ?>
+        <style type='text/css' media='screen'>
+            @keyframes SAGRADIENT {
+                0%,
+                100% {
+                    background-position: 0 50%
+                }
+                50% {
+                    background-position: 100% 50%
+                }
+            }
+            #adminmenu li.menu-top.toplevel_page_sa-el-addons,
+            #adminmenu li.menu-top.toplevel_page_sa-el-addons:hover,
+            #adminmenu li.opensub > a.menu-top.toplevel_page_sa-el-addons,
+            #adminmenu li > a.menu-top.toplevel_page_sa-el-addons:focus {
+                background: linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB)!important;
+                animation: SAGRADIENT 15s ease infinite;
+                background-size: 400% 400%!important;
+                color: #fff!important;
+            }
+            #adminmenu #toplevel_page_sa-el-addons  div.wp-menu-image img {
+                width: 26px!important;
+                margin: 4px 5px;
+                display: block;
+                padding: 0;
+                opacity: 1;
+                filter: alpha(opacity=100);
+            }
+        </style>
+        <?php
+
     }
 
     /**
@@ -84,7 +122,7 @@ class Admin {
                             <ul class="oxilab-sa-admin-menu2">
                                ' . (!apply_filters('sa-el-addons/check_version', '') ? ' <li class="fazil-class" ><a target="_blank" href="https://www.oxilab.org/downloads/short-code-addons/">Upgrade</a></li>' : '') . '
                                <li class="saadmin-doc"><a target="_black" href="https://www.sa-elementor-addons.com/docs/">Docs</a></li>
-                               <li class="saadmin-doc"><a target="_black" href="https://wordpress.org/support/plugin/sa-elementor-addons/">Support</a></li>
+                               <li class="saadmin-doc"><a target="_black" href="https://wordpress.org/support/plugin/sa-addons-for-elementor/">Support</a></li>
                                <li class="saadmin-set"><a href="' . admin_url('admin.php?page=sa-el-addons-settings') . '"><span class="dashicons dashicons-admin-generic"></span></a></li>
                             </ul>
                         </nav>
@@ -117,7 +155,7 @@ class Admin {
      */
     public function admin_menu() {
         $permission = $this->menu_permission();
-        add_menu_page('Elementor Addons', 'Elementor Addons', $permission, 'sa-el-addons', [$this, 'Addons']);
+        add_menu_page('Elementor Addons', 'Elementor Addons', $permission, 'sa-el-addons', [$this, 'Addons'], SA_EL_ADDONS_URL . 'image/white-logo.png');
         add_submenu_page('sa-el-addons', 'Addons', 'Addons', $permission, 'sa-el-addons', [$this, 'Addons']);
         add_submenu_page('sa-el-addons', 'Template', 'Template', $permission, 'sa-el-addons-template', [$this, 'Template']);
         add_submenu_page('sa-el-addons', 'Blocks', 'Blocks', $permission, 'sa-el-addons-blocks', [$this, 'Blocks']);
@@ -143,21 +181,6 @@ class Admin {
 
     public function settings() {
         new \SA_EL_ADDONS\Classes\Admin\Settings();
-    }
-
-    /**
-     * SA Elementor Addons menu Icon
-     * @since 1.0.0
-     */
-    public function menu_icon() {
-        ?>
-        <style type='text/css' media='screen'>
-            #adminmenu #toplevel_page_sa-el-addons  div.wp-menu-image:before {
-                content: "\f486";
-            }
-        </style>
-        <?php
-
     }
 
 }
