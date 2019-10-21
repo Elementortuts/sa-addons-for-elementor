@@ -16,8 +16,6 @@ use \Elementor\Widget_Base as Widget_Base;
 
 class WPForm extends Widget_Base {
 
-    use \SA_EL_ADDONS\Helper\Elementor_Helper;
-
     public function get_name() {
         return 'sa_el_wpform';
     }
@@ -32,6 +30,54 @@ class WPForm extends Widget_Base {
 
     public function get_categories() {
         return ['sa-el-addons'];
+    }
+
+    /**
+     * Check if WPForms is activated
+     *
+     * @return bool
+     */
+    public function sa_el_is_wpf_activated() {
+        return class_exists('WPForms_Lite');
+    }
+
+    /**
+     * Get a list of all WPForms
+     *
+     * @return array
+     */
+    public function sa_el_get_wpforms() {
+        $forms = get_posts([
+            'post_type' => 'wpforms',
+            'post_status' => 'publish',
+            'posts_per_page' => -1,
+            'orderby' => 'title',
+            'order' => 'ASC',
+        ]);
+
+        if (!empty($forms)) {
+            return wp_list_pluck($forms, 'post_title', 'ID');
+        }
+        return [];
+    }
+
+    /**
+     * Call a shortcode function by tag name.
+     *
+     * @since  1.0.0
+     *
+     * @param string $tag     The shortcode whose function to call.
+     * @param array  $atts    The attributes to pass to the shortcode function. Optional.
+     * @param array  $content The shortcode's content. Default is null (none).
+     *
+     * @return string|bool False on failure, the result of the shortcode on success.
+     */
+    public function sa_el_do_shortcode($tag, array $atts = array(), $content = null) {
+        global $shortcode_tags;
+        if (!isset($shortcode_tags[$tag])) {
+            return false;
+        }
+        return call_user_func($shortcode_tags[$tag], $atts, $content, $tag);
     }
 
     protected function _register_controls() {
