@@ -42,7 +42,9 @@ class Admin_Render {
     }
 
     public function addons_settings($data, $satype) {
-        update_option('shortcode-addons-elementor', $data);
+        parse_str($data, $settings);
+        $update = json_encode($settings);
+        update_option('shortcode-addons-elementor', $update);
         $this->empty_dir(SA_EL_ADDONS_ASSETS);
     }
 

@@ -76,15 +76,20 @@ trait Public_Helper {
     }
 
     public function Get_Active_Elements() {
-        $installed = get_option('shortcode-addons-elementor');
-        if (empty($installed) || $installed == '') {
-            $installed = 'accordion=on&button=on&tabs=on&feature_list=on&flip_box=on&info_box=on&tooltip=on&single_product=on&team_member=on&testimonial=on&toggle=on&card=on&icon_box=on&number=on÷r=on&counter=on&count_down=on&image_hotspots=on&interactive_card=on&interactive_promo=on&progress_bar=on&protected_content=on&call_to_action=on&pricing_table=on';
-            update_option('shortcode-addons-elementor', $installed);
+        $installed = json_decode(get_option('shortcode-addons-elementor'), true);
+        if (empty($installed)) {
+            $installed = [];
+            $D = \SA_EL_ADDONS\Classes\Rest_API::get_instance()->Register_Elements();
+            foreach ($D as $key => $value) {
+                if (array_key_exists('Premium', $value) == FALSE || $value['Premium'] == false):
+                    $installed[$key] = 'on';
+                endif;
+            }
+            $update = json_encode($installed);
+            update_option('shortcode-addons-elementor', $update);
         }
-
-        parse_str($installed, $settings);
-        ksort($settings);
-        return $settings;
+        ksort($installed);
+        return $installed;
     }
 
     public function Get_Registered_elements($force_update = FALSE) {
@@ -152,9 +157,8 @@ trait Public_Helper {
      * @since 2.0.0
      */
     public function admin_notice_status() {
-       
+
         $data = get_option('elementor-addons-reviews-notice');
-         print_r($data);
         return $data;
     }
 
