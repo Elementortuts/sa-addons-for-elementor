@@ -27,7 +27,7 @@ class WP_Form extends Widget_Base {
     }
 
     public function get_icon() {
-        return 'eicon-barcode  oxi-el-admin-icon';
+        return 'fa fa-envelope-o  oxi-el-admin-icon';
     }
 
     public function get_keywords() {
