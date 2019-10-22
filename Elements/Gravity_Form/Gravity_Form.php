@@ -39,6 +39,15 @@ class Gravity_Form extends Widget_Base {
     }
 
     /**
+     * Check if Gravity Form is activated
+     *
+     * @return bool
+     */
+    public function sa_el_is_gravity_form_activated() {
+        return class_exists('\GFForms');
+    }
+
+    /**
      * Get Gravity Form [ if exists ]
      *
      * @return array
@@ -68,204 +77,206 @@ class Gravity_Form extends Widget_Base {
         /* ----------------------------------------------------------------------------------- */
         /* 	CONTENT TAB
           /*----------------------------------------------------------------------------------- */
-        if (!class_exists('\GFForms')) {
-            $this->start_controls_section(
-                    'sa_el_global_warning',
-                    [
-                        'label' => __('Warning!', SA_EL_ADDONS_TEXTDOMAIN),
-                    ]
-            );
 
+
+
+
+
+
+        /**
+         * Content Tab: Contact Form
+         * -------------------------------------------------
+         */
+        $this->start_controls_section(
+                'section_info_box',
+                [
+                    'label' => __('Gravity Forms', SA_EL_ADDONS_TEXTDOMAIN),
+                ]
+        );
+        if (!$this->sa_el_is_gravity_form_activated()) {
             $this->add_control(
-                    'sa_el_global_warning_text',
+                    'wpf_missing_notice',
                     [
                         'type' => Controls_Manager::RAW_HTML,
-                        'raw' => __('<strong>Gravity Forms</strong> is not installed/activated on your site. Please install and activate <strong>Gravity Forms</strong> first.', SA_EL_ADDONS_TEXTDOMAIN),
-                        'content_classes' => 'sa-el-warning',
+                        'raw' => sprintf(
+                                __('Hi, it seems %1$s is missing in your site. Please install and activate %1$s first.', SA_EL_ADDONS_TEXTDOMAIN),
+                                '<a href="https://www.gravityforms.com/" target="_blank" rel="noopener">Gravity Form</a>'
+                        ),
+                        'content_classes' => 'elementor-panel-alert elementor-panel-alert-warning',
                     ]
             );
-
             $this->end_controls_section();
-        } else {
-            /**
-             * Content Tab: Contact Form
-             * -------------------------------------------------
-             */
-            $this->start_controls_section(
-                    'section_info_box',
-                    [
-                        'label' => __('Gravity Forms', SA_EL_ADDONS_TEXTDOMAIN),
-                    ]
-            );
-
-            $this->add_control(
-                    'contact_form_list',
-                    [
-                        'label' => esc_html__('Select Form', SA_EL_ADDONS_TEXTDOMAIN),
-                        'type' => Controls_Manager::SELECT,
-                        'label_block' => true,
-                        'options' => $this->sa_el_select_gravity_form(),
-                        'default' => '0',
-                    ]
-            );
-
-            $this->add_control(
-                    'custom_title_description',
-                    [
-                        'label' => __('Custom Title & Description', SA_EL_ADDONS_TEXTDOMAIN),
-                        'type' => Controls_Manager::SWITCHER,
-                        'label_on' => __('Yes', SA_EL_ADDONS_TEXTDOMAIN),
-                        'label_off' => __('No', SA_EL_ADDONS_TEXTDOMAIN),
-                        'return_value' => 'yes',
-                    ]
-            );
-
-            $this->add_control(
-                    'form_title',
-                    [
-                        'label' => __('Title', SA_EL_ADDONS_TEXTDOMAIN),
-                        'type' => Controls_Manager::SWITCHER,
-                        'default' => 'yes',
-                        'label_on' => __('Show', SA_EL_ADDONS_TEXTDOMAIN),
-                        'label_off' => __('Hide', SA_EL_ADDONS_TEXTDOMAIN),
-                        'return_value' => 'yes',
-                        'condition' => [
-                            'custom_title_description!' => 'yes',
-                        ],
-                    ]
-            );
-
-            $this->add_control(
-                    'form_description',
-                    [
-                        'label' => __('Description', SA_EL_ADDONS_TEXTDOMAIN),
-                        'type' => Controls_Manager::SWITCHER,
-                        'default' => 'yes',
-                        'label_on' => __('Show', SA_EL_ADDONS_TEXTDOMAIN),
-                        'label_off' => __('Hide', SA_EL_ADDONS_TEXTDOMAIN),
-                        'return_value' => 'yes',
-                        'condition' => [
-                            'custom_title_description!' => 'yes',
-                        ],
-                    ]
-            );
-
-            $this->add_control(
-                    'form_title_custom',
-                    [
-                        'label' => esc_html__('Title', SA_EL_ADDONS_TEXTDOMAIN),
-                        'type' => Controls_Manager::TEXT,
-                        'label_block' => true,
-                        'default' => '',
-                        'condition' => [
-                            'custom_title_description' => 'yes',
-                        ],
-                    ]
-            );
-
-            $this->add_control(
-                    'form_description_custom',
-                    [
-                        'label' => esc_html__('Description', SA_EL_ADDONS_TEXTDOMAIN),
-                        'type' => Controls_Manager::TEXTAREA,
-                        'default' => '',
-                        'condition' => [
-                            'custom_title_description' => 'yes',
-                        ],
-                    ]
-            );
-
-            $this->add_control(
-                    'labels_switch',
-                    [
-                        'label' => __('Labels', SA_EL_ADDONS_TEXTDOMAIN),
-                        'type' => Controls_Manager::SWITCHER,
-                        'default' => 'yes',
-                        'label_on' => __('Show', SA_EL_ADDONS_TEXTDOMAIN),
-                        'label_off' => __('Hide', SA_EL_ADDONS_TEXTDOMAIN),
-                        'return_value' => 'yes',
-                    ]
-            );
-
-            $this->add_control(
-                    'placeholder_switch',
-                    [
-                        'label' => __('Placeholder', SA_EL_ADDONS_TEXTDOMAIN),
-                        'type' => Controls_Manager::SWITCHER,
-                        'default' => 'yes',
-                        'label_on' => __('Show', SA_EL_ADDONS_TEXTDOMAIN),
-                        'label_off' => __('Hide', SA_EL_ADDONS_TEXTDOMAIN),
-                        'return_value' => 'yes',
-                    ]
-            );
-
-            $this->add_control(
-                    'form_ajax',
-                    [
-                        'label' => __('Use Ajax', SA_EL_ADDONS_TEXTDOMAIN),
-                        'type' => Controls_Manager::SWITCHER,
-                        'description' => __('Use ajax to submit the form', SA_EL_ADDONS_TEXTDOMAIN),
-                        'label_on' => __('Yes', SA_EL_ADDONS_TEXTDOMAIN),
-                        'label_off' => __('No', SA_EL_ADDONS_TEXTDOMAIN),
-                        'return_value' => 'yes',
-                    ]
-            );
-
-            $this->end_controls_section();
-
-            /**
-             * Content Tab: Errors
-             * -------------------------------------------------
-             */
-            $this->start_controls_section(
-                    'section_errors',
-                    [
-                        'label' => __('Errors', SA_EL_ADDONS_TEXTDOMAIN),
-                    ]
-            );
-
-            $this->add_control(
-                    'error_messages',
-                    [
-                        'label' => __('Error Messages', SA_EL_ADDONS_TEXTDOMAIN),
-                        'type' => Controls_Manager::SELECT,
-                        'default' => 'show',
-                        'options' => [
-                            'show' => __('Show', SA_EL_ADDONS_TEXTDOMAIN),
-                            'hide' => __('Hide', SA_EL_ADDONS_TEXTDOMAIN),
-                        ],
-                        'selectors_dictionary' => [
-                            'show' => 'block',
-                            'hide' => 'none',
-                        ],
-                        'selectors' => [
-                            '{{WRAPPER}} .sa-el-gravity-form .validation_message' => 'display: {{VALUE}} !important;',
-                        ],
-                    ]
-            );
-
-            $this->add_control(
-                    'validation_errors',
-                    [
-                        'label' => __('Validation Errors', SA_EL_ADDONS_TEXTDOMAIN),
-                        'type' => Controls_Manager::SELECT,
-                        'default' => 'show',
-                        'options' => [
-                            'show' => __('Show', SA_EL_ADDONS_TEXTDOMAIN),
-                            'hide' => __('Hide', SA_EL_ADDONS_TEXTDOMAIN),
-                        ],
-                        'selectors_dictionary' => [
-                            'show' => 'block',
-                            'hide' => 'none',
-                        ],
-                        'selectors' => [
-                            '{{WRAPPER}} .sa-el-gravity-form .validation_error' => 'display: {{VALUE}} !important;',
-                        ],
-                    ]
-            );
-
-            $this->end_controls_section();
+            return;
         }
+
+        $this->add_control(
+                'contact_form_list',
+                [
+                    'label' => esc_html__('Select Form', SA_EL_ADDONS_TEXTDOMAIN),
+                    'type' => Controls_Manager::SELECT,
+                    'label_block' => true,
+                    'options' => $this->sa_el_select_gravity_form(),
+                    'default' => '0',
+                ]
+        );
+
+        $this->add_control(
+                'custom_title_description',
+                [
+                    'label' => __('Custom Title & Description', SA_EL_ADDONS_TEXTDOMAIN),
+                    'type' => Controls_Manager::SWITCHER,
+                    'label_on' => __('Yes', SA_EL_ADDONS_TEXTDOMAIN),
+                    'label_off' => __('No', SA_EL_ADDONS_TEXTDOMAIN),
+                    'return_value' => 'yes',
+                ]
+        );
+
+        $this->add_control(
+                'form_title',
+                [
+                    'label' => __('Title', SA_EL_ADDONS_TEXTDOMAIN),
+                    'type' => Controls_Manager::SWITCHER,
+                    'default' => 'yes',
+                    'label_on' => __('Show', SA_EL_ADDONS_TEXTDOMAIN),
+                    'label_off' => __('Hide', SA_EL_ADDONS_TEXTDOMAIN),
+                    'return_value' => 'yes',
+                    'condition' => [
+                        'custom_title_description!' => 'yes',
+                    ],
+                ]
+        );
+
+        $this->add_control(
+                'form_description',
+                [
+                    'label' => __('Description', SA_EL_ADDONS_TEXTDOMAIN),
+                    'type' => Controls_Manager::SWITCHER,
+                    'default' => 'yes',
+                    'label_on' => __('Show', SA_EL_ADDONS_TEXTDOMAIN),
+                    'label_off' => __('Hide', SA_EL_ADDONS_TEXTDOMAIN),
+                    'return_value' => 'yes',
+                    'condition' => [
+                        'custom_title_description!' => 'yes',
+                    ],
+                ]
+        );
+
+        $this->add_control(
+                'form_title_custom',
+                [
+                    'label' => esc_html__('Title', SA_EL_ADDONS_TEXTDOMAIN),
+                    'type' => Controls_Manager::TEXT,
+                    'label_block' => true,
+                    'default' => '',
+                    'condition' => [
+                        'custom_title_description' => 'yes',
+                    ],
+                ]
+        );
+
+        $this->add_control(
+                'form_description_custom',
+                [
+                    'label' => esc_html__('Description', SA_EL_ADDONS_TEXTDOMAIN),
+                    'type' => Controls_Manager::TEXTAREA,
+                    'default' => '',
+                    'condition' => [
+                        'custom_title_description' => 'yes',
+                    ],
+                ]
+        );
+
+        $this->add_control(
+                'labels_switch',
+                [
+                    'label' => __('Labels', SA_EL_ADDONS_TEXTDOMAIN),
+                    'type' => Controls_Manager::SWITCHER,
+                    'default' => 'yes',
+                    'label_on' => __('Show', SA_EL_ADDONS_TEXTDOMAIN),
+                    'label_off' => __('Hide', SA_EL_ADDONS_TEXTDOMAIN),
+                    'return_value' => 'yes',
+                ]
+        );
+
+        $this->add_control(
+                'placeholder_switch',
+                [
+                    'label' => __('Placeholder', SA_EL_ADDONS_TEXTDOMAIN),
+                    'type' => Controls_Manager::SWITCHER,
+                    'default' => 'yes',
+                    'label_on' => __('Show', SA_EL_ADDONS_TEXTDOMAIN),
+                    'label_off' => __('Hide', SA_EL_ADDONS_TEXTDOMAIN),
+                    'return_value' => 'yes',
+                ]
+        );
+
+        $this->add_control(
+                'form_ajax',
+                [
+                    'label' => __('Use Ajax', SA_EL_ADDONS_TEXTDOMAIN),
+                    'type' => Controls_Manager::SWITCHER,
+                    'description' => __('Use ajax to submit the form', SA_EL_ADDONS_TEXTDOMAIN),
+                    'label_on' => __('Yes', SA_EL_ADDONS_TEXTDOMAIN),
+                    'label_off' => __('No', SA_EL_ADDONS_TEXTDOMAIN),
+                    'return_value' => 'yes',
+                ]
+        );
+
+        $this->end_controls_section();
+
+        /**
+         * Content Tab: Errors
+         * -------------------------------------------------
+         */
+        $this->start_controls_section(
+                'section_errors',
+                [
+                    'label' => __('Errors', SA_EL_ADDONS_TEXTDOMAIN),
+                ]
+        );
+
+        $this->add_control(
+                'error_messages',
+                [
+                    'label' => __('Error Messages', SA_EL_ADDONS_TEXTDOMAIN),
+                    'type' => Controls_Manager::SELECT,
+                    'default' => 'show',
+                    'options' => [
+                        'show' => __('Show', SA_EL_ADDONS_TEXTDOMAIN),
+                        'hide' => __('Hide', SA_EL_ADDONS_TEXTDOMAIN),
+                    ],
+                    'selectors_dictionary' => [
+                        'show' => 'block',
+                        'hide' => 'none',
+                    ],
+                    'selectors' => [
+                        '{{WRAPPER}} .sa-el-gravity-form .validation_message' => 'display: {{VALUE}} !important;',
+                    ],
+                ]
+        );
+
+        $this->add_control(
+                'validation_errors',
+                [
+                    'label' => __('Validation Errors', SA_EL_ADDONS_TEXTDOMAIN),
+                    'type' => Controls_Manager::SELECT,
+                    'default' => 'show',
+                    'options' => [
+                        'show' => __('Show', SA_EL_ADDONS_TEXTDOMAIN),
+                        'hide' => __('Hide', SA_EL_ADDONS_TEXTDOMAIN),
+                    ],
+                    'selectors_dictionary' => [
+                        'show' => 'block',
+                        'hide' => 'none',
+                    ],
+                    'selectors' => [
+                        '{{WRAPPER}} .sa-el-gravity-form .validation_error' => 'display: {{VALUE}} !important;',
+                    ],
+                ]
+        );
+
+        $this->end_controls_section();
+
 
         /* ----------------------------------------------------------------------------------- */
         /* 	STYLE TAB
@@ -301,7 +312,6 @@ class Gravity_Form extends Widget_Base {
                     'type' => Controls_Manager::CHOOSE,
                     'label_block' => true,
                     'options' => [
-                        
                         'sa-el-gravity-form-top-align-left' => [
                             'title' => esc_html__('Left', SA_EL_ADDONS_TEXTDOMAIN),
                             'icon' => 'eicon-h-align-left',
@@ -1748,10 +1758,10 @@ class Gravity_Form extends Widget_Base {
         if ($settings['custom_radio_checkbox'] == 'yes') {
             $this->add_render_attribute('gravity-form', 'class', 'sa-el-custom-radio-checkbox');
         }
-        
+
         $this->add_render_attribute('gravity-form', 'class', $settings['sa_el_gravity_form_alignment']);
-         
-         
+
+
 
 
         if (!empty($settings['contact_form_list'])) {
