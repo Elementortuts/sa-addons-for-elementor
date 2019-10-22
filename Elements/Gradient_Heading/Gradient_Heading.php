@@ -11,15 +11,14 @@ use \Elementor\Controls_Manager;
 use \Elementor\Group_Control_Text_Shadow;
 use \Elementor\Group_Control_Typography;
 use \Elementor\Scheme_Typography;
-
 use \Elementor\Widget_Base as Widget_Base;
 use SA_EL_ADDONS\Classes\Front\Sa_Foreground_Control as Sa_Foreground_Control;
 
 class Gradient_Heading extends Widget_Base {
+
     public function get_name() {
         return 'sa_el_gradient_heading';
     }
-    
 
     public function get_title() {
         return esc_html__('Gradient Heading', SA_EL_ADDONS_TEXTDOMAIN);
@@ -43,11 +42,11 @@ class Gradient_Heading extends Widget_Base {
         );
 
         $this->add_control(
-             'title', [
-                    'label' => __('Title', SA_EL_ADDONS_TEXTDOMAIN),
-                    'type' => Controls_Manager::TEXTAREA,
-                    'default' => __('Shortcode Addons is Awesome', SA_EL_ADDONS_TEXTDOMAIN),
-                    'placeholder' => __('Type Gradient Heading Text', SA_EL_ADDONS_TEXTDOMAIN),
+                'title', [
+            'label' => __('Title', SA_EL_ADDONS_TEXTDOMAIN),
+            'type' => Controls_Manager::TEXTAREA,
+            'default' => __('Shortcode Addons is Awesome', SA_EL_ADDONS_TEXTDOMAIN),
+            'placeholder' => __('Type Gradient Heading Text', SA_EL_ADDONS_TEXTDOMAIN),
                 ]
         );
 
@@ -182,36 +181,56 @@ class Gradient_Heading extends Widget_Base {
                 ]
         );
 
+        $this->add_group_control(
+                Group_Control_Typography::get_type(), [
+            'name' => 'title',
+            'selector' => '{{WRAPPER}} .sa-el-gradient-heading',
+            'scheme' => Scheme_Typography::TYPOGRAPHY_1,
+                ]
+        );
+
+        $this->add_responsive_control(
+                'heading_margin', [
+            'label' => esc_html__('Margin', SA_EL_ADDONS_TEXTDOMAIN),
+            'type' => Controls_Manager::DIMENSIONS,
+            'size_units' => ['px', 'em', '%'],
+            'selectors' => [
+                '{{WRAPPER}} .sa-el-gradient-heading' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+            ],
+                ]
+        );
+
         $this->end_controls_section();
     }
-     protected function render() {
+
+    protected function render() {
         $settings = $this->get_settings_for_display();
 
-        $this->add_inline_editing_attributes( 'title', 'basic' );
-        $this->add_render_attribute( 'title', 'class', 'sa-el-gradient-heading' );
+        $this->add_inline_editing_attributes('title', 'basic');
+        $this->add_render_attribute('title', 'class', 'sa-el-gradient-heading');
 
-        $title = wp_kses_post( $settings['title' ] );
+        $title = wp_kses_post($settings['title']);
 
-        if ( ! empty( $settings['link']['url'] ) ) {
-            $this->add_render_attribute( 'link', 'href', esc_url( $settings['link']['url'] ) );
-            if ( ! empty( $settings['link']['is_external'] ) ) {
-                $this->add_render_attribute( 'link', 'target', '_blank' );
+        if (!empty($settings['link']['url'])) {
+            $this->add_render_attribute('link', 'href', esc_url($settings['link']['url']));
+            if (!empty($settings['link']['is_external'])) {
+                $this->add_render_attribute('link', 'target', '_blank');
             }
 
-            if ( ! empty( $settings['link']['nofollow'] ) ) {
-                $this->set_render_attribute( 'link', 'rel', 'nofollow' );
+            if (!empty($settings['link']['nofollow'])) {
+                $this->set_render_attribute('link', 'rel', 'nofollow');
             }
 
-            $title = sprintf( '<a %s>%s</a>',
-                $this->get_render_attribute_string( 'link' ),
-                $title
-                );
+            $title = sprintf('<a %s>%s</a>',
+                    $this->get_render_attribute_string('link'),
+                    $title
+            );
         }
 
-        printf( '<%1$s %2$s>%3$s</%1$s>',
-            tag_escape( $settings['title_tag'] ),
-            $this->get_render_attribute_string( 'title' ),
-            $title
+        printf('<%1$s %2$s>%3$s</%1$s>',
+                tag_escape($settings['title_tag']),
+                $this->get_render_attribute_string('title'),
+                $title
         );
     }
 
