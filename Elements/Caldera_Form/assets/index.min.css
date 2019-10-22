@@ -1,0 +1,60 @@
+
+.sa-el-caldera-form.sa-el-caldera-form-top-align-right{
+    margin: 0  0 0 auto;
+}
+.sa-el-caldera-form.sa-el-caldera-form-top-align-left{
+    margin: 0 auto 0 0;
+}
+.sa-el-caldera-form.sa-el-caldera-form-top-align-center{
+    margin: 0 auto;
+}
+.sa-el-caldera-form-align-left,
+.sa-el-caldera-form-btn-align-left {
+    text-align: left;
+}
+
+.sa-el-caldera-form-align-right,
+.sa-el-caldera-form-btn-align-right {
+    text-align: right;
+}
+
+.sa-el-caldera-form-align-center,
+.sa-el-caldera-form-btn-align-center {
+    text-align: center;
+}
+
+.sa-el-caldera-form .control-label {
+    display: none;
+}
+
+.sa-el-caldera-form-labels-yes .control-label {
+    display: block;
+}
+
+.sa-el-caldera-form-button-center .form-group input[type=button],
+.sa-el-caldera-form-button-center .form-group input[type=submit] {
+    display: block;
+    margin: 0 auto;
+}
+
+.sa-el-caldera-form-button-right .form-group input[type=button],
+.sa-el-caldera-form-button-right .form-group input[type=submit] {
+    float: right;
+}
+
+.sa-el-caldera-form .intl-tel-input {
+    display: inherit;
+}
+
+.sa-el-custom-radio-checkbox .caldera-grid input[type=checkbox],
+.sa-el-custom-radio-checkbox .caldera-grid input[type=radio] {
+    border-style: solid;
+    border-width: 0;
+    padding: 3px;
+    -webkit-appearance: none;
+}
+
+.sa-el-caldera-form-button-full-width .form-group input[type=submit],
+.sa-el-caldera-form-button-full-width .form-group input[type=button] {
+    width: 100%;
+}

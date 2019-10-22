@@ -1,0 +1,45 @@
+.sa-el-weform-container input,
+.sa-el-weform-container textarea {
+    height: auto;
+    padding: 10px;
+}
+
+.sa-el-contact-form-align-center .sa-el-weform-container,
+.sa-el-contact-form-btn-align-center .sa-el-weform-container ul.wpuf-form .wpuf-submit input[type="submit"] {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    display: block;
+    float: none;
+}
+
+.sa-el-contact-form-align-left .sa-el-weform-container,
+.sa-el-contact-form-btn-align-left .sa-el-weform-container ul.wpuf-form .wpuf-submit input[type="submit"] {
+    float: left;
+    width: auto;
+}
+
+.sa-el-contact-form-align-right .sa-el-weform-container,
+.sa-el-contact-form-btn-align-right .sa-el-weform-container ul.wpuf-form .wpuf-submit input[type="submit"] {
+    float: right;
+    width: auto;
+}
+
+.sa-el-weform-container ul.wpuf-form li .wpuf-fields input[type="text"],
+.sa-el-weform-container ul.wpuf-form li .wpuf-fields input[type="password"],
+.sa-el-weform-container ul.wpuf-form li .wpuf-fields input[type="email"],
+.sa-el-weform-container ul.wpuf-form li .wpuf-fields input[type="url"],
+.sa-el-weform-container ul.wpuf-form li .wpuf-fields input[type="number"],
+.sa-el-weform-container ul.wpuf-form li .wpuf-fields textarea {
+    max-width: 100%;
+}
+
+.sa-el-weform-container.sa-el-weform-container-top-align-right{
+    margin: 0  0 0 auto;
+}
+.sa-el-weform-container.sa-el-weform-container-top-align-default,
+.sa-el-weform-container.sa-el-weform-container-top-align-left{
+    margin: 0 auto 0 0;
+}
+.sa-el-weform-container.sa-el-weform-container-top-align-center{
+    margin: 0 auto;
+}
