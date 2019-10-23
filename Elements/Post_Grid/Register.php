@@ -7,6 +7,9 @@ return [
         'css' => [
             SA_EL_ADDONS_PATH . 'Elements/Post_Grid/assets/index.min.css',
         ],
+        'js' => [
+            SA_EL_ADDONS_PATH . 'Elements/Post_Grid/assets/index.min.js',
+        ],
     ],
     'category' => 'Post Elements',
     'Premium' => FALSE,

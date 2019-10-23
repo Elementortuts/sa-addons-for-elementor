@@ -87,6 +87,8 @@ class Bootstrap {
 
     // Elements
     public function register_hooks() {
+        add_action('wp_ajax_sa_el_addons_loader', array($this, 'sa_el_addons_loader'));
+        add_action('wp_ajax_nopriv_sa_el_addons_loader', [$this, 'sa_el_addons_loader']);
         add_action('elementor/elements/categories_registered', array($this, 'register_widget_categories'));
         add_action('elementor/controls/controls_registered', array($this, 'register_controls_group'));
         add_action('elementor/widgets/widgets_registered', array($this, 'register_elements'));

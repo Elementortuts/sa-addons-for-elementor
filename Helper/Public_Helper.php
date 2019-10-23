@@ -156,21 +156,16 @@ trait Public_Helper {
         }
         wp_enqueue_style(SA_EL_ADDONS_TEXTDOMAIN, content_url('uploads/' . SA_EL_ADDONS_TEXTDOMAIN . '/' . SA_EL_ADDONS_TEXTDOMAIN . '.min.css'));
         wp_enqueue_script(SA_EL_ADDONS_TEXTDOMAIN . '-js', content_url('uploads/' . SA_EL_ADDONS_TEXTDOMAIN . '/' . SA_EL_ADDONS_TEXTDOMAIN . '.min.js'), ['jquery']);
+        wp_localize_script(SA_EL_ADDONS_TEXTDOMAIN . '-js', 'sa_el_addons_loader', array('ajaxurl' => admin_url('admin-ajax.php'), 'nonce' => wp_create_nonce('sa-el-addons-loader')));
         // hook extended assets
         do_action(SA_EL_ADDONS_TEXTDOMAIN . '/after_enqueue_scripts', $this->has_cache_files());
         if (defined('FLUENTFORM')) {
             wp_enqueue_style(
-                    'fluent-form-styles',
-                    WP_PLUGIN_URL . '/fluentform/public/css/fluent-forms-public.css',
-                    array(),
-                    FLUENTFORM_VERSION
+                    'fluent-form-styles', WP_PLUGIN_URL . '/fluentform/public/css/fluent-forms-public.css', array(), FLUENTFORM_VERSION
             );
 
             wp_enqueue_style(
-                    'fluentform-public-default',
-                    WP_PLUGIN_URL . '/fluentform/public/css/fluentform-public-default.css',
-                    array(),
-                    FLUENTFORM_VERSION
+                    'fluentform-public-default', WP_PLUGIN_URL . '/fluentform/public/css/fluentform-public-default.css', array(), FLUENTFORM_VERSION
             );
         }
         // Gravity forms Compatibility
@@ -245,6 +240,23 @@ trait Public_Helper {
             return;
         endif;
         new \SA_EL_ADDONS\Classes\Admin\Support_Reviews();
+    }
+
+    public function sa_el_addons_loader() {
+        if (isset($_POST['_wpnonce']) && wp_verify_nonce(sanitize_key(wp_unslash($_POST['_wpnonce'])), 'sa-el-addons-loader')):
+
+            $class = isset($_POST['class']) ? '\\' . str_replace('\\\\', '\\', sanitize_text_field($_POST['class'])) : '';
+            $function = isset($_POST['function']) ? sanitize_text_field($_POST['function']) : '';
+            $settings = isset($_POST['settings']) ? sanitize_post($_POST['settings']) : '';
+            $args = isset($_POST['args']) ? sanitize_post($_POST['args']) : '';
+            $optional = isset($_POST['optional']) ? sanitize_text_field($_POST['optional']) : '';
+            if (!empty($class) && !empty($function)):
+                $class::$function($args, $settings, $optional);
+            endif;
+        else:
+            return;
+        endif;
+        die();
     }
 
 }
