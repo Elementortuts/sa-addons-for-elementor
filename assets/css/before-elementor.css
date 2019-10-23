@@ -9,18 +9,20 @@ and open the template in the editor.
 */
 
 
-.elementor-panel #elementor-panel-category-sa-el-addons .elementor-element .icon,
-.elementor-panel #elementor-panel-elements .sa-el-widgets-addons .icon{
+.elementor-panel #elementor-panel-category-sa-el-addons .oxi-el-admin-icon,
+.elementor-panel #elementor-panel-elements  .oxi-el-admin-icon{
     position: relative;
+    width: 100%;
+    text-align: center;
 }
-
-.elementor-panel #elementor-panel-category-sa-el-addons .elementor-element .icon:after,
-.elementor-panel #elementor-panel-elements .sa-el-widgets-addons .icon:after{
-    content: "SA";
+.elementor-panel #elementor-panel-category-sa-el-addons .oxi-el-admin-icon:after,
+.elementor-panel #elementor-panel-elements .oxi-el-admin-icon:after{
+    content: "EA";
     position: absolute;
-    top: 0;
-    right: 0;
+    top: -12px;
+    right: 3px;
     z-index: 1;
+    border-radius: 3px;
     color: #FFF;
     background: #e74c3c;
     font-size: 9px;
@@ -28,8 +30,8 @@ and open the template in the editor.
     font-family: Roboto,Arial,Helvetica,Verdana,sans-serif;
     padding: 0.35em 0.65em;
 }
-.elementor-panel #elementor-panel-category-sa-el-addons .elementor-element:hover .icon:after,
-.elementor-panel #elementor-panel-elements .sa-el-widgets-addons:hover .icon:after{
+.elementor-panel #elementor-panel-category-sa-el-addons .elementor-element:hover .oxi-el-admin-icon:after,
+.elementor-panel #elementor-panel-elements .sa-el-widgets-addons:hover .oxi-el-admin-icon:after{
     color: #e74c3c;
     background: #FFF;
 }
