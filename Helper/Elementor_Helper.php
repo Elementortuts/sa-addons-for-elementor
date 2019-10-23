@@ -25,7 +25,7 @@ trait Elementor_Helper {
     public function register_widget_categories($elements_manager) {
         $elements_manager->add_category(
                 'sa-el-addons', [
-            'title' => __('Shortcode Addons', SA_EL_ADDONS_TEXTDOMAIN),
+            'title' => __('Elementor Addons', SA_EL_ADDONS_TEXTDOMAIN),
             'icon' => 'font',
                 ], 1
         );
