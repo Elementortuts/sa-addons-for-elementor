@@ -563,10 +563,6 @@ class WeForm extends Widget_Base {
                     'type' => Controls_Manager::CHOOSE,
                     'label_block' => true,
                     'options' => [
-                        'default' => [
-                            'title' => __('Default', SA_EL_ADDONS_TEXTDOMAIN),
-                            'icon' => 'fa fa-ban',
-                        ],
                         'left' => [
                             'title' => esc_html__('Left', SA_EL_ADDONS_TEXTDOMAIN),
                             'icon' => 'fa fa-align-left',
@@ -580,10 +576,9 @@ class WeForm extends Widget_Base {
                             'icon' => 'fa fa-align-right',
                         ],
                     ],
-                    'default' => 'default',
-                    'prefix_class' => 'sa-el-weform-container-top-align-', 
+                    'default' => 'left',
                     'selectors' => [
-                        '{{WRAPPER}} .sa-el-weform-container ' => '',
+                        '{{WRAPPER}} .sa-el-weform-container ul.wpuf-form .wpuf-submit ' => 'text-align : {{VALUE}};',
                     ],
                 ]
         );
@@ -731,6 +726,7 @@ class WeForm extends Widget_Base {
         }
 
         $settings = $this->get_settings();
+
 
         if (!empty($settings['wpuf_contact_form'])) {
             echo '<div class="sa-el-weform-container">

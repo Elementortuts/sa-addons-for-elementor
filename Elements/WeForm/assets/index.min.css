@@ -1,3 +1,7 @@
+.sa-el-weform-container ul,
+.sa-el-weform-container li{
+    list-style-type : none !important;
+}
 .sa-el-weform-container input,
 .sa-el-weform-container textarea {
     height: auto;
