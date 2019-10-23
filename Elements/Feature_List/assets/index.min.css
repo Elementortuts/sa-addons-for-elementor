@@ -8,11 +8,7 @@
     top: 3px !important;
 }
 
-.elementor-widget-sa_el_feature_list.-icon-position-left .connector_type_modern.rhombus .sa_el_feature_list_item:after,
-.elementor-widget-sa_el_feature_list.-icon-position-top .connector_type_modern.rhombus .sa_el_feature_list_item:after,
-.elementor-widget-sa_el_feature_list.-icon-position-right .connector_type_modern.rhombus .sa_el_feature_list_item:after {
-    top: 45px !important;
-}
+
 
 .elementor-widget-sa_el_feature_list.-icon-position-right .connector,
 .elementor-widget-sa_el_feature_list.-icon-position-right.-tablet-icon-position-right .connector {
@@ -42,17 +38,17 @@
 .elementor-widget-sa_el_feature_list.-icon-position-right.-tablet-icon-position-right .sa_el_feature_list_items.connector_type_modern .sa_el_feature_list_item:after {
     left: auto;
     right: 5px;
-    top: 30px;
 }
 
-.elementor-widget-sa_el_feature_list .sa_el_feature_list_items {
+.elementor-widget-sa_el_feature_list ul.sa_el_feature_list_items {
     list-style-type: none;
     margin: 0;
     padding: 0;
 }
 
-.elementor-widget-sa_el_feature_list .sa_el_feature_list_items .sa_el_feature_list_item {
+.elementor-widget-sa_el_feature_list ul.sa_el_feature_list_items li.sa_el_feature_list_item {
     position: relative;
+    margin: 0 0 0 0;
 }
 
 .elementor-widget-sa_el_feature_list .sa_el_feature_list_items .sa_el_feature_list_item .connector {
@@ -156,8 +152,8 @@
     margin: 0 0 0 20px;
 }
 
-.elementor-widget-sa_el_feature_list .sa_el_feature_list_items .sa_el_feature_list_item .sa_el_feature_list_content_box .sa_el_feature_list_title {
-    margin-top: -2px;
+.sa_el_feature_list_content_box .sa_el_feature_list_title {
+    margin-top: 0px;
     line-height: 1.5em;
 }
 
@@ -203,10 +199,6 @@
     transform: rotate(-45deg);
 }
 
-.elementor-widget-sa_el_feature_list .sa_el_feature_list_items.rhombus .sa_el_feature_list_content_box .sa_el_feature_list_title {
-    margin-top: 15px;
-}
-
 .elementor-widget-sa_el_feature_list .sa_el_feature_list_items.connector_type_modern .sa_el_feature_list_item {
     padding: 0 0 0 50px;
     position: relative;
@@ -237,7 +229,8 @@
 
 .elementor-widget-sa_el_feature_list .sa_el_feature_list_items.connector_type_modern .sa_el_feature_list_item:after {
     left: 5px;
-    top: 30px;
+    top: 50%;
+    transform: translateY(-50%);
     width: 23px;
     display: block;
     z-index: 2;

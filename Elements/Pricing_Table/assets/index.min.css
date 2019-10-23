@@ -426,6 +426,7 @@ Pricing Table
     display: block;
     width: 100%;
     height: auto;
+    margin: 0 0 0 0;
     padding: 10px 15px;
     font-size: 14px;
     color: #6d6d6d;
