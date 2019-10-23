@@ -1,0 +1,93 @@
+.sa-el-fluent-form-wrapper label.ff-el-form-check-label {
+    display: flex;
+    align-items: center;
+}
+.sa-el-fluent-form-wrapper label.ff-el-form-check-label input {
+    margin-right: 5px;
+}
+
+.sa-el-fluentform-form-button-full-width .ff-btn-submit {
+    width: 100%;
+    display: block;
+}
+.sa-el-fluent-form.sa-el-fluent-form-top-align-right{
+    margin: 0  0 0 auto;
+}
+.sa-el-fluent-form.sa-el-fluent-form-top-align-default,
+.sa-el-fluent-form.sa-el-fluent-form-top-align-left{
+    margin: 0 auto 0 0;
+}
+
+
+.sa-el-fluent-form.placeholder-hide input::-webkit-input-placeholder,
+.sa-el-fluent-form.placeholder-hide textarea::-webkit-input-placeholder {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.sa-el-fluent-form.placeholder-hide input::-moz-placeholder,
+.sa-el-fluent-form.placeholder-hide textarea::-moz-placeholder {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.sa-el-fluent-form.placeholder-hide input:-ms-input-placeholder,
+.sa-el-fluent-form.placeholder-hide textarea:-ms-input-placeholder {
+    opacity: 0;
+    visibility: hidden;
+}
+.sa-el-fluent-form.sa-el-fluent-form-wrapper.fluent-form-labels-hide label {
+  display: none !important;
+}
+.sa-el-fluent-form.sa-el-fluent-form-wrapper.error-message-hide .ff-el-is-error .text-danger {
+  display: none;
+}
+
+.sa-el-fluent-form.placeholder-hide input:-moz-placeholder,
+.sa-el-fluent-form.placeholder-hide textarea:-moz-placeholder {
+    opacity: 0;
+    visibility: hidden;
+}
+.sa-el-fluent-form.sa-el-fluent-form-top-align-center{
+    margin: 0 auto;
+}
+.sa-el-fluent-form.sa-el-fluent-form-wrapper.error-message-hide .ff-el-is-error .text-danger {
+    display: none;
+}
+
+.sa-el-fluentform-form-button-center .ff-el-group.ff-text-left .ff-btn-submit,
+.sa-el-fluentform-form-button-center .ff-el-group.ff-text-right .ff-btn-submit,
+.sa-el-fluentform-form-button-center .ff-el-group .ff-btn-submit {
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sa-el-fluentform-form-button-right .ff-el-group.ff-text-left .ff-btn-submit,
+.sa-el-fluentform-form-button-right .ff-el-group.ff-text-right .ff-btn-submit,
+.sa-el-fluentform-form-button-right .ff-el-group .ff-btn-submit {
+    float: right;
+}
+
+.sa-el-fluentform-form-button-left .ff-el-group.ff-text-left .ff-btn-submit,
+.sa-el-fluentform-form-button-left .ff-el-group.ff-text-right .ff-btn-submit,
+.sa-el-fluentform-form-button-left .ff-el-group .ff-btn-submit {
+    float: left;
+}
+
+.sa-el-fluent-form.sa-el-fluent-form-wrapper.fluent-form-labels-hide label {
+    display: none !important;
+}
+
+.sa-el-fluentform-section-break-content-left .ff-el-group.ff-el-section-break {
+    text-align: left;
+}
+
+.sa-el-fluentform-section-break-content-center .ff-el-group.ff-el-section-break {
+    text-align: center;
+}
+
+.sa-el-fluentform-section-break-content-right .ff-el-group.ff-el-section-break {
+    text-align: right;
+}
