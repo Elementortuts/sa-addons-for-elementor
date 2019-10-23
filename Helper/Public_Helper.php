@@ -125,6 +125,31 @@ trait Public_Helper {
         return false;
     }
 
+    /**
+     * Get Gravity Form [ if exists ]
+     *
+     * @return array
+     */
+    public function select_gravity_form() {
+        $options = array();
+
+        if (class_exists('GFCommon')) {
+            $gravity_forms = \RGFormsModel::get_forms(null, 'title');
+
+            if (!empty($gravity_forms) && !is_wp_error($gravity_forms)) {
+
+                $options[0] = esc_html__('Select Gravity Form', SA_EL_ADDONS_TEXTDOMAIN);
+                foreach ($gravity_forms as $form) {
+                    $options[$form->id] = $form->title;
+                }
+            } else {
+                $options[0] = esc_html__('Create a Form First', SA_EL_ADDONS_TEXTDOMAIN);
+            }
+        }
+
+        return $options;
+    }
+
     public function sl_enqueue_scripts() {
         if (!$this->has_cache_files()) {
             $this->generate_scripts(array_keys($this->Get_Active_Elements()));
@@ -133,6 +158,37 @@ trait Public_Helper {
         wp_enqueue_script(SA_EL_ADDONS_TEXTDOMAIN . '-js', content_url('uploads/' . SA_EL_ADDONS_TEXTDOMAIN . '/' . SA_EL_ADDONS_TEXTDOMAIN . '.min.js'), ['jquery']);
         // hook extended assets
         do_action(SA_EL_ADDONS_TEXTDOMAIN . '/after_enqueue_scripts', $this->has_cache_files());
+        if (defined('FLUENTFORM')) {
+            wp_enqueue_style(
+                    'fluent-form-styles',
+                    WP_PLUGIN_URL . '/fluentform/public/css/fluent-forms-public.css',
+                    array(),
+                    FLUENTFORM_VERSION
+            );
+
+            wp_enqueue_style(
+                    'fluentform-public-default',
+                    WP_PLUGIN_URL . '/fluentform/public/css/fluentform-public-default.css',
+                    array(),
+                    FLUENTFORM_VERSION
+            );
+        }
+        // Gravity forms Compatibility
+        if (class_exists('GFCommon')) {
+            foreach ($this->select_gravity_form() as $form_id => $form_name) {
+                if ($form_id != '0') {
+                    gravity_form_enqueue_scripts($form_id);
+                }
+            }
+        }
+        // Caldera forms compatibility
+        if (class_exists('Caldera_Forms')) {
+            add_filter('caldera_forms_force_enqueue_styles_early', '__return_true');
+        }
+        // WPforms compatibility
+        if (function_exists('wpforms')) {
+            wpforms()->frontend->assets_css();
+        }
     }
 
     public function enqueue_editor_scripts() {
