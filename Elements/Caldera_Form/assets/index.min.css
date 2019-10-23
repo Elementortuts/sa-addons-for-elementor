@@ -1,4 +1,25 @@
 
+.sa-el-caldera-form.placeholder-hide input::-webkit-input-placeholder,
+.sa-el-caldera-form.placeholder-hide textarea::-webkit-input-placeholder {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.sa-el-caldera-form.placeholder-hide input::placeholder,
+.sa-el-caldera-form.placeholder-hide textarea::placeholder{
+    opacity: 0;
+    visibility: hidden;
+}
+
+.sa-el-caldera-form.error-message-hide .ff-el-is-error .text-danger {
+    display: none;
+}
+
+.sa-el-caldera-form.placeholder-hide input:-moz-placeholder,
+.sa-el-caldera-form.placeholder-hide textarea:-moz-placeholder {
+    opacity: 0;
+    visibility: hidden;
+}
 .sa-el-caldera-form.sa-el-caldera-form-top-align-right{
     margin: 0  0 0 auto;
 }

@@ -59,13 +59,13 @@ class Caldera_Form extends Widget_Base {
             $contact_forms = \Caldera_Forms_Forms::get_forms(true, true);
 
             if (!empty($contact_forms) && !is_wp_error($contact_forms)) {
-                $options[0] = esc_html__('Select Caldera Form', 'essential-addons-elementor');
+                $options[0] = esc_html__('Select Caldera Form', SA_EL_ADDONS_TEXTDOMAIN);
                 foreach ($contact_forms as $form) {
                     $options[$form['ID']] = $form['name'];
                 }
             }
         } else {
-            $options[0] = esc_html__('Create a Form First', 'essential-addons-elementor');
+            $options[0] = esc_html__('Create a Form First', SA_EL_ADDONS_TEXTDOMAIN);
         }
 
         return $options;
@@ -447,18 +447,6 @@ class Caldera_Form extends Widget_Base {
                     ],
                     'selectors' => [
                         '{{WRAPPER}} .sa-el-caldera-form' => 'max-width: {{SIZE}}{{UNIT}};',
-                    ],
-                ]
-        );
-
-        $this->add_responsive_control(
-                'sa_el_contact_form_margin',
-                [
-                    'label' => esc_html__('Form Margin', SA_EL_ADDONS_TEXTDOMAIN),
-                    'type' => Controls_Manager::DIMENSIONS,
-                    'size_units' => ['px', 'em', '%'],
-                    'selectors' => [
-                        '{{WRAPPER}} .sa-el-caldera-form' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                     ],
                 ]
         );
@@ -1101,7 +1089,8 @@ class Caldera_Form extends Widget_Base {
                     'type' => Controls_Manager::COLOR,
                     'default' => '',
                     'selectors' => [
-                        '{{WRAPPER}} .sa-el-custom-radio-checkbox input[type="checkbox"]:checked:before, {{WRAPPER}} .sa-el-custom-radio-checkbox input[type="radio"]:checked:before' => 'background: {{VALUE}}',
+                        '{{WRAPPER}} .sa-el-custom-radio-checkbox input[type="checkbox"]:checked:before,
+                         {{WRAPPER}} .sa-el-custom-radio-checkbox input[type="radio"]:checked:before' => 'background: {{VALUE}}',
                     ],
                     'condition' => [
                         'custom_radio_checkbox' => 'yes',

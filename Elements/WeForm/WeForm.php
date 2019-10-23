@@ -76,7 +76,7 @@ class WeForm extends Widget_Base {
         $this->start_controls_section(
                 'section_info_box',
                 [
-                    'label' => __('Gravity Forms', SA_EL_ADDONS_TEXTDOMAIN),
+                    'label' => __('WeForm', SA_EL_ADDONS_TEXTDOMAIN),
                 ]
         );
         if (!$this->sa_el_is_weform_activated()) {
@@ -85,7 +85,7 @@ class WeForm extends Widget_Base {
                     [
                         'type' => Controls_Manager::RAW_HTML,
                         'raw' => sprintf(
-                                __('Hi, it seems %1$s is missing in your site. Please install and activate %1$s first.', 'happy-elementor-addons'),
+                                __('Hi, it seems %1$s is missing in your site. Please install and activate %1$s first.', SA_EL_ADDONS_TEXTDOMAIN),
                                 '<a href="https://wordpress.org/plugins/weforms/" target="_blank" rel="noopener">weForms</a>'
                         ),
                         'content_classes' => 'elementor-panel-alert elementor-panel-alert-warning',

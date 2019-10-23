@@ -1,4 +1,32 @@
+.sa-el-gravity-form.placeholder-hide input::-webkit-input-placeholder,
+.sa-el-gravity-form.placeholder-hide textarea::-webkit-input-placeholder {
+    opacity: 0;
+    visibility: hidden;
+}
 
+.sa-el-gravity-form.placeholder-hide input::-moz-placeholder,
+.sa-el-gravity-form.placeholder-hide textarea::-moz-placeholder {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.sa-el-gravity-form.placeholder-hide input:-ms-input-placeholder,
+.sa-el-gravity-form.placeholder-hide textarea:-ms-input-placeholder {
+    opacity: 0;
+    visibility: hidden;
+}
+.sa-el-gravity-form.sa-el-gravity-form.fluent-form-labels-hide label {
+    display: none !important;
+}
+.sa-el-gravity-form.sa-el-gravity-form.error-message-hide .ff-el-is-error .text-danger {
+    display: none;
+}
+
+.sa-el-gravity-form.placeholder-hide input:-moz-placeholder,
+.sa-el-gravity-form.placeholder-hide textarea:-moz-placeholder {
+    opacity: 0;
+    visibility: hidden;
+}
 .sa-el-gravity-form.sa-el-gravity-form-top-align-right{
     margin: 0  0 0 auto;
 }
