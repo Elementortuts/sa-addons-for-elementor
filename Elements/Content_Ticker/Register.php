@@ -11,7 +11,7 @@ return [
             SA_EL_ADDONS_PATH . 'Elements/Content_Ticker/assets/index.min.js',
         ],
     ],
-    'category' => 'Content Elements',
+    'category' => 'Post Elements',
     'Premium' => FALSE,
     'condition' => '',
     'API' => ''
