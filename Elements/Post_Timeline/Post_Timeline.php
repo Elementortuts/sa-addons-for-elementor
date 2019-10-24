@@ -13,7 +13,7 @@ use \Elementor\Group_Control_Box_Shadow;
 use \Elementor\Group_Control_Typography;
 use \Elementor\Scheme_Typography;
 use \Elementor\Widget_Base as Widget_Base;
-use \SA_EL_ADDONS\Elements\Post_Grid\Files\Post_Query as Post_Query;
+use \SA_EL_ADDONS\Elements\Post_Timeline\Files\Post_Query as Post_Query;
 
 class Post_Timeline extends Widget_Base
 {

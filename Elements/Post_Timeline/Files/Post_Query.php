@@ -1,6 +1,6 @@
 <?php
 
-namespace SA_EL_ADDONS\Elements\Post_Grid\Files;
+namespace SA_EL_ADDONS\Elements\Post_Timeline\Files;
 
 if (!defined('ABSPATH')) {
     exit;
