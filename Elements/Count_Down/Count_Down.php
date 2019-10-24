@@ -769,7 +769,7 @@ class Count_down extends Widget_Base {
 
         $this->add_group_control(
                 Group_Control_Typography::get_type(), [
-            'name' => 'eael_countdown_expire_title_typography',
+            'name' => 'sa_el_countdown_expire_title_typography',
             'scheme' => Scheme_Typography::TYPOGRAPHY_2,
             'selector' => '{{WRAPPER}} .sa_el_countdown_finish_message .expiry-title',
             'condition' => [
@@ -848,18 +848,18 @@ class Count_down extends Widget_Base {
 
         $due_date = date("M d Y G:i:s", strtotime($get_due_date));
         if ('style-1' === $settings['sa_el_section_countdown_style']) {
-            $eael_countdown_style = 'style-1';
+            $sa_el_countdown_style = 'style-1';
         } elseif ('style-2' === $settings['sa_el_section_countdown_style']) {
-            $eael_countdown_style = 'style-2';
+            $sa_el_countdown_style = 'style-2';
         } elseif ('style-3' === $settings['sa_el_section_countdown_style']) {
-            $eael_countdown_style = 'style-3';
+            $sa_el_countdown_style = 'style-3';
         }
 
         if ('template' == $settings['countdown_expire_type']) {
             if (!empty($settings['countdown_expiry_templates'])) {
-                $eael_template_id = $settings['countdown_expiry_templates'];
-                $eael_frontend = new Frontend;
-                $template = $eael_frontend->get_builder_content($eael_template_id, true);
+                $sa_el_template_id = $settings['countdown_expiry_templates'];
+                $sa_el_frontend = new Frontend;
+                $template = $sa_el_frontend->get_builder_content($sa_el_template_id, true);
             }
         }
 
@@ -886,7 +886,7 @@ class Count_down extends Widget_Base {
 
         <div <?php echo $this->get_render_attribute_string('sa_el_countdown'); ?>>
             <div class="sa_el_countdown_container <?php echo esc_attr($settings['sa_el_countdown_label_view']); ?> <?php echo esc_attr($settings['sa_el_countdown_separator']); ?>">
-                <ul id="sa_el_countdown_<?php echo esc_attr($this->get_id()); ?>" class="sa_el_countdown_items <?php echo esc_attr($eael_countdown_style); ?>" data-date="<?php echo esc_attr($due_date); ?>">
+                <ul id="sa_el_countdown_<?php echo esc_attr($this->get_id()); ?>" class="sa_el_countdown_items <?php echo esc_attr($sa_el_countdown_style); ?>" data-date="<?php echo esc_attr($due_date); ?>">
                     <?php if (!empty($settings['sa_el_countdown_days'])) : ?><li class="sa_el_countdown_item"><div class="sa_el_countdown_days"><span data-days class="sa_el_countdown_digits">00</span><?php if (!empty($settings['sa_el_countdown_days_label'])) : ?><span class="sa_el_countdown_label"><?php echo esc_attr($settings['sa_el_countdown_days_label']); ?></span><?php endif; ?></div></li><?php endif; ?>
                     <?php if (!empty($settings['sa_el_countdown_hours'])) : ?><li class="sa_el_countdown_item"><div class="sa_el_countdown_hours"><span data-hours class="sa_el_countdown_digits">00</span><?php if (!empty($settings['sa_el_countdown_hours_label'])) : ?><span class="sa_el_countdown_label"><?php echo esc_attr($settings['sa_el_countdown_hours_label']); ?></span><?php endif; ?></div></li><?php endif; ?>
                     <?php if (!empty($settings['sa_el_countdown_minutes'])) : ?><li class="sa_el_countdown_item"><div class="sa_el_countdown_minutes"><span data-minutes class="sa_el_countdown_digits">00</span><?php if (!empty($settings['sa_el_countdown_minutes_label'])) : ?><span class="sa_el_countdown_label"><?php echo esc_attr($settings['sa_el_countdown_minutes_label']); ?></span><?php endif; ?></div></li><?php endif; ?>

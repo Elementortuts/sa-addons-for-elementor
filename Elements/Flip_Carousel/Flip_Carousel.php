@@ -649,42 +649,42 @@ class Flip_Carousel extends Widget_Base
         $flipbox_image_url = Group_Control_Image_Size::get_attachment_image_src($flipbox_image['id'], 'thumbnail', $settings);
 
         // Loop Value
-        if ('true' == $settings['sa_el_flip_carousel_loop']) : $eael_loop = 'true';
-        else : $eael_loop = 'false';
+        if ('true' == $settings['sa_el_flip_carousel_loop']) : $sa_el_loop = 'true';
+        else : $sa_el_loop = 'false';
         endif;
         // Autoplay Value
-        if ('true' == $settings['sa_el_flip_carousel_autoplay']) : $eael_autoplay = $settings['sa_el_flip_carousel_autoplay_time'];
-        else : $eael_autoplay = 'false';
+        if ('true' == $settings['sa_el_flip_carousel_autoplay']) : $sa_el_autoplay = $settings['sa_el_flip_carousel_autoplay_time'];
+        else : $sa_el_autoplay = 'false';
         endif;
         // Pause On Hover Value
-        if ('true' == $settings['sa_el_flip_carousel_pause_on_hover']) : $eael_pause_hover = 'true';
-        else : $eael_pause_hover = 'false';
+        if ('true' == $settings['sa_el_flip_carousel_pause_on_hover']) : $sa_el_pause_hover = 'true';
+        else : $sa_el_pause_hover = 'false';
         endif;
         // Click Value
-        if ('true' == $settings['sa_el_flip_carousel_click']) : $eael_click = 'true';
-        else : $eael_click = 'false';
+        if ('true' == $settings['sa_el_flip_carousel_click']) : $sa_el_click = 'true';
+        else : $sa_el_click = 'false';
         endif;
         // Scroll Wheel Value
-        if ('true' == $settings['sa_el_flip_carousel_scrollwheel']) : $eael_wheel = 'true';
-        else : $eael_wheel = 'false';
+        if ('true' == $settings['sa_el_flip_carousel_scrollwheel']) : $sa_el_wheel = 'true';
+        else : $sa_el_wheel = 'false';
         endif;
         // Touch Play Value
-        if ('true' == $settings['sa_el_flip_carousel_touch']) : $eael_touch = 'true';
-        else : $eael_touch = 'false';
+        if ('true' == $settings['sa_el_flip_carousel_touch']) : $sa_el_touch = 'true';
+        else : $sa_el_touch = 'false';
         endif;
         // Navigator Value
-        if ('true' == $settings['sa_el_flip_carousel_button']) : $eael_buttons = 'true';
-        else : $eael_buttons = 'false';
+        if ('true' == $settings['sa_el_flip_carousel_button']) : $sa_el_buttons = 'true';
+        else : $sa_el_buttons = 'false';
         endif;
-        if ('true' == $settings['sa_el_flip_carousel_custom_nav']) : $eael_custom_buttons = 'custom';
-        else : $eael_custom_buttons = '';
+        if ('true' == $settings['sa_el_flip_carousel_custom_nav']) : $sa_el_custom_buttons = 'custom';
+        else : $sa_el_custom_buttons = '';
         endif;
         // Start Value
-        if ('true' == $settings['sa_el_flip_carousel_start_from']) : $eael_start = 'center';
-        else : $eael_start = (int) $settings['sa_el_flip_carousel_starting_number'];
+        if ('true' == $settings['sa_el_flip_carousel_start_from']) : $sa_el_start = 'center';
+        else : $sa_el_start = (int) $settings['sa_el_flip_carousel_starting_number'];
         endif;
         ?>
-        <div class="sa_el_flip_carousel flip-carousel-<?php echo esc_attr($this->get_id()); ?>" data-style="<?php echo esc_attr($settings['sa_el_flip_carousel_type']); ?>" data-start="<?php echo $eael_start; ?>" data-fadein="<?php echo esc_attr((int) $settings['sa_el_flip_carousel_fade_in']); ?>" data-loop="<?php echo $eael_loop; ?>" data-autoplay="<?php echo $eael_autoplay; ?>" data-pauseonhover="<?php echo $eael_pause_hover; ?>" data-spacing="<?php echo esc_attr($settings['sa_el_flip_carousel_spacing']['size']); ?>" data-click="<?php echo $eael_click; ?>" data-scrollwheel="<?php echo $eael_wheel; ?>" data-touch="<?php echo $eael_touch; ?>" data-buttons="<?php echo $eael_custom_buttons; ?>" data-buttonprev="<?php echo esc_attr($settings['sa_el_flip_carousel_custom_nav_prev']); ?>" data-buttonnext="<?php echo esc_attr($settings['sa_el_flip_carousel_custom_nav_next']); ?>">
+        <div class="sa_el_flip_carousel flip-carousel-<?php echo esc_attr($this->get_id()); ?>" data-style="<?php echo esc_attr($settings['sa_el_flip_carousel_type']); ?>" data-start="<?php echo $sa_el_start; ?>" data-fadein="<?php echo esc_attr((int) $settings['sa_el_flip_carousel_fade_in']); ?>" data-loop="<?php echo $sa_el_loop; ?>" data-autoplay="<?php echo $sa_el_autoplay; ?>" data-pauseonhover="<?php echo $sa_el_pause_hover; ?>" data-spacing="<?php echo esc_attr($settings['sa_el_flip_carousel_spacing']['size']); ?>" data-click="<?php echo $sa_el_click; ?>" data-scrollwheel="<?php echo $sa_el_wheel; ?>" data-touch="<?php echo $sa_el_touch; ?>" data-buttons="<?php echo $sa_el_custom_buttons; ?>" data-buttonprev="<?php echo esc_attr($settings['sa_el_flip_carousel_custom_nav_prev']); ?>" data-buttonnext="<?php echo esc_attr($settings['sa_el_flip_carousel_custom_nav_next']); ?>">
             <ul class="flip-items">
                 <?php
                 foreach ($settings['sa_el_flip_carousel_slides'] as $slides) :
@@ -693,11 +693,11 @@ class Flip_Carousel extends Widget_Base
                     <li>
                         <?php
                         if ('true' == $slides['sa_el_flip_carousel_enable_slide_link']) :
-                            $eael_slide_link = $slides['sa_el_flip_carousel_slide_link']['url'];
+                            $sa_el_slide_link = $slides['sa_el_flip_carousel_slide_link']['url'];
                             $target = $slides['sa_el_flip_carousel_slide_link']['is_external'] ? 'target="_blank"' : '';
                             $nofollow = $slides['sa_el_flip_carousel_slide_link']['nofollow'] ? 'rel="nofollow"' : '';
                             ?>
-                            <a href="<?php echo esc_url($eael_slide_link); ?>" <?php echo $target; ?> <?php echo $nofollow; ?>>
+                            <a href="<?php echo esc_url($sa_el_slide_link); ?>" <?php echo $target; ?> <?php echo $nofollow; ?>>
                                 <img src="<?php echo $slides['sa_el_flip_carousel_slide']['url'] ?>" alt="<?php echo esc_attr($image_alt_text); ?>">
                             </a>
                             <?php if ($slides['sa_el_flip_carousel_slide_text'] != '') : ?>

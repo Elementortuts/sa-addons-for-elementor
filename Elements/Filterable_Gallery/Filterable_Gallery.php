@@ -637,7 +637,7 @@ class Filterable_Gallery extends Widget_Base {
         $this->add_group_control(
                 Group_Control_Box_Shadow::get_type(),
                 [
-                    'name' => 'eael_fg_shadow',
+                    'name' => 'sa_el_fg_shadow',
                     'selector' => '{{WRAPPER}} .sa_el_filter_gallery_wrapper',
                 ]
         );
@@ -1012,7 +1012,7 @@ class Filterable_Gallery extends Widget_Base {
         $this->add_group_control(
                 Group_Control_Border::get_type(),
                 [
-                    'name' => 'eael_fg_item_cap_border',
+                    'name' => 'sa_el_fg_item_cap_border',
                     'label' => esc_html__('Border', SA_EL_ADDONS_TEXTDOMAIN),
                     'selector' => '{{WRAPPER}} .gallery-item-caption-wrap.caption-style-hoverer',
                 ]
@@ -1517,7 +1517,7 @@ class Filterable_Gallery extends Widget_Base {
                 ]
         );
 
-        $this->start_controls_tabs('tabs_eael_load_more_button_style');
+        $this->start_controls_tabs('tabs_sa_el_load_more_button_style');
 
         $this->start_controls_tab(
                 'tab_load_more_button_normal',
@@ -1849,7 +1849,7 @@ class Filterable_Gallery extends Widget_Base {
         return $gallery_store;
     }
 
-    protected function eael_render_fg_buttons($settings, $item) {
+    protected function sa_el_render_fg_buttons($settings, $item) {
         $html = '<div class="gallery-item-buttons">';
 
         if (!empty($settings['sa_el_section_fg_zoom_icon']) && ($item['show_lightbox'] == true)) {
@@ -1899,7 +1899,7 @@ class Filterable_Gallery extends Widget_Base {
 
             if ($settings['sa_el_fg_show_popup'] == 'buttons' && $settings['sa_el_fg_caption_style'] === 'card') {
                 $html .= '<div class="gallery-item-caption-wrap card-hover-bg caption-style-hoverer ' . $settings['sa_el_fg_grid_hover_style'] . '">';
-                $html .= ($this->eael_render_fg_buttons($settings, $item));
+                $html .= ($this->sa_el_render_fg_buttons($settings, $item));
                 $html .= '</div>';
             }
 
@@ -1950,7 +1950,7 @@ class Filterable_Gallery extends Widget_Base {
                     }
 
                     if ($settings['sa_el_fg_show_popup'] == 'buttons' && $settings['sa_el_fg_caption_style'] !== 'card') {
-                        $html .= ($this->eael_render_fg_buttons($settings, $item));
+                        $html .= ($this->sa_el_render_fg_buttons($settings, $item));
                     }
                     $html .= '</div>';
                     $html .= '</div>';
