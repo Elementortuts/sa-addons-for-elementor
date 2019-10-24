@@ -1,6 +1,6 @@
 <?php
 
-namespace SA_EL_ADDONS\Elements\Post_Grid;
+namespace SA_EL_ADDONS\Elements\Post_Timeline;
 
 if (!defined('ABSPATH')) {
     exit;
@@ -15,10 +15,11 @@ use \Elementor\Scheme_Typography;
 use \Elementor\Widget_Base as Widget_Base;
 use \SA_EL_ADDONS\Elements\Post_Grid\Files\Post_Query as Post_Query;
 
-class Post_Grid extends Widget_Base
+class Post_Timeline extends Widget_Base
 {
 
     use \SA_EL_ADDONS\Helper\Elementor_Helper;
+    use \SA_EL_ADDONS\Helper\Post_Query;
 
 
     public function get_name()
@@ -50,340 +51,18 @@ class Post_Grid extends Widget_Base
                 'tab' => Controls_Manager::TAB_CONTENT,
             ]
         );
-        $this->add_control(
-            'post_type',
-            [
-                'label' => __('Source', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::SELECT,
-                'options' => Post_Query::post_type(),
-                'default' => key(Post_Query::post_type()),
-            ]
-        );
-        $this->add_control(
-            'authors',
-            [
-                'label' => __('Author', SA_EL_ADDONS_TEXTDOMAIN),
-                'label_block' => true,
-                'type' => Controls_Manager::SELECT2,
-                'multiple' => true,
-                'default' => [],
-                'options' => Post_Query::post_author(),
-                'condition' => [
-                    'post_type!' => 'by_id',
-                ],
-            ]
-        );
-        foreach (Post_Query::post_type() as $key => $value) {
-            if ($key != 'page') :
-                $this->add_control(
-                    $key . '_category',
-                    [
-                        'label' => __('Category', SA_EL_ADDONS_TEXTDOMAIN),
-                        'label_block' => true,
-                        'type' => Controls_Manager::SELECT2,
-                        'multiple' => true,
-                        'default' => [],
-                        'options' => Post_Query::post_category($key),
-                        'condition' => [
-                            'post_type' => $key,
-                        ],
-                    ]
-                );
-                $this->add_control(
-                    $key . '_tag',
-                    [
-                        'label' => __('Tags', SA_EL_ADDONS_TEXTDOMAIN),
-                        'label_block' => true,
-                        'type' => Controls_Manager::SELECT2,
-                        'multiple' => true,
-                        'default' => [],
-                        'options' => Post_Query::post_tags($key),
-                        'condition' => [
-                            'post_type' => $key,
-                        ],
-                    ]
-                );
-            endif;
-            $this->add_control(
-                $key . '_include',
-                [
-                    'label' => __('Include', SA_EL_ADDONS_TEXTDOMAIN),
-                    'label_block' => true,
-                    'type' => Controls_Manager::SELECT2,
-                    'multiple' => true,
-                    'default' => [],
-                    'options' => Post_Query::post_include($key),
-                    'condition' => [
-                        'post_type' => $key,
-                    ],
-                ]
-            );
-            $this->add_control(
-                $key . '_exclude',
-                [
-                    'label' => __('Exclude', SA_EL_ADDONS_TEXTDOMAIN),
-                    'label_block' => true,
-                    'type' => Controls_Manager::SELECT2,
-                    'multiple' => true,
-                    'default' => [],
-                    'options' => Post_Query::post_exclude($key),
-                    'condition' => [
-                        'post_type' => $key,
-                    ],
-                ]
-            );
-        }
-        $this->add_control(
-            'posts_per_page',
-            [
-                'label' => __('Posts Per Page', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::NUMBER,
-                'default' => '4',
-            ]
-        );
-
-        $this->add_control(
-            'offset',
-            [
-                'label' => __('Offset', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::NUMBER,
-                'default' => '0',
-            ]
-        );
-
-        $this->add_control(
-            'orderby',
-            [
-                'label' => __('Order By', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::SELECT,
-                'options' => Post_Query::get_post_orderby_options(),
-                'default' => 'date',
-
-            ]
-        );
-
-        $this->add_control(
-            'order',
-            [
-                'label' => __('Order', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::SELECT,
-                'options' => [
-                    'asc' => 'Ascending',
-                    'desc' => 'Descending',
-                ],
-                'default' => 'desc',
-
-            ]
-        );
+        $this->sa_el_query_controls();
         $this->end_controls_section();
+
         $this->start_controls_section(
             'sa_el_section_post_timeline_layout',
             [
                 'label' => __('Layout Settings', SA_EL_ADDONS_TEXTDOMAIN),
             ]
         );
-        $this->add_responsive_control(
-            'sa_el_post_grid_columns',
-            [
-                'label' => esc_html__('Number of Columns', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::SELECT,
-                'default' => 'sa-el-col-4',
-                'options' => [
-                    'sa-el-col-1' => esc_html__('Single Column', SA_EL_ADDONS_TEXTDOMAIN),
-                    'sa-el-col-2' => esc_html__('Two Columns', SA_EL_ADDONS_TEXTDOMAIN),
-                    'sa-el-col-3' => esc_html__('Three Columns', SA_EL_ADDONS_TEXTDOMAIN),
-                    'sa-el-col-4' => esc_html__('Four Columns', SA_EL_ADDONS_TEXTDOMAIN),
-                    'sa-el-col-5' => esc_html__('Five Columns', SA_EL_ADDONS_TEXTDOMAIN),
-                    'sa-el-col-6' => esc_html__('Six Columns', SA_EL_ADDONS_TEXTDOMAIN),
-                ],
-            ]
-        );
-        $this->add_control(
-            'show_load_more',
-            [
-                'label' => __('Show Load More', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::CHOOSE,
-                'options' => [
-                    '1' => [
-                        'title' => __('Yes', SA_EL_ADDONS_TEXTDOMAIN),
-                        'icon' => 'fa fa-check',
-                    ],
-                    '0' => [
-                        'title' => __('No', SA_EL_ADDONS_TEXTDOMAIN),
-                        'icon' => 'fa fa-ban',
-                    ],
-                ],
-                'default' => '0',
-            ]
-        );
 
-        $this->add_control(
-            'show_load_more_text',
-            [
-                'label' => esc_html__('Label Text', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::TEXT,
-                'label_block' => false,
-                'default' => esc_html__('Load More', SA_EL_ADDONS_TEXTDOMAIN),
-                'condition' => [
-                    'show_load_more' => '1',
-                ],
-            ]
-        );
-        $this->add_control(
-            'sa_el_show_image',
-            [
-                'label' => __('Show Image', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::CHOOSE,
-                'options' => [
-                    '1' => [
-                        'title' => __('Yes', SA_EL_ADDONS_TEXTDOMAIN),
-                        'icon' => 'fa fa-check',
-                    ],
-                    '0' => [
-                        'title' => __('No', SA_EL_ADDONS_TEXTDOMAIN),
-                        'icon' => 'fa fa-ban',
-                    ],
-                ],
-                'default' => '1',
-            ]
-        );
-        $this->add_group_control(
-            Group_Control_Image_Size::get_type(),
-            [
-                'name' => 'image',
-                'exclude' => ['custom'],
-                'default' => 'medium',
-                'condition' => [
-                    'sa_el_show_image' => '1',
-                ],
-            ]
-        );
-        $this->add_control(
-            'sa_el_show_title',
-            [
-                'label' => __('Show Title', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::CHOOSE,
-                'options' => [
-                    '1' => [
-                        'title' => __('Yes', SA_EL_ADDONS_TEXTDOMAIN),
-                        'icon' => 'fa fa-check',
-                    ],
-                    '0' => [
-                        'title' => __('No', SA_EL_ADDONS_TEXTDOMAIN),
-                        'icon' => 'fa fa-ban',
-                    ],
-                ],
-                'default' => '1',
-            ]
-        );
+        $this->sa_el_layout_controls();
 
-        $this->add_control(
-            'sa_el_show_excerpt',
-            [
-                'label' => __('Show excerpt', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::CHOOSE,
-                'options' => [
-                    '1' => [
-                        'title' => __('Yes', SA_EL_ADDONS_TEXTDOMAIN),
-                        'icon' => 'fa fa-check',
-                    ],
-                    '0' => [
-                        'title' => __('No', SA_EL_ADDONS_TEXTDOMAIN),
-                        'icon' => 'fa fa-ban',
-                    ],
-                ],
-                'default' => '1',
-            ]
-        );
-
-        $this->add_control(
-            'sa_el_excerpt_length',
-            [
-                'label' => __('Excerpt Words', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::NUMBER,
-                'default' => '10',
-                'condition' => [
-                    'sa_el_show_excerpt' => '1',
-                ],
-            ]
-        );
-
-        $this->add_control(
-            'excerpt_expanison_indicator',
-            [
-                'label' => esc_html__('Expanison Indicator', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::TEXT,
-                'label_block' => false,
-                'default' => esc_html__('...', SA_EL_ADDONS_TEXTDOMAIN),
-                'condition' => [
-                    'sa_el_show_excerpt' => '1',
-                ],
-            ]
-        );
-        $this->add_control(
-            'sa_el_show_read_more_button',
-            [
-                'label' => __('Show Read More Button', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::CHOOSE,
-                'options' => [
-                    '1' => [
-                        'title' => __('Yes', SA_EL_ADDONS_TEXTDOMAIN),
-                        'icon' => 'fa fa-check',
-                    ],
-                    '0' => [
-                        'title' => __('No', SA_EL_ADDONS_TEXTDOMAIN),
-                        'icon' => 'fa fa-ban',
-                    ],
-                ],
-                'default' => '1',
-            ]
-        );
-
-        $this->add_control(
-            'read_more_button_text',
-            [
-                'label' => __('Button Text', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::TEXT,
-                'default' => __('Read More', SA_EL_ADDONS_TEXTDOMAIN),
-                'condition' => [
-                    'sa_el_show_read_more_button' => '1',
-                ],
-            ]
-        );
-        $this->add_control(
-            'sa_el_show_meta',
-            [
-                'label' => __('Show Meta', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::CHOOSE,
-                'options' => [
-                    '1' => [
-                        'title' => __('Yes', SA_EL_ADDONS_TEXTDOMAIN),
-                        'icon' => 'fa fa-check',
-                    ],
-                    '0' => [
-                        'title' => __('No', SA_EL_ADDONS_TEXTDOMAIN),
-                        'icon' => 'fa fa-ban',
-                    ],
-                ],
-                'default' => '1',
-            ]
-        );
-
-        $this->add_control(
-            'meta_position',
-            [
-                'label' => esc_html__('Meta Position', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::SELECT,
-                'default' => 'meta-entry-footer',
-                'options' => [
-                    'meta-entry-header' => esc_html__('Entry Header', SA_EL_ADDONS_TEXTDOMAIN),
-                    'meta-entry-footer' => esc_html__('Entry Footer', SA_EL_ADDONS_TEXTDOMAIN),
-                ],
-                'condition' => [
-                    'sa_el_show_meta' => '1',
-                ],
-            ]
-        );
         $this->end_controls_section();
 
         $this->start_controls_section(
@@ -395,80 +74,112 @@ class Post_Grid extends Widget_Base
         );
 
         $this->add_control(
-            'sa_el_post_grid_bg_color',
+            'sa_el_timeline_overlay_color',
             [
-                'label' => __('Post Background Color', SA_EL_ADDONS_TEXTDOMAIN),
+                'label' => __('Overlay Color', SA_EL_ADDONS_TEXTDOMAIN),
                 'type' => Controls_Manager::COLOR,
-                'default' => '#fff',
+                'description' => __('Leave blank or Clear to use default gradient overlay', SA_EL_ADDONS_TEXTDOMAIN),
+                'default' => 'linear-gradient(45deg, #3f3f46 0%, #05abe0 100%) repeat scroll 0 0 rgba(0, 0, 0, 0)',
                 'selectors' => [
-                    '{{WRAPPER}} .sa-el-grid-post-holder' => 'background-color: {{VALUE}}',
+                    '{{WRAPPER}} .sa-el-timeline-post-inner' => 'background: {{VALUE}}',
                 ],
 
-            ]
-        );
-
-        $this->add_responsive_control(
-            'sa_el_post_grid_spacing',
-            [
-                'label' => esc_html__('Spacing Between Items', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::DIMENSIONS,
-                'size_units' => ['px', '%', 'em'],
-                'selectors' => [
-                    '{{WRAPPER}} .sa-el-grid-post' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-                ],
-            ]
-        );
-
-        $this->add_group_control(
-            Group_Control_Border::get_type(),
-            [
-                'name' => 'sa_el_post_grid_border',
-                'label' => esc_html__('Border', SA_EL_ADDONS_TEXTDOMAIN),
-                'selector' => '{{WRAPPER}} .sa-el-grid-post-holder',
             ]
         );
 
         $this->add_control(
-            'sa_el_post_grid_border_radius',
+            'sa_el_timeline_bullet_color',
             [
-                'label' => esc_html__('Border Radius', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::DIMENSIONS,
+                'label' => __('Timeline Bullet Color', SA_EL_ADDONS_TEXTDOMAIN),
+                'type' => Controls_Manager::COLOR,
+                'default' => '#9fa9af',
                 'selectors' => [
-                    '{{WRAPPER}} .sa-el-grid-post-holder' => 'border-radius: {{TOP}}px {{RIGHT}}px {{BOTTOM}}px {{LEFT}}px;',
+                    '{{WRAPPER}} .sa-el-timeline-bullet' => 'background-color: {{VALUE}};',
                 ],
+
             ]
         );
 
-        $this->add_group_control(
-            Group_Control_Box_Shadow::get_type(),
+        $this->add_control(
+            'sa_el_timeline_bullet_border_color',
             [
-                'name' => 'sa_el_post_grid_box_shadow',
-                'selector' => '{{WRAPPER}} .sa-el-grid-post-holder',
-            ]
-        );
-        $this->add_responsive_control(
-            'sa_el_post_grid_padding',
-            [
-                'label' => esc_html__('Padding', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::DIMENSIONS,
-                'size_units' => ['px', '%', 'em'],
+                'label' => __('Timeline Bullet Border Color', SA_EL_ADDONS_TEXTDOMAIN),
+                'type' => Controls_Manager::COLOR,
+                'default' => '#fff',
                 'selectors' => [
-                    '{{WRAPPER}} .sa-el-grid-post-holder' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .sa-el-timeline-bullet' => 'border-color: {{VALUE}};',
                 ],
+
             ]
         );
+
+        $this->add_control(
+            'sa_el_timeline_vertical_line_color',
+            [
+                'label' => __('Timeline Vertical Line Color', SA_EL_ADDONS_TEXTDOMAIN),
+                'type' => Controls_Manager::COLOR,
+                'default' => 'rgba(83, 85, 86, .2)',
+                'selectors' => [
+                    '{{WRAPPER}} .sa-el-timeline-post:after' => 'background-color: {{VALUE}};',
+                ],
+
+            ]
+        );
+
+        $this->add_control(
+            'sa_el_timeline_border_color',
+            [
+                'label' => __('Border & Arrow Color', SA_EL_ADDONS_TEXTDOMAIN),
+                'type' => Controls_Manager::COLOR,
+                'default' => '#e5eaed',
+                'selectors' => [
+                    '{{WRAPPER}} .sa-el-timeline-post-inner' => 'border-color: {{VALUE}};',
+                    '{{WRAPPER}} .sa-el-timeline-post-inner::after' => 'border-left-color: {{VALUE}};',
+                    '{{WRAPPER}} .sa-el-timeline-post:nth-child(2n) .sa-el-timeline-post-inner::after' => 'border-right-color: {{VALUE}};',
+                ],
+
+            ]
+        );
+
+        $this->add_control(
+            'sa_el_timeline_date_background_color',
+            [
+                'label' => __('Date Background Color', SA_EL_ADDONS_TEXTDOMAIN),
+                'type' => Controls_Manager::COLOR,
+                'default' => 'rgba(0, 0, 0, 0.7)',
+                'selectors' => [
+                    '{{WRAPPER}} .sa-el-timeline-post time' => 'background-color: {{VALUE}};',
+                    '{{WRAPPER}} .sa-el-timeline-post time::before' => 'border-bottom-color: {{VALUE}};',
+                ],
+
+            ]
+        );
+
+        $this->add_control(
+            'sa_el_timeline_date_color',
+            [
+                'label' => __('Date Text Color', SA_EL_ADDONS_TEXTDOMAIN),
+                'type' => Controls_Manager::COLOR,
+                'default' => '#fff',
+                'selectors' => [
+                    '{{WRAPPER}} .sa-el-timeline-post time' => 'color: {{VALUE}};',
+                ],
+
+            ]
+        );
+
         $this->end_controls_section();
 
         $this->start_controls_section(
             'sa_el_section_typography',
             [
-                'label' => __('Color & Typography', SA_EL_ADDONS_TEXTDOMAIN),
+                'label' => __('Typography', SA_EL_ADDONS_TEXTDOMAIN),
                 'tab' => Controls_Manager::TAB_STYLE,
             ]
         );
 
         $this->add_control(
-            'sa_el_post_grid_title_style',
+            'sa_el_timeline_title_style',
             [
                 'label' => __('Title Style', SA_EL_ADDONS_TEXTDOMAIN),
                 'type' => Controls_Manager::HEADING,
@@ -477,33 +188,20 @@ class Post_Grid extends Widget_Base
         );
 
         $this->add_control(
-            'sa_el_post_grid_title_color',
+            'sa_el_timeline_title_color',
             [
                 'label' => __('Title Color', SA_EL_ADDONS_TEXTDOMAIN),
                 'type' => Controls_Manager::COLOR,
-                'default' => '#303133',
+                'default' => '#fff',
                 'selectors' => [
-                    '{{WRAPPER}} .sa-el-entry-title a' => 'color: {{VALUE}};',
-                ],
-
-            ]
-        );
-
-        $this->add_control(
-            'sa_el_post_grid_title_hover_color',
-            [
-                'label' => __('Title Hover Color', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::COLOR,
-                'default' => '#23527c',
-                'selectors' => [
-                    '{{WRAPPER}} .sa-el-entry-title:hover, {{WRAPPER}} .sa-el-entry-title a:hover' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .sa-el-timeline-post-title h2' => 'color: {{VALUE}};',
                 ],
 
             ]
         );
 
         $this->add_responsive_control(
-            'sa_el_post_grid_title_alignment',
+            'sa_el_timeline_title_alignment',
             [
                 'label' => __('Title Alignment', SA_EL_ADDONS_TEXTDOMAIN),
                 'type' => Controls_Manager::CHOOSE,
@@ -522,7 +220,7 @@ class Post_Grid extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .sa-el-entry-title' => 'text-align: {{VALUE}};',
+                    '{{WRAPPER}} .sa-el-timeline-post-title h2' => 'text-align: {{VALUE}};',
                 ],
             ]
         );
@@ -530,25 +228,15 @@ class Post_Grid extends Widget_Base
         $this->add_group_control(
             Group_Control_Typography::get_type(),
             [
-                'name' => 'sa_el_post_grid_title_typography',
+                'name' => 'sa_el_timeline_title_typography',
                 'label' => __('Typography', SA_EL_ADDONS_TEXTDOMAIN),
                 'scheme' => Scheme_Typography::TYPOGRAPHY_1,
-                'selector' => '{{WRAPPER}} .sa-el-entry-title',
+                'selector' => '{{WRAPPER}} .sa-el-timeline-post-title h2',
             ]
         );
-        $this->add_responsive_control(
-            'sa_el_post_grid_title_spacing',
-            [
-                'label' => esc_html__('Padding', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::DIMENSIONS,
-                'size_units' => ['px', '%', 'em'],
-                'selectors' => [
-                    '{{WRAPPER}} .sa-el-entry-title' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-                ],
-            ]
-        );
+
         $this->add_control(
-            'sa_el_post_grid_excerpt_style',
+            'sa_el_timeline_excerpt_style',
             [
                 'label' => __('Excerpt Style', SA_EL_ADDONS_TEXTDOMAIN),
                 'type' => Controls_Manager::HEADING,
@@ -557,19 +245,19 @@ class Post_Grid extends Widget_Base
         );
 
         $this->add_control(
-            'sa_el_post_grid_excerpt_color',
+            'sa_el_timeline_excerpt_color',
             [
                 'label' => __('Excerpt Color', SA_EL_ADDONS_TEXTDOMAIN),
                 'type' => Controls_Manager::COLOR,
-                'default' => '',
+                'default' => '#ffffff',
                 'selectors' => [
-                    '{{WRAPPER}} .sa-el-grid-post-excerpt p' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .sa-el-timeline-post-excerpt p' => 'color: {{VALUE}};',
                 ],
             ]
         );
 
         $this->add_responsive_control(
-            'sa_el_post_grid_excerpt_alignment',
+            'sa_el_timeline_excerpt_alignment',
             [
                 'label' => __('Excerpt Alignment', SA_EL_ADDONS_TEXTDOMAIN),
                 'type' => Controls_Manager::CHOOSE,
@@ -592,7 +280,7 @@ class Post_Grid extends Widget_Base
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .sa-el-grid-post-excerpt' => 'text-align: {{VALUE}};',
+                    '{{WRAPPER}} .sa-el-timeline-post-excerpt p' => 'text-align: {{VALUE}};',
                 ],
             ]
         );
@@ -600,260 +288,10 @@ class Post_Grid extends Widget_Base
         $this->add_group_control(
             Group_Control_Typography::get_type(),
             [
-                'name' => 'sa_el_post_grid_excerpt_typography',
-                'label' => __('Excerpt Typography', SA_EL_ADDONS_TEXTDOMAIN),
+                'name' => 'sa_el_timeline_excerpt_typography',
+                'label' => __('excerpt Typography', SA_EL_ADDONS_TEXTDOMAIN),
                 'scheme' => Scheme_Typography::TYPOGRAPHY_3,
-                'selector' => '{{WRAPPER}} .sa-el-grid-post-excerpt p',
-            ]
-        );
-
-        $this->add_responsive_control(
-            'sa_el_post_grid_excerpt_spacing',
-            [
-                'label' => esc_html__('Padding', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::DIMENSIONS,
-                'size_units' => ['px', '%', 'em'],
-                'selectors' => [
-                    '{{WRAPPER}} .sa-el-grid-post-excerpt p' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-                ],
-            ]
-        );
-
-        $this->add_control(
-            'sa_el_post_grid_read_more_style',
-            [
-                'label' => __('Read More Style', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::HEADING,
-                'separator' => 'before',
-            ]
-        );
-        $this->add_group_control(
-            Group_Control_Typography::get_type(),
-            [
-                'name' => 'sa_el_post_grid_read_more_typography',
-                'label' => __('Meta Typography', SA_EL_ADDONS_TEXTDOMAIN),
-                'scheme' => Scheme_Typography::TYPOGRAPHY_3,
-                'selector' => '{{WRAPPER}} .sa-el-post-elements-readmore-btn',
-                
-            ]
-        );
-        $this->start_controls_tabs('sa_el_post_grid_read_more_tabs');
-
-        // Normal State Tab
-        $this->start_controls_tab('sa_el_post_grid_read_more_normal', ['label' => esc_html__('Normal', SA_EL_ADDONS_TEXTDOMAIN)]);
-
-        $this->add_control(
-            'sa_el_post_grid_read_more_color',
-            [
-                'label' => __('Read More Color', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::COLOR,
-                'default' => '',
-                'selectors' => [
-                    '{{WRAPPER}} .sa-el-post-elements-readmore-btn' => 'color: {{VALUE}};',
-                ],
-            ]
-        );
-        $this->end_controls_tab();
-        // hover State Tab
-        $this->start_controls_tab('sa_el_post_grid_read_more_hover', ['label' => esc_html__('Hover', SA_EL_ADDONS_TEXTDOMAIN)]);
-
-        $this->add_control(
-            'sa_el_post_grid_read_more_color_h',
-            [
-                'label' => __('Read More Hover Color', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::COLOR,
-                'default' => '',
-                'selectors' => [
-                    '{{WRAPPER}} .sa-el-post-elements-readmore-btn:hover' => 'color: {{VALUE}};',
-                ],
-            ]
-        );
-        $this->end_controls_tab();
-        $this->end_controls_tabs();
-        
-        $this->add_responsive_control(
-            'sa_el_post_grid_read_more_spacing',
-            [
-                'label' => esc_html__('Padding', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::DIMENSIONS,
-                'separator' => 'after',
-                'size_units' => ['px', '%', 'em'],
-                'selectors' => [
-                    '{{WRAPPER}} .sa-el-post-elements-readmore-btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-                ],
-            ]
-        );
-
-
-
-
-
-
-
-
-        $this->add_control(
-            'sa_el_post_grid_meta_style',
-            [
-                'label' => __('Meta Style', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::HEADING,
-                'separator' => 'before',
-            ]
-        );
-
-        $this->add_control(
-            'sa_el_post_grid_meta_color',
-            [
-                'label' => __('Meta Color', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::COLOR,
-                'default' => '',
-                'selectors' => [
-                    '{{WRAPPER}} .sa-el-entry-meta, .sa-el-entry-meta a' => 'color: {{VALUE}};',
-                ],
-            ]
-        );
-
-        $this->add_responsive_control(
-            'sa_el_post_grid_meta_alignment',
-            [
-                'label' => __('Meta Alignment', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::CHOOSE,
-                'options' => [
-                    'flex-start' => [
-                        'title' => __('Left', SA_EL_ADDONS_TEXTDOMAIN),
-                        'icon' => 'fa fa-align-left',
-                    ],
-                    'center' => [
-                        'title' => __('Center', SA_EL_ADDONS_TEXTDOMAIN),
-                        'icon' => 'fa fa-align-center',
-                    ],
-                    'flex-end' => [
-                        'title' => __('Right', SA_EL_ADDONS_TEXTDOMAIN),
-                        'icon' => 'fa fa-align-right',
-                    ],
-                    'stretch' => [
-                        'title' => __('Justified', SA_EL_ADDONS_TEXTDOMAIN),
-                        'icon' => 'fa fa-align-justify',
-                    ],
-                ],
-                'selectors' => [
-                    '{{WRAPPER}} .sa-el-entry-footer' => 'justify-content: {{VALUE}};',
-                    '{{WRAPPER}} .sa-el-entry-meta' => 'justify-content: {{VALUE}};',
-                ],
-            ]
-        );
-
-        $this->add_group_control(
-            Group_Control_Typography::get_type(),
-            [
-                'name' => 'sa_el_post_grid_meta_typography',
-                'label' => __('Meta Typography', SA_EL_ADDONS_TEXTDOMAIN),
-                'scheme' => Scheme_Typography::TYPOGRAPHY_3,
-                'selector' => '{{WRAPPER}} .sa-el-entry-meta > div, {{WRAPPER}} .sa-el-entry-meta > span',
-            ]
-        );
-        $this->add_responsive_control(
-            'sa_el_post_grid_meta_spacing',
-            [
-                'label' => esc_html__('Padding', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::DIMENSIONS,
-                'size_units' => ['px', '%', 'em'],
-                'selectors' => [
-                    '{{WRAPPER}} .sa-el-entry-meta' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-                ],
-            ]
-        );
-        $this->end_controls_section();
-
-        $this->start_controls_section(
-            'sa_el_section_hover_card_styles',
-            [
-                'label' => __('Hover Card Style', SA_EL_ADDONS_TEXTDOMAIN),
-                'tab' => Controls_Manager::TAB_STYLE,
-            ]
-        );
-
-        $this->add_control(
-            'sa_el_post_grid_hover_animation',
-            [
-                'label' => esc_html__('Animation', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::SELECT,
-                'default' => 'fade-in',
-                'options' => [
-                    'none' => esc_html__('None', SA_EL_ADDONS_TEXTDOMAIN),
-                    'fade-in' => esc_html__('FadeIn', SA_EL_ADDONS_TEXTDOMAIN),
-                    'zoom-in' => esc_html__('ZoomIn', SA_EL_ADDONS_TEXTDOMAIN),
-                    'slide-up' => esc_html__('SlideUp', SA_EL_ADDONS_TEXTDOMAIN),
-                ],
-            ]
-        );
-
-        $this->add_control(
-            'sa_el_post_grid_bg_hover_icon_new',
-            [
-                'label' => __('Post Hover Icon', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::ICONS,
-                'fa4compatibility' => 'sa_el_post_grid_bg_hover_icon',
-                'default' => [
-                    'value' => 'fa fa-long-arrow-right',
-                    'library' => 'fa-solid',
-                ],
-                'condition' => [
-                    'sa_el_post_grid_hover_animation!' => 'none',
-                ],
-            ]
-        );
-
-        $this->add_control(
-            'sa_el_post_grid_hover_bg_color',
-            [
-                'label' => __('Background Color', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::COLOR,
-                'default' => 'rgba(0,0,0, .75)',
-                'selectors' => [
-                    '{{WRAPPER}} .sa-el-grid-post .sa-el-entry-overlay' => 'background-color: {{VALUE}}',
-                ],
-
-            ]
-        );
-
-        $this->add_control(
-            'sa_el_post_grid_hover_icon_color',
-            [
-                'label' => __('Icon Color', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::COLOR,
-                'default' => '#ffffff',
-                'selectors' => [
-                    '{{WRAPPER}} .sa-el-grid-post .sa-el-entry-overlay > i' => 'color: {{VALUE}}',
-                ],
-            ]
-        );
-
-        $this->add_responsive_control(
-            'sa_el_post_grid_hover_icon_fontsize',
-            [
-                'label' => __('Icon font size', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::SLIDER,
-                'default' => [
-                    'unit' => 'px',
-                    'size' => 18,
-                ],
-                'size_units' => ['px', 'em'],
-                'range' => [
-                    'px' => [
-                        'min' => 0,
-                        'max' => 100,
-                        'step' => 1,
-                    ],
-                    'em' => [
-                        'min' => 0,
-                        'max' => 100,
-                        'step' => 1,
-                    ],
-                ],
-                'selectors' => [
-                    '{{WRAPPER}} .sa-el-grid-post .sa-el-entry-overlay > i' => 'font-size: {{SIZE}}{{UNIT}};',
-                    '{{WRAPPER}} .sa-el-grid-post .sa-el-entry-overlay > img' => 'height: {{SIZE}}{{UNIT}}; width: {{SIZE}}{{UNIT}};'
-                ],
+                'selector' => '{{WRAPPER}} .sa-el-timeline-post-excerpt p',
             ]
         );
 
@@ -1047,7 +485,7 @@ class Post_Grid extends Widget_Base
     protected function render()
     {
         $settings = $this->get_settings_for_display();
-        $args = Post_Query::query_args($settings);
+        $args = $this->query_args($settings);
 
         $this->add_render_attribute(
             'post_grid_wrapper',
@@ -1095,28 +533,6 @@ class Post_Grid extends Widget_Base
             }
         }
 
-        if (\Elementor\Plugin::instance()->editor->is_edit_mode()) {
-            echo '<script type="text/javascript">
-                    jQuery(document).ready(function() {
-                        jQuery(".sa-el-post-grid").each(function() {
-                            var $scope = jQuery(".elementor-element-' . $this->get_id() . '");
-
-                            // init isotope
-                            var $gallery = jQuery(".sa-el-post-grid", $scope).isotope({
-                                itemSelector: ".sa-el-grid-post",
-                                masonry: {
-                                    columnWidth: ".sa-el-post-grid-column",
-                                    percentPosition: true
-                                }
-                            });
-
-                            // layout gal, while images are loading
-                            $gallery.imagesLoaded().progress(function() {
-                                $gallery.isotope("layout");
-                            });
-                        });
-                    });
-                </script>';
-        }
+        
     }
 }
