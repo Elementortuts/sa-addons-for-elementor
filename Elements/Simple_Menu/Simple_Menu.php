@@ -1,38 +1,38 @@
 <?php
 
-namespace SA_EL_ADDONS\Elements\Advanced_Menu;
+namespace SA_EL_ADDONS\Elements\Simple_Menu;
 
 if (!defined('ABSPATH')) {
     exit;
 }
 
 /**
- * Description of Advanced_Menu
+ * Description of Simple_Menu
  *
  * @author biplo
  * 
  */
 use \Elementor\Controls_Manager as Controls_Manager;
 use \Elementor\Widget_Base as Widget_Base;
-use \SA_EL_ADDONS\Skins\Skin_Default;
-use \SA_EL_ADDONS\Skins\Skin_Five;
-use \SA_EL_ADDONS\Skins\Skin_Four;
-use \SA_EL_ADDONS\Skins\Skin_One;
-use \SA_EL_ADDONS\Skins\Skin_Seven;
-use \SA_EL_ADDONS\Skins\Skin_Six;
-use \SA_EL_ADDONS\Skins\Skin_Three;
-use \SA_EL_ADDONS\Skins\Skin_Two;
+use \SA_EL_ADDONS\Elements\Simple_Menu\Skins\Skin_Default;
+use \SA_EL_ADDONS\Elements\Simple_Menu\Skins\Skin_Five;
+use \SA_EL_ADDONS\Elements\Simple_Menu\Skins\Skin_Four;
+use \SA_EL_ADDONS\Elements\Simple_Menu\Skins\Skin_One;
+use \SA_EL_ADDONS\Elements\Simple_Menu\Skins\Skin_Seven;
+use \SA_EL_ADDONS\Elements\Simple_Menu\Skins\Skin_Six;
+use \SA_EL_ADDONS\Elements\Simple_Menu\Skins\Skin_Three;
+use \SA_EL_ADDONS\Elements\Simple_Menu\Skins\Skin_Two;
 
-class Advanced_Menu extends Widget_Base {
+class Simple_Menu extends Widget_Base {
 
     use \SA_EL_ADDONS\Helper\Elementor_Helper;
 
     public function get_name() {
-        return 'sa-el-advanced-menu';
+        return 'sa-el-simple-menu';
     }
 
     public function get_title() {
-        return esc_html__('Advanced Menu', SA_EL_ADDONS_TEXTDOMAIN);
+        return esc_html__('Simple Menu', SA_EL_ADDONS_TEXTDOMAIN);
     }
 
     public function get_icon() {
@@ -59,14 +59,14 @@ class Advanced_Menu extends Widget_Base {
          * Content: General
          */
         $this->start_controls_section(
-                'sa_el_advanced_menu_section_general',
+                'sa_el_simple_menu_section_general',
                 [
                     'label' => esc_html__('General', SA_EL_ADDONS_TEXTDOMAIN),
                 ]
         );
 
         $this->add_control(
-                'sa_el_advanced_menu_menu',
+                'sa_el_simple_menu_menu',
                 [
                     'label' => esc_html__('Select Menu', SA_EL_ADDONS_TEXTDOMAIN),
                     'description' => sprintf(__('Go to the <a href="%s" target="_blank">Menu screen</a> to manage your menus.', SA_EL_ADDONS_TEXTDOMAIN), admin_url('nav-menus.php')),
@@ -83,7 +83,7 @@ class Advanced_Menu extends Widget_Base {
          * Style: Main Menu
          */
         $this->start_controls_section(
-                'sa_el_advanced_menu_section_style_menu',
+                'sa_el_simple_menu_section_style_menu',
                 [
                     'label' => __('Main Menu', SA_EL_ADDONS_TEXTDOMAIN),
                     'tab' => Controls_Manager::TAB_STYLE,
@@ -96,7 +96,7 @@ class Advanced_Menu extends Widget_Base {
          * Style: Dropdown Menu
          */
         $this->start_controls_section(
-                'sa_el_advanced_menu_section_style_dropdown',
+                'sa_el_simple_menu_section_style_dropdown',
                 [
                     'label' => __('Dropdown Menu', SA_EL_ADDONS_TEXTDOMAIN),
                     'tab' => Controls_Manager::TAB_STYLE,
@@ -109,7 +109,7 @@ class Advanced_Menu extends Widget_Base {
          * Style: Top Level Items
          */
         $this->start_controls_section(
-                'sa_el_advanced_menu_section_style_top_level_item',
+                'sa_el_simple_menu_section_style_top_level_item',
                 [
                     'label' => __('Top Level Item', SA_EL_ADDONS_TEXTDOMAIN),
                     'tab' => Controls_Manager::TAB_STYLE,
@@ -122,7 +122,7 @@ class Advanced_Menu extends Widget_Base {
          * Style: Main Menu (Hover)
          */
         $this->start_controls_section(
-                'sa_el_advanced_menu_section_style_dropdown_item',
+                'sa_el_simple_menu_section_style_dropdown_item',
                 [
                     'label' => __('Dropdown Item', SA_EL_ADDONS_TEXTDOMAIN),
                     'tab' => Controls_Manager::TAB_STYLE,
