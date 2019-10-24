@@ -1,0 +1,56 @@
+.sa-el-ticker-wrap {
+    overflow: hidden;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    width: 100%;
+}
+
+.sa-el-ticker-wrap .ticker-badge {
+    flex: 0 0 auto;
+    padding: 8px 12px;
+}
+
+.sa-el-ticker-wrap .sa-el-ticker {
+    overflow: hidden;
+    flex: 1 1 auto;
+}
+
+.sa-el-ticker-wrap .sa-el-ticker .ticker-content {
+    padding: 8px 12px;
+    line-height: 1.8;
+}
+
+.sa-el-ticker-wrap .sa-el-ticker .ticker-content p {
+    margin: 0;
+}
+
+.sa-el-ticker-wrap .swiper-button-prev {
+    left: auto !important;
+    right: 25px;
+    transform: translateY(-50%) rotate(0deg)!important;
+}
+
+.sa-el-ticker-wrap div.swiper-slide,
+.sa-el-ticker-wrap div.swiper-slide.swiper-slide-prev,
+.sa-el-ticker-wrap div.swiper-slide.swiper-slide-next {
+    opacity: 0 !important;
+}
+
+.sa-el-ticker-wrap div.swiper-slide.swiper-slide-active {
+    opacity: 1 !important;
+}
+
+.sa-el-ticker-wrap .sa-el-content-ticker.swiper-container .swiper-slide {
+    text-align: left;
+}
+
+@media only screen and (max-width: 767px) {
+    .sa-el-ticker-wrap {
+        flex-flow: row wrap;
+    }
+
+    .content-ticker-pagination {
+        display: none;
+    }
+}

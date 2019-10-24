@@ -36,7 +36,7 @@ class Simple_Menu extends Widget_Base {
     }
 
     public function get_icon() {
-        return 'eicon-accordion oxi-el-admin-icon';
+        return 'eicon-menu-bar oxi-el-admin-icon';
     }
 
     public function get_categories() {
