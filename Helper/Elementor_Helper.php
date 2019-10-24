@@ -229,15 +229,13 @@ trait Elementor_Helper {
         return $rt;
     }
 
-
-    
     /**
      * Get a list of all the allowed html tags.
      *
      * @param string $level Allowed levels are basic and intermediate
      * @return array
      */
-    public function sa_el_get_allowed_html_tags( $level = 'basic' ) {
+    public function sa_el_get_allowed_html_tags($level = 'basic') {
         $allowed_html = [
             'b' => [],
             'i' => [],
@@ -253,7 +251,7 @@ trait Elementor_Helper {
             'strong' => [],
         ];
 
-        if ( $level === 'intermediate' ) {
+        if ($level === 'intermediate') {
             $allowed_html['a'] = [
                 'href' => [],
                 'title' => [],
@@ -273,8 +271,8 @@ trait Elementor_Helper {
      * @param string $string
      * @return string
      */
-    public function sa_el_kses_intermediate( $string = '' ) {
-        return wp_kses( $string, $this->sa_el_get_allowed_html_tags( 'intermediate' ) );
+    public function sa_el_kses_intermediate($string = '') {
+        return wp_kses($string, $this->sa_el_get_allowed_html_tags('intermediate'));
     }
 
     /**
@@ -285,8 +283,8 @@ trait Elementor_Helper {
      * @param string $string
      * @return string
      */
-    public function sa_el_kses_basic( $string = '' ) {
-        return wp_kses( $string, $this->sa_el_get_allowed_html_tags( 'basic' ) );
+    public function sa_el_kses_basic($string = '') {
+        return wp_kses($string, $this->sa_el_get_allowed_html_tags('basic'));
     }
 
     /**
@@ -295,15 +293,14 @@ trait Elementor_Helper {
      * @param string $level Allowed levels are basic and intermediate
      * @return string
      */
-    public function sa_el_get_allowed_html_desc( $level = 'basic' ) {
-        if ( ! in_array( $level, [ 'basic', 'intermediate' ] ) ) {
+    public function sa_el_get_allowed_html_desc($level = 'basic') {
+        if (!in_array($level, ['basic', 'intermediate'])) {
             $level = 'basic';
         }
 
-        $tags_str = '<' . implode( '>,<', array_keys( $this->sa_el_get_allowed_html_tags( $level ) ) ) . '>';
-        return sprintf( __( 'This input field has support for the following HTML tags: %1$s', SA_EL_ADDONS_TEXTDOMAIN ), '<code>' . esc_html( $tags_str ) . '</code>' );
+        $tags_str = '<' . implode('>,<', array_keys($this->sa_el_get_allowed_html_tags($level))) . '>';
+        return sprintf(__('This input field has support for the following HTML tags: %1$s', SA_EL_ADDONS_TEXTDOMAIN), '<code>' . esc_html($tags_str) . '</code>');
     }
-
 
     /**
      * Call a shortcode function by tag name.
@@ -316,7 +313,6 @@ trait Elementor_Helper {
      *
      * @return string|bool False on failure, the result of the shortcode on success.
      */
-  
     public function sa_el_do_shortcode($tag, array $atts = array(), $content = null) {
         global $shortcode_tags;
         if (!isset($shortcode_tags[$tag])) {
@@ -324,4 +320,25 @@ trait Elementor_Helper {
         }
         return call_user_func($shortcode_tags[$tag], $atts, $content, $tag);
     }
+
+    /**
+     * Get all registered menus.
+     *
+     * @return array of menus.
+     */
+    public function sa_el_get_menus() {
+        $menus = wp_get_nav_menus();
+        $options = [];
+
+        if (empty($menus)) {
+            return $options;
+        }
+
+        foreach ($menus as $menu) {
+            $options[$menu->term_id] = $menu->name;
+        }
+
+        return $options;
+    }
+
 }

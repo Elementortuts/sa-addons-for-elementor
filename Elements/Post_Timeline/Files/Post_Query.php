@@ -1,6 +1,6 @@
 <?php
 
-namespace SA_EL_ADDONS\Elements\Post_Grid\Files;
+namespace SA_EL_ADDONS\Elements\Post_Timeline\Files;
 
 if (!defined('ABSPATH')) {
     exit;
@@ -11,7 +11,7 @@ Class Post_Query {
     public function __construct() {
         
     }
-  
+
     public static function __ajax_template($args, $settings, $optional) {
         if(!is_array($args)):
             $args = json_decode($args, TRUE);
