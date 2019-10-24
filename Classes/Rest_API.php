@@ -155,7 +155,7 @@ class Rest_API {
             $file = glob(SA_EL_ADDONS_PATH . 'Elements' . '/*', GLOB_ONLYDIR);
             foreach ($file as $V) {
 
-                $F = explode('/' . 'Elements' . '/', $V);
+                $F = explode('/Elements/', $V);
                 if (file_exists(SA_EL_ADDONS_PATH . 'Elements' . '/' . $F[1] . '/Register.php')):
                     $R = include_once SA_EL_ADDONS_PATH . 'Elements' . '/' . $F[1] . '/Register.php';
                     if (is_array($R) && array_key_exists('name', $R)):
@@ -165,7 +165,7 @@ class Rest_API {
             }
             $file = glob(SA_EL_ADDONS_PATH . 'Extensions' . '/*', GLOB_ONLYDIR);
             foreach ($file as $V) {
-                $F = explode('/' . 'Extensions' . '/', $V);
+                $F = explode('/Extensions/', $V);
                 if (file_exists(SA_EL_ADDONS_PATH . 'Extensions' . '/' . $F[1] . '/Register.php')):
                     $R = include_once SA_EL_ADDONS_PATH . 'Extensions' . '/' . $F[1] . '/Register.php';
                     if (is_array($R) && array_key_exists('name', $R)):
