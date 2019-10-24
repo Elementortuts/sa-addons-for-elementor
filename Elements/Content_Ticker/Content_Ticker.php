@@ -71,7 +71,7 @@ class Content_Ticker extends Widget_Base {
                     'label' => esc_html__('Tag Text', SA_EL_ADDONS_TEXTDOMAIN),
                     'type' => Controls_Manager::TEXT,
                     'label_block' => false,
-                    'default' => esc_html__('Trending Today', SA_EL_ADDONS_TEXTDOMAIN),
+                    'default' => esc_html__('News Hightlights', SA_EL_ADDONS_TEXTDOMAIN),
                 ]
         );
 
@@ -416,7 +416,7 @@ class Content_Ticker extends Widget_Base {
                 [
                     'label' => esc_html__('Background Color', SA_EL_ADDONS_TEXTDOMAIN),
                     'type' => Controls_Manager::COLOR,
-                    'default' => '#f7048e',
+                    'default' => '#f44336',
                     'selectors' => [
                         '{{WRAPPER}} .sa-el-ticker-wrap .ticker-badge' => 'background-color: {{VALUE}};',
                     ],
