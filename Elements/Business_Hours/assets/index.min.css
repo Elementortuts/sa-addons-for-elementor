@@ -1,0 +1,14 @@
+
+.sa-el-business-hours .sa-el-business-day,
+.sa-el-business-hours .sa-el-business-timing {
+    float: left;
+    width: 50%;
+}
+.sa-el-business-hours .sa-el-business-timing {
+    text-align: right;
+}
+.sa-el-business-hours .sa-el-business-timing,
+.sa-el-business-hours .sa-el-business-day{
+    font-family: "Roboto", Sans-serif;
+    font-weight: 500;
+}
