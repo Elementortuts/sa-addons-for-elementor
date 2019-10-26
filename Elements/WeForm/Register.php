@@ -11,5 +11,12 @@ return [
     'category' => 'Form Elements',
     'Premium' => TRUE,
     'condition' => '',
+    'Control' => [
+        'sa-el-google-map-api' => [
+            'name'=> 'GOOGLE API',
+            'type' => 'text',
+            'default' => '',
+        ]
+    ],
     'API' => ''
 ];

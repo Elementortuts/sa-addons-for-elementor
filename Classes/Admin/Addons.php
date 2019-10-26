@@ -80,7 +80,7 @@ class Addons {
         $registered_el = $this->Get_Registered_elements(true);
         foreach ($registered_el as $key => $value) {
             $array1[$value['category']] = $value['category'];
-            $element[$value['category']][$key] = array('name' => $key, 'Premium' => $value['Premium'], 'condition' => $value['condition'], 'API' => $value['API']);
+            $element[$value['category']][$key] = $value;
         }
         $array2 = array(
             'Content Elements' => 'Content Elements',
@@ -215,12 +215,25 @@ class Addons {
                                                 echo '<div class="oxi-addons-ce-heading">' . $this->name_converter($key) . '</div>';
                                                 echo '<div class="row">';
                                                 foreach ($value as $elements) {
+                                                    $Control = '';
+                                                    if (array_key_exists('Control', $elements)):
+
+                                                        if ($elements['Premium'] == TRUE && !apply_filters('sa-el-addons/check_version', '')):
+                                                            $Control = '';
+                                                        else:
+
+                                                            $Control = '<div class="oxi-sa-cards-settings">
+                                                                            <span class="dashicons dashicons-admin-generic"></span>
+                                                                          </div>';
+                                                        endif;
+                                                    endif;
                                                     echo '  <div class="col-lg-4 col-md-6 col-sm-12">
                                                                 <div class="oxi-sa-cards">
                                                                     ' . (($elements['Premium'] == TRUE && !apply_filters('sa-el-addons/check_version', '')) ? '<sup class="pro-label">Pro</sup>' : "") . '
                                                                     <div class="oxi-sa-cards-h1">
                                                                         ' . $this->name_converter($elements['name']) . '
                                                                     </div>
+                                                                    ' . $Control . '
                                                                     <div class="oxi-sa-cards-switcher ' . (($elements['Premium'] == TRUE && apply_filters('sa-el-addons/check_version', '') == FALSE) ? 'oxi-sa-cards-switcher-disabled' : "") . '">
                                                                         <input type="checkbox" class="oxi-addons-switcher-btn" sa-elmentor="' . $elements['name'] . '" id="' . $elements['name'] . '" name="' . $elements['name'] . '" ' . (array_key_exists($elements['name'], $settings) ? 'checked="checked"' : '') . ' >
                                                                         <label for="' . $elements['name'] . '" class="oxi-addons-switcher-label"></label>

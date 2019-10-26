@@ -408,7 +408,7 @@ label:active:after {
     justify-content: space-around;
     align-items: center;
     font-weight: 600;
-    font-size: 17px;
+    font-size: 16px;
     line-height: 30px;
     margin: 10px;
     padding: 15px 10px 15px 15px;
@@ -448,8 +448,21 @@ label:active:after {
     padding-left: 10px;
 }
 .oxi-sa-cards .oxi-sa-cards-switcher{
-    width: 50px;
+    width: 55px;
     position: relative;
+}
+.oxi-sa-cards .oxi-sa-cards-settings{
+    width: 35px;
+    display: flex;
+    align-items: center;
+}
+.oxi-sa-cards .oxi-sa-cards-settings .dashicons{
+    font-size: 20px;
+}
+
+.oxi-sa-cards .oxi-sa-cards-settings .dashicons:hover{
+    color: #ff6138;
+    cursor: pointer;
 }
 
 .oxi-addons-ce-heading{
