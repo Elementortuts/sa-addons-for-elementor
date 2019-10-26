@@ -7,12 +7,11 @@ if (!defined('ABSPATH')) {
 }
 
 use \Elementor\Controls_Manager;
-use \Elementor\Group_Control_Border;
-use \Elementor\Group_Control_Box_Shadow;
 use \Elementor\Group_Control_Image_Size;
-use \Elementor\Group_Control_Typography;
-use \Elementor\Utils;
-trait Post_Query {
+
+
+trait Post_Query
+{
     // All Controls For Query
     public function sa_el_query_controls()
     {
@@ -107,7 +106,7 @@ trait Post_Query {
                 'default' => '4',
             ]
         );
-    
+
         $this->add_control(
             'offset',
             [
@@ -116,7 +115,7 @@ trait Post_Query {
                 'default' => '0',
             ]
         );
-    
+
         $this->add_control(
             'orderby',
             [
@@ -124,10 +123,10 @@ trait Post_Query {
                 'type' => Controls_Manager::SELECT,
                 'options' => self::get_post_orderby_options(),
                 'default' => 'date',
-    
+
             ]
         );
-    
+
         $this->add_control(
             'order',
             [
@@ -138,29 +137,31 @@ trait Post_Query {
                     'desc' => 'Descending',
                 ],
                 'default' => 'desc',
-    
+
             ]
         );
     }
     // All Query Layout Controls
     public function sa_el_layout_controls()
     {
-        $this->add_responsive_control(
-            'sa_el_post_grid_columns',
-            [
-                'label' => esc_html__('Number of Columns', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::SELECT,
-                'default' => 'sa-el-col-4',
-                'options' => [
-                    'sa-el-col-1' => esc_html__('Single Column', SA_EL_ADDONS_TEXTDOMAIN),
-                    'sa-el-col-2' => esc_html__('Two Columns', SA_EL_ADDONS_TEXTDOMAIN),
-                    'sa-el-col-3' => esc_html__('Three Columns', SA_EL_ADDONS_TEXTDOMAIN),
-                    'sa-el-col-4' => esc_html__('Four Columns', SA_EL_ADDONS_TEXTDOMAIN),
-                    'sa-el-col-5' => esc_html__('Five Columns', SA_EL_ADDONS_TEXTDOMAIN),
-                    'sa-el-col-6' => esc_html__('Six Columns', SA_EL_ADDONS_TEXTDOMAIN),
-                ],
-            ]
-        );
+        if ($this->get_name() === 'sa_el_post_grid') {
+            $this->add_responsive_control(
+                'sa_el_post_grid_columns',
+                [
+                    'label' => esc_html__('Number of Columns', SA_EL_ADDONS_TEXTDOMAIN),
+                    'type' => Controls_Manager::SELECT,
+                    'default' => 'sa-el-col-4',
+                    'options' => [
+                        'sa-el-col-1' => esc_html__('Single Column', SA_EL_ADDONS_TEXTDOMAIN),
+                        'sa-el-col-2' => esc_html__('Two Columns', SA_EL_ADDONS_TEXTDOMAIN),
+                        'sa-el-col-3' => esc_html__('Three Columns', SA_EL_ADDONS_TEXTDOMAIN),
+                        'sa-el-col-4' => esc_html__('Four Columns', SA_EL_ADDONS_TEXTDOMAIN),
+                        'sa-el-col-5' => esc_html__('Five Columns', SA_EL_ADDONS_TEXTDOMAIN),
+                        'sa-el-col-6' => esc_html__('Six Columns', SA_EL_ADDONS_TEXTDOMAIN),
+                    ],
+                ]
+            );
+        }
         $this->add_control(
             'show_load_more',
             [
@@ -283,73 +284,77 @@ trait Post_Query {
                 ],
             ]
         );
-        $this->add_control(
-            'sa_el_show_read_more_button',
-            [
-                'label' => __('Show Read More Button', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::CHOOSE,
-                'options' => [
-                    '1' => [
-                        'title' => __('Yes', SA_EL_ADDONS_TEXTDOMAIN),
-                        'icon' => 'fa fa-check',
-                    ],
-                    '0' => [
-                        'title' => __('No', SA_EL_ADDONS_TEXTDOMAIN),
-                        'icon' => 'fa fa-ban',
-                    ],
-                ],
-                'default' => '1',
-            ]
-        );
 
-        $this->add_control(
-            'read_more_button_text',
-            [
-                'label' => __('Button Text', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::TEXT,
-                'default' => __('Read More', SA_EL_ADDONS_TEXTDOMAIN),
-                'condition' => [
-                    'sa_el_show_read_more_button' => '1',
-                ],
-            ]
-        );
-        $this->add_control(
-            'sa_el_show_meta',
-            [
-                'label' => __('Show Meta', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::CHOOSE,
-                'options' => [
-                    '1' => [
-                        'title' => __('Yes', SA_EL_ADDONS_TEXTDOMAIN),
-                        'icon' => 'fa fa-check',
+        if ($this->get_name() === 'sa_el_post_grid') {
+            $this->add_control(
+                'sa_el_show_read_more_button',
+                [
+                    'label' => __('Show Read More Button', SA_EL_ADDONS_TEXTDOMAIN),
+                    'type' => Controls_Manager::CHOOSE,
+                    'options' => [
+                        '1' => [
+                            'title' => __('Yes', SA_EL_ADDONS_TEXTDOMAIN),
+                            'icon' => 'fa fa-check',
+                        ],
+                        '0' => [
+                            'title' => __('No', SA_EL_ADDONS_TEXTDOMAIN),
+                            'icon' => 'fa fa-ban',
+                        ],
                     ],
-                    '0' => [
-                        'title' => __('No', SA_EL_ADDONS_TEXTDOMAIN),
-                        'icon' => 'fa fa-ban',
-                    ],
-                ],
-                'default' => '1',
-            ]
-        );
+                    'default' => '1',
+                ]
+            );
 
-        $this->add_control(
-            'meta_position',
-            [
-                'label' => esc_html__('Meta Position', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::SELECT,
-                'default' => 'meta-entry-footer',
-                'options' => [
-                    'meta-entry-header' => esc_html__('Entry Header', SA_EL_ADDONS_TEXTDOMAIN),
-                    'meta-entry-footer' => esc_html__('Entry Footer', SA_EL_ADDONS_TEXTDOMAIN),
-                ],
-                'condition' => [
-                    'sa_el_show_meta' => '1',
-                ],
-            ]
-        );
+            $this->add_control(
+                'read_more_button_text',
+                [
+                    'label' => __('Button Text', SA_EL_ADDONS_TEXTDOMAIN),
+                    'type' => Controls_Manager::TEXT,
+                    'default' => __('Read More', SA_EL_ADDONS_TEXTDOMAIN),
+                    'condition' => [
+                        'sa_el_show_read_more_button' => '1',
+                    ],
+                ]
+            );
+            $this->add_control(
+                'sa_el_show_meta',
+                [
+                    'label' => __('Show Meta', SA_EL_ADDONS_TEXTDOMAIN),
+                    'type' => Controls_Manager::CHOOSE,
+                    'options' => [
+                        '1' => [
+                            'title' => __('Yes', SA_EL_ADDONS_TEXTDOMAIN),
+                            'icon' => 'fa fa-check',
+                        ],
+                        '0' => [
+                            'title' => __('No', SA_EL_ADDONS_TEXTDOMAIN),
+                            'icon' => 'fa fa-ban',
+                        ],
+                    ],
+                    'default' => '1',
+                ]
+            );
+
+            $this->add_control(
+                'meta_position',
+                [
+                    'label' => esc_html__('Meta Position', SA_EL_ADDONS_TEXTDOMAIN),
+                    'type' => Controls_Manager::SELECT,
+                    'default' => 'meta-entry-footer',
+                    'options' => [
+                        'meta-entry-header' => esc_html__('Entry Header', SA_EL_ADDONS_TEXTDOMAIN),
+                        'meta-entry-footer' => esc_html__('Entry Footer', SA_EL_ADDONS_TEXTDOMAIN),
+                    ],
+                    'condition' => [
+                        'sa_el_show_meta' => '1',
+                    ],
+                ]
+            );
+        }
     }
     // Query Rander
-    public function query_args($settings) {
+    public function query_args($settings)
+    {
         $settings = wp_parse_args($settings, [
             'post_type' => 'post',
             'orderby' => 'date',
@@ -379,22 +384,22 @@ trait Post_Query {
         if (!empty($settings[$type . '_include'])) {
             $args['post__in'] = $settings[$type . '_include'];
         }
-        if ($type != 'page'):
-            if (!empty($settings[$type . '_category'])):
+        if ($type != 'page') :
+            if (!empty($settings[$type . '_category'])) :
                 $args['tax_query'][] = [
                     'taxonomy' => $type . '_category',
                     'field' => 'term_id',
                     'terms' => $settings[$type . '_category'],
                 ];
             endif;
-            if (!empty($settings[$type . '_tag'])):
+            if (!empty($settings[$type . '_tag'])) :
                 $args['tax_query'][] = [
                     'taxonomy' => $type . '_tag',
                     'field' => 'term_id',
                     'terms' => $settings[$type . '_tag'],
                 ];
             endif;
-            if (!empty($args['tax_query'])):
+            if (!empty($args['tax_query'])) :
                 $args['tax_query']['relation'] = 'OR';
             endif;
         endif;
@@ -402,11 +407,13 @@ trait Post_Query {
     }
 
     // All Query start
-    public static function post_type() {
+    public static function post_type()
+    {
         return get_post_types(array('public' => true, 'show_in_nav_menus' => true), 'names');
     }
 
-    public static function post_author() {
+    public static function post_author()
+    {
         $us = [];
         $users = get_users();
         if ($users) {
@@ -417,13 +424,14 @@ trait Post_Query {
         return $us;
     }
 
-    public static function post_category($type) {
+    public static function post_category($type)
+    {
         $cat = [];
         $categories = get_terms(array(
             'taxonomy' => $type == 'post' ? 'category' : $type . '_category',
             'hide_empty' => true,
         ));
-        if (empty($categories) || is_wp_error($categories)):
+        if (empty($categories) || is_wp_error($categories)) :
             return [];
         endif;
 
@@ -433,13 +441,14 @@ trait Post_Query {
         return $cat;
     }
 
-    public static function post_tags($type) {
+    public static function post_tags($type)
+    {
         $tg = [];
         $tags = get_terms(array(
             'taxonomy' => $type . '_tag',
             'hide_empty' => true,
         ));
-        if (empty($tags) || is_wp_error($tags)):
+        if (empty($tags) || is_wp_error($tags)) :
             return [];
         endif;
 
@@ -450,14 +459,15 @@ trait Post_Query {
         return $tg;
     }
 
-    public static function post_include($type) {
+    public static function post_include($type)
+    {
         $post_list = get_posts(array(
             'post_type' => $type,
             'orderby' => 'date',
             'order' => 'DESC',
             'posts_per_page' => -1,
         ));
-        if (empty($post_list) && is_wp_error($post_list)):
+        if (empty($post_list) && is_wp_error($post_list)) :
             return [];
         endif;
         $posts = array();
@@ -467,14 +477,15 @@ trait Post_Query {
         return $posts;
     }
 
-    public static function post_exclude($type) {
+    public static function post_exclude($type)
+    {
         $post_list = get_posts(array(
             'post_type' => $type,
             'orderby' => 'date',
             'order' => 'DESC',
             'posts_per_page' => -1,
         ));
-        if (empty($post_list) && is_wp_error($post_list)):
+        if (empty($post_list) && is_wp_error($post_list)) :
             return [];
         endif;
         $posts = array();
@@ -484,7 +495,8 @@ trait Post_Query {
         return $posts;
     }
 
-    public static function thumbnail_sizes() {
+    public static function thumbnail_sizes()
+    {
         $default_image_sizes = get_intermediate_image_sizes();
         $thumbnail_sizes = array();
         foreach ($default_image_sizes as $size) {
@@ -498,7 +510,8 @@ trait Post_Query {
      * POst Orderby Options
      *
      */
-    public static function get_post_orderby_options() {
+    public static function get_post_orderby_options()
+    {
         $orderby = array(
             'ID' => 'Post ID',
             'author' => 'Post Author',

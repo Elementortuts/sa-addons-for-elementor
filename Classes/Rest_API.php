@@ -20,10 +20,10 @@ class Rest_API {
     const TRANSIENT_TEMPLATE = 'sa_el_addons_template';
     const TRANSIENT_REGISTER_ELEMENTS = 'sa_el_addons_register_elements';
     const TRANSIENT_CATEGORY = 'sa_el_addons_category';
-    const TEMPLATES = 'https://www.shortcode-addons.com/wp-json/shortcode-elementor/v1/category/template';
-    const CATEGORIES = 'https://www.shortcode-addons.com/wp-json/shortcode-elementor/v1/category/';
+    const TEMPLATES = 'https://www.sa-elementor-addons.com/wp-json/api/data';
+    const CATEGORIES = 'https://www.sa-elementor-addons.com/wp-json/api/template';
 
-    private static $template_url = 'https://www.shortcode-addons.com/wp-json/shortcode-elementor/v1/category/template/%d';
+    private static $template_url = 'https://www.sa-elementor-addons.com/wp-json/api/files/%d';
 
     public function __construct() {
         
@@ -82,7 +82,7 @@ class Rest_API {
             if (!is_wp_error($request)) {
 
                 $response = json_decode(wp_remote_retrieve_body($request), true);
-                set_transient(self::TRANSIENT_TEMPLATE, $response, 5 * DAY_IN_SECONDS);
+                set_transient(self::TRANSIENT_TEMPLATE, $response, 3 * DAY_IN_SECONDS);
             } else {
                 $response = $request->get_error_message();
             }
@@ -104,7 +104,7 @@ class Rest_API {
             if (!is_wp_error($request)) {
 
                 $response = json_decode(wp_remote_retrieve_body($request), true);
-                set_transient(self::TRANSIENT_CATEGORY, $response, 5 * DAY_IN_SECONDS);
+                set_transient(self::TRANSIENT_CATEGORY, $response, 3 * DAY_IN_SECONDS);
             } else {
                 $response = $request->get_error_message();
             }
@@ -173,7 +173,7 @@ class Rest_API {
                     endif;
                 endif;
             }
-            set_transient(self::TRANSIENT_REGISTER_ELEMENTS, $Register, 5 * DAY_IN_SECONDS);
+            set_transient(self::TRANSIENT_REGISTER_ELEMENTS, $Register, 10 * DAY_IN_SECONDS);
         }
         return $Register;
     }

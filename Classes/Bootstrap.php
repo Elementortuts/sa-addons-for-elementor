@@ -81,6 +81,7 @@ class Bootstrap {
     public function Admin() {
         $this->admin_notice();
         add_action('admin_init', [$this, 'plugin_settings']);
+        add_action('admin_init', [$this, 'license']);
         new \SA_EL_ADDONS\Classes\Admin\Admin();
         add_action('wp_ajax_saelemetoraddons_settings', array($this, 'saelemetoraddons_settings'));
     }

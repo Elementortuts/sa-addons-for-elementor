@@ -176,7 +176,6 @@ class Admin_Render {
             $i = 0;
             $tempdata = '';
             foreach ($templates['templates'][$satype] as $section) {
-
                 if ($section['is_pro'] && !apply_filters('sa-el-addons/check_version', '')) {
                     $profile = ' <a href="javascript:void(0)" data-url="#" class="sael-btn sa-el-blocks-pro-button">Upgrade Please</a>';
                 } else if (array_key_exists($section['post_name'], $el_library[0])) {

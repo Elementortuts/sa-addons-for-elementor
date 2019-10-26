@@ -120,7 +120,7 @@ class Admin {
         endif;
         $menu .= '              </ul>
                             <ul class="oxilab-sa-admin-menu2">
-                               ' . (!apply_filters('sa-el-addons/check_version', '') ? ' <li class="fazil-class" ><a target="_blank" href="https://www.oxilab.org/downloads/short-code-addons/">Upgrade</a></li>' : '') . '
+                               ' . (!apply_filters('sa-el-addons/check_version', '') ? ' <li class="fazil-class" ><a target="_blank" href="https://www.oxilab.org/downloads/elementor-addons/">Upgrade</a></li>' : '') . '
                                <li class="saadmin-doc"><a target="_black" href="https://www.sa-elementor-addons.com/docs/">Docs</a></li>
                                <li class="saadmin-doc"><a target="_black" href="https://wordpress.org/support/plugin/sa-addons-for-elementor/">Support</a></li>
                                <li class="saadmin-set"><a href="' . admin_url('admin.php?page=sa-el-addons-settings') . '"><span class="dashicons dashicons-admin-generic"></span></a></li>
