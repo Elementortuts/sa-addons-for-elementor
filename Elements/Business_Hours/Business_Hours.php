@@ -32,7 +32,7 @@ class Business_Hours extends Widget_Base {
     }
 
     public function get_icon() {
-        return 'eicon-heading  oxi-el-admin-icon';
+        return ' eicon-clock-o  oxi-el-admin-icon';
     }
 
     public function get_categories() {
