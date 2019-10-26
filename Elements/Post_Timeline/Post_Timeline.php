@@ -8,7 +8,6 @@ if (!defined('ABSPATH')) {
 
 use \Elementor\Controls_Manager;
 use \Elementor\Group_Control_Border;
-use \Elementor\Group_Control_Image_Size;
 use \Elementor\Group_Control_Box_Shadow;
 use \Elementor\Group_Control_Typography;
 use \Elementor\Scheme_Typography;
@@ -24,12 +23,12 @@ class Post_Timeline extends Widget_Base
 
     public function get_name()
     {
-        return 'sa_el_post_grid';
+        return 'sa_el_post_timeline';
     }
 
     public function get_title()
     {
-        return esc_html__('Post Grid', SA_EL_ADDONS_TEXTDOMAIN);
+        return esc_html__('Post Timeline', SA_EL_ADDONS_TEXTDOMAIN);
     }
 
     public function get_icon()
@@ -194,7 +193,7 @@ class Post_Timeline extends Widget_Base
                 'type' => Controls_Manager::COLOR,
                 'default' => '#fff',
                 'selectors' => [
-                    '{{WRAPPER}} .sa-el-timeline-post-title h2' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .sa-el-timeline-post-title h3' => 'color: {{VALUE}};',
                 ],
 
             ]
@@ -205,22 +204,20 @@ class Post_Timeline extends Widget_Base
             [
                 'label' => __('Title Alignment', SA_EL_ADDONS_TEXTDOMAIN),
                 'type' => Controls_Manager::CHOOSE,
+                'default' => '',
                 'options' => [
-                    'left' => [
+                    '' => [
                         'title' => __('Left', SA_EL_ADDONS_TEXTDOMAIN),
-                        'icon' => 'fa fa-align-left',
+                        'icon' => 'eicon-long-arrow-left',
                     ],
-                    'center' => [
-                        'title' => __('Center', SA_EL_ADDONS_TEXTDOMAIN),
-                        'icon' => 'fa fa-align-center',
-                    ],
-                    'right' => [
+                    '2' => [
                         'title' => __('Right', SA_EL_ADDONS_TEXTDOMAIN),
-                        'icon' => 'fa fa-align-right',
+                        'icon' => 'eicon-long-arrow-right',
                     ],
+
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .sa-el-timeline-post-title h2' => 'text-align: {{VALUE}};',
+                    '{{WRAPPER}} .sa-el-timeline-post-title .sa-el-timeline-post-link' => 'order: {{VALUE}};',
                 ],
             ]
         );
@@ -231,7 +228,7 @@ class Post_Timeline extends Widget_Base
                 'name' => 'sa_el_timeline_title_typography',
                 'label' => __('Typography', SA_EL_ADDONS_TEXTDOMAIN),
                 'scheme' => Scheme_Typography::TYPOGRAPHY_1,
-                'selector' => '{{WRAPPER}} .sa-el-timeline-post-title h2',
+                'selector' => '{{WRAPPER}} .sa-el-timeline-post-title h3',
             ]
         );
 
@@ -487,45 +484,42 @@ class Post_Timeline extends Widget_Base
         $settings = $this->get_settings_for_display();
         $args = $this->query_args($settings);
 
-        $this->add_render_attribute(
-            'post_grid_wrapper',
-            [
-                'id' => 'sa-el-post-grid-' . esc_attr($this->get_id()),
-                'class' => [
-                    'sa-el-post-grid-container',
-                    esc_attr($settings['sa_el_post_grid_columns']),
-                ],
-            ]
-        );
         $settings = [
             'sa_el_show_image' => $settings['sa_el_show_image'],
             'image_size' => $settings['image_size'],
             'sa_el_show_title' => $settings['sa_el_show_title'],
             'sa_el_show_excerpt' => $settings['sa_el_show_excerpt'],
-            'sa_el_show_meta' => $settings['sa_el_show_meta'],
-            'meta_position' => $settings['meta_position'],
-            'sa_el_excerpt_length' => intval($settings['sa_el_excerpt_length'], 10),
-            'sa_el_post_grid_hover_animation' => $settings['sa_el_post_grid_hover_animation'],
-            'sa_el_post_grid_bg_hover_icon' => (isset($settings['__fa4_migrated']['sa_el_post_grid_bg_hover_icon_new']) || empty($settings['sa_el_post_grid_bg_hover_icon'])) ? $settings['sa_el_post_grid_bg_hover_icon_new']['value'] : $settings['sa_el_post_grid_bg_hover_icon'],
-            'sa_el_show_read_more_button' => $settings['sa_el_show_read_more_button'],
-            'read_more_button_text' => $settings['read_more_button_text'],
-            'read_more_button_text' => $settings['read_more_button_text'],
-            'sa_el_post_grid_columns' => $settings['sa_el_post_grid_columns'],
+            'sa_el_excerpt_length' => $settings['sa_el_excerpt_length'],
             'show_load_more' => $settings['show_load_more'],
             'show_load_more_text' => $settings['show_load_more_text'],
-            'expanison_indicator' => $settings['excerpt_expanison_indicator']
+            'expanison_indicator'   => $settings['excerpt_expanison_indicator'],
         ];
-        echo '<div ' . $this->get_render_attribute_string('post_grid_wrapper') . '>
-                <div class="sa-el-post-grid sa-el-post-appender sa-el-post-appender-' . $this->get_id() . '">
-                    ' . Post_Query::__post_template($args, $settings) . '
-                </div>
-                <div class="clearfix"></div>
-            </div>
-        ';
+
+        $this->add_render_attribute(
+            'sa_el_post_timeline_wrapper',
+            [
+                'id' => "sa-el-post-timeline-{$this->get_id()}",
+                'class' => 'sa-el-post-timeline',
+            ]
+        );
+
+        $this->add_render_attribute(
+            'sa_el_post_timeline',
+            [
+                'class' => ['sa-el-post-timeline', 'sa-el-post-appender', "sa-el-post-appender-{$this->get_id()}"],
+            ]
+        );
+
+        echo '<div ' . $this->get_render_attribute_string('sa_el_post_timeline_wrapper') . '>
+		    <div ' . $this->get_render_attribute_string('sa_el_post_timeline') . '>
+				' . Post_Query::__post_template($args, $settings) . '
+		    </div>
+		</div>';
+
         if (1 == $settings['show_load_more']) {
             if ($args['posts_per_page'] != '-1') {
                 echo '  <div class="sa-el-load-more-button-wrap">
-                            <button class="sa-el-load-more-button" id="sa-el-load-more-btn-' . $this->get_id() . '" data-widget="' . $this->get_id() . '" data-class="SA_EL_ADDONS\Elements\Post_Grid\Files\Post_Query" data-function="__ajax_template" data-args=\'' . json_encode($args) . '\' data-settings=\'' . json_encode($settings) . '\' data-layout="masonry" data-page="1">
+                            <button class="sa-el-load-more-button" id="sa-el-load-more-btn-' . $this->get_id() . '" data-widget="' . $this->get_id() . '" data-class="SA_EL_ADDONS\Elements\Post_Timeline\Files\Post_Timeline" data-function="__ajax_template" data-args=\'' . json_encode($args) . '\' data-settings=\'' . json_encode($settings) . '\' data-page="2">
                                     <div class="sa-el-btn-loader button__loader"></div>
                                     <span>' . esc_html__($settings['show_load_more_text'], SA_EL_ADDONS_TEXTDOMAIN) . '</span>
                             </button>
