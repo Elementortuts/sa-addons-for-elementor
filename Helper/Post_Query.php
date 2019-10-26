@@ -7,7 +7,11 @@ if (!defined('ABSPATH')) {
 }
 
 use \Elementor\Controls_Manager;
+use \Elementor\Group_Control_Border;
+use \Elementor\Group_Control_Box_Shadow;
 use \Elementor\Group_Control_Image_Size;
+use \Elementor\Group_Control_Typography;
+use \Elementor\Utils;
 
 
 trait Post_Query
@@ -162,6 +166,20 @@ trait Post_Query
                 ]
             );
         }
+        if ($this->get_name() === 'sa_el_post_block') {
+            $this->add_control(
+                'grid_style',
+                [
+                    'label' => esc_html__('Post Block Style Preset', 'essential-addons-elementor'),
+                    'type' => Controls_Manager::SELECT,
+                    'default' => 'post-block-style-default',
+                    'options' => [
+                        'post-block-style-default' => esc_html__('Default', 'essential-addons-elementor'),
+                        'post-block-style-overlay' => esc_html__('Overlay', 'essential-addons-elementor'),
+                    ],
+                ]
+            );
+        }
         $this->add_control(
             'show_load_more',
             [
@@ -285,7 +303,7 @@ trait Post_Query
             ]
         );
 
-        if ($this->get_name() === 'sa_el_post_grid') {
+        if (($this->get_name() === 'sa_el_post_grid') || ($this->get_name() === 'sa_el_post_block')) {
             $this->add_control(
                 'sa_el_show_read_more_button',
                 [
@@ -316,6 +334,9 @@ trait Post_Query
                     ],
                 ]
             );
+        }
+        if (($this->get_name() === 'sa_el_post_grid') || ($this->get_name() === 'sa_el_post_block')) {
+
             $this->add_control(
                 'sa_el_show_meta',
                 [
@@ -352,9 +373,204 @@ trait Post_Query
             );
         }
     }
+
+    public function sa_el_load_more_style()
+    {
+        $this->start_controls_section(
+            'sa_el_section_load_more_btn',
+            [
+                'label' => __('Load More Button Style', SA_EL_ADDONS_TEXTDOMAIN),
+                'tab' => Controls_Manager::TAB_STYLE,
+                'condition' => [
+                    'show_load_more' => '1',
+                ],
+            ]
+        );
+
+        $this->add_responsive_control(
+            'sa_el_post_grid_load_more_btn_padding',
+            [
+                'label' => esc_html__('Padding', SA_EL_ADDONS_TEXTDOMAIN),
+                'type' => Controls_Manager::DIMENSIONS,
+                'size_units' => ['px', 'em', '%'],
+                'selectors' => [
+                    '{{WRAPPER}} .sa-el-load-more-button' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ],
+            ]
+        );
+
+        $this->add_responsive_control(
+            'sa_el_post_grid_load_more_btn_margin',
+            [
+                'label' => esc_html__('Margin', SA_EL_ADDONS_TEXTDOMAIN),
+                'type' => Controls_Manager::DIMENSIONS,
+                'size_units' => ['px', 'em', '%'],
+                'selectors' => [
+                    '{{WRAPPER}} .sa-el-load-more-button' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ],
+            ]
+        );
+        $this->add_group_control(
+            Group_Control_Typography::get_type(),
+            [
+                'name' => 'sa_el_post_grid_load_more_btn_typography',
+                'selector' => '{{WRAPPER}} .sa-el-load-more-button',
+            ]
+        );
+
+        $this->start_controls_tabs('sa_el_post_grid_load_more_btn_tabs');
+
+        // Normal State Tab
+        $this->start_controls_tab('sa_el_post_grid_load_more_btn_normal', ['label' => esc_html__('Normal', SA_EL_ADDONS_TEXTDOMAIN)]);
+
+        $this->add_control(
+            'sa_el_post_grid_load_more_btn_normal_text_color',
+            [
+                'label' => esc_html__('Text Color', SA_EL_ADDONS_TEXTDOMAIN),
+                'type' => Controls_Manager::COLOR,
+                'default' => '#fff',
+                'selectors' => [
+                    '{{WRAPPER}} .sa-el-load-more-button' => 'color: {{VALUE}};',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'sa_el_cta_btn_normal_bg_color',
+            [
+                'label' => esc_html__('Background Color', SA_EL_ADDONS_TEXTDOMAIN),
+                'type' => Controls_Manager::COLOR,
+                'default' => '#29d8d8',
+                'selectors' => [
+                    '{{WRAPPER}} .sa-el-load-more-button' => 'background: {{VALUE}};',
+                ],
+            ]
+        );
+
+        $this->add_group_control(
+            Group_Control_Border::get_type(),
+            [
+                'name' => 'sa_el_post_grid_load_more_btn_normal_border',
+                'label' => esc_html__('Border', SA_EL_ADDONS_TEXTDOMAIN),
+                'selector' => '{{WRAPPER}} .sa-el-load-more-button',
+            ]
+        );
+
+        $this->add_control(
+            'sa_el_post_grid_load_more_btn_border_radius',
+            [
+                'label' => esc_html__('Border Radius', SA_EL_ADDONS_TEXTDOMAIN),
+                'type' => Controls_Manager::SLIDER,
+                'range' => [
+                    'px' => [
+                        'max' => 100,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .sa-el-load-more-button' => 'border-radius: {{SIZE}}px;',
+                ],
+            ]
+        );
+        $this->add_group_control(
+            Group_Control_Box_Shadow::get_type(),
+            [
+                'name' => 'sa_el_post_grid_load_more_btn_shadow',
+                'selector' => '{{WRAPPER}} .sa-el-load-more-button',
+                'separator' => 'before',
+            ]
+        );
+
+        $this->end_controls_tab();
+
+        // Hover State Tab
+        $this->start_controls_tab('sa_el_post_grid_load_more_btn_hover', ['label' => esc_html__('Hover', SA_EL_ADDONS_TEXTDOMAIN)]);
+
+        $this->add_control(
+            'sa_el_post_grid_load_more_btn_hover_text_color',
+            [
+                'label' => esc_html__('Text Color', SA_EL_ADDONS_TEXTDOMAIN),
+                'type' => Controls_Manager::COLOR,
+                'default' => '#fff',
+                'selectors' => [
+                    '{{WRAPPER}} .sa-el-load-more-button:hover' => 'color: {{VALUE}};',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'sa_el_post_grid_load_more_btn_hover_bg_color',
+            [
+                'label' => esc_html__('Background Color', SA_EL_ADDONS_TEXTDOMAIN),
+                'type' => Controls_Manager::COLOR,
+                'default' => '#27bdbd',
+                'selectors' => [
+                    '{{WRAPPER}} .sa-el-load-more-button:hover' => 'background: {{VALUE}};',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'sa_el_post_grid_load_more_btn_hover_border_color',
+            [
+                'label' => esc_html__('Border Color', SA_EL_ADDONS_TEXTDOMAIN),
+                'type' => Controls_Manager::COLOR,
+                'default' => '',
+                'selectors' => [
+                    '{{WRAPPER}} .sa-el-load-more-button:hover' => 'border-color: {{VALUE}};',
+                ],
+            ]
+
+        );
+        $this->add_group_control(
+            Group_Control_Box_Shadow::get_type(),
+            [
+                'name' => 'sa_el_post_grid_load_more_btn_hover_shadow',
+                'selector' => '{{WRAPPER}} .sa-el-load-more-button:hover',
+                'separator' => 'before',
+            ]
+        );
+        $this->end_controls_tab();
+
+        $this->end_controls_tabs();
+
+        $this->add_responsive_control(
+            'sa_el_post_grid_loadmore_button_alignment',
+            [
+                'label' => __('Button Alignment', SA_EL_ADDONS_TEXTDOMAIN),
+                'type' => Controls_Manager::CHOOSE,
+                'options' => [
+                    'flex-start' => [
+                        'title' => __('Left', SA_EL_ADDONS_TEXTDOMAIN),
+                        'icon' => 'fa fa-align-left',
+                    ],
+                    'center' => [
+                        'title' => __('Center', SA_EL_ADDONS_TEXTDOMAIN),
+                        'icon' => 'fa fa-align-center',
+                    ],
+                    'flex-end' => [
+                        'title' => __('Right', SA_EL_ADDONS_TEXTDOMAIN),
+                        'icon' => 'fa fa-align-right',
+                    ],
+                ],
+                'default' => 'center',
+                'selectors' => [
+                    '{{WRAPPER}} .sa-el-load-more-button-wrap' => 'justify-content: {{VALUE}};',
+                ],
+            ]
+        );
+
+        $this->end_controls_section();
+    }
     // Query Rander
     public function query_args($settings)
     {
+        // fix old settings
+        // foreach($settings as $key => $value) {
+        //     if(strpos($key, 'saeposts_') !== false) {
+        //         $settings[str_replace('saeposts_', '', $key)] = $value;
+        //         unset($settings[$key]);
+        //     }
+        // };
         $settings = wp_parse_args($settings, [
             'post_type' => 'post',
             'orderby' => 'date',
