@@ -17,13 +17,12 @@ class Settings {
     use \SA_EL_ADDONS\Helper\Public_Helper;
 
     public function __construct() {
-      
+
         $this->menu();
         $this->CSS_JSS();
         $this->Handler();
         $this->Render();
     }
-
 
     /**
      * Plugin admin menu
@@ -77,6 +76,8 @@ class Settings {
         global $wp_roles;
         $roles = $wp_roles->get_names();
         $saved_role = get_option('oxi_addons_user_permission');
+        $license = get_option('sa_el_oxilab_license_key');
+        $status = get_option('oxi_addons_license_status');
         ?>
         <div class="wrap">  
             <div class="oxi-addons-wrapper">
@@ -87,7 +88,7 @@ class Settings {
                         <div class="oxi-addons-settings-tab-general">
                             <!--- first tab of settings page---->
                             <?php settings_fields('oxielementoraddonsuserdata-group'); ?>
-        <?php do_settings_sections('oxielementoraddonsuserdata-group'); ?>
+                            <?php do_settings_sections('oxielementoraddonsuserdata-group'); ?>
                             <table class="form-table">
                                 <tr valign="top">
                                     <td scope="row">Who Can Edit?</td>
@@ -95,7 +96,7 @@ class Settings {
                                         <select name="oxi_addons_user_permission">
                                             <?php foreach ($roles as $key => $role) { ?>
                                                 <option value="<?php echo $key; ?>" <?php selected($saved_role, $key); ?>><?php echo $role; ?></option>
-        <?php } ?>
+                                            <?php } ?>
                                         </select>
                                     </td>
                                     <td>
@@ -108,6 +109,47 @@ class Settings {
                             ?>
                         </div>
                     </form>
+
+                    <h1><?php _e('Product License Activation'); ?></h1>
+                    <p>Activate your copy to get direct plugin updates and official support.</p>
+                    <form method="post" action="options.php">
+                        <?php settings_fields('sa_el_oxilab_license'); ?>
+                        <table class="form-table">
+                            <tbody>
+                                <tr valign="top">
+                                    <th scope="row" valign="top">
+                                        <?php _e('License Key'); ?>
+                                    </th>
+                                    <td>
+                                        <input id="sa_el_oxilab_license_key" name="sa_el_oxilab_license_key" type="text" class="regular-text" value="<?php esc_attr_e($license); ?>" />
+                                        <label class="description" for="sa_el_oxilab_license_key"><?php _e('Enter your license key'); ?></label>
+                                    </td>
+                                </tr>
+                                <?php if (!empty($license)) { ?>
+                                    <tr valign="top">
+                                        <th scope="row" valign="top">
+                                            <?php _e('Activate License'); ?>
+                                        </th>
+                                        <td>
+                                            <?php
+                                            wp_nonce_field('sa_el_oxilab_nonce', 'sa_el_oxilab_nonce');
+                                            if ($status !== false && $status == 'valid') {
+                                                ?>
+                                                <span style="color:green;"><?php _e('active'); ?></span>
+                                                <input type="submit" class="button-secondary" name="sa_el_oxilab_deactivate" value="<?php _e('Deactivate License'); ?>"/>
+                                                <?php
+                                            } else {
+                                                ?>
+                                                <input type="submit" class="button-secondary" name="sa_el_oxilab_activate" value="<?php _e('Activate License'); ?>"/>
+                                            <?php } ?>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                        <?php submit_button(); ?>
+                    </form>
+
                 </div>
             </div>
         </div>

@@ -133,12 +133,12 @@ class Addons {
                                 <div class="about-wrap text-center">
                                     <h1>Welcome to Elementor Addons</h1>
                                     <div class="about-text">
-                                        Thank you for Installing Elementor Elementor, The most friendly Elementor extension or all in one Package for Elementor. Here's how to get started.
+                                        Thank you for Installing Elementor Addons, The most friendly Elementor extension or all in one Package for Elementor. Here's how to get started.
                                     </div>
                                 </div>
                                 <div class="feature-section">
                                     <div class="about-container">
-                                        <div class="about-addons-videos"><iframe src="//www.youtube.com/embed/Ovvqi7iZJ-s" frameborder="0" allowfullscreen class="about-video"></iframe></div>
+                                        <div class="about-addons-videos"><iframe src="https://www.youtube.com/embed/3M6jrL_Ytes" frameborder="0" allowfullscreen class="about-video"></iframe></div>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -166,11 +166,11 @@ class Addons {
                                                     <div class="sa-el-admin-header-icon">
                                                         <span class="dashicons dashicons-format-aside"></span>
                                                     </div>    
-                                                    <h4 class="sa-el-admin-header-title">Contribute to Shortcode Addons</h4>  
+                                                    <h4 class="sa-el-admin-header-title">Contribute to Elementor Addons</h4>  
                                                 </div>
                                                 <div class="sa-el-admin-block-content">
                                                     <p>You can contribute to make Elementor Addons better reporting bugs & creating issues. Our Development team always try to make more powerfull addons day by day with solved Issues</p>
-                                                    <a href="https://wordpress.org/support/plugin/sa-elementor-addons/" class="sa-el-button" target="_blank">Report a bug</a>
+                                                    <a href="https://wordpress.org/support/plugin/sa-addons-for-elementor/" class="sa-el-button" target="_blank">Report a bug</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -186,7 +186,7 @@ class Addons {
                                                 </div>
                                                 <div class="sa-el-admin-block-content">
                                                     <p>Unable to use Elementor Addons? Don't worry you can check your web tutorials to make easier to use :) </p>
-                                                    <a href="https://www.sa-elementor-addons.com/video" class="sa-el-button" target="_blank">Video Tutorials</a>
+                                                    <a href="https://www.youtube.com/playlist?list=PLUIlGSU2bl8gFKe5UBZJqvZN7Z-tvE-w7" class="sa-el-button" target="_blank">Video Tutorials</a>
                                                 </div>
                                             </div>
                                         </div>

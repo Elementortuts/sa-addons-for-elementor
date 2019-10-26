@@ -23,7 +23,7 @@ trait Public_Helper {
         if ($vs == $this->fixed_data('76616c6964')) {
             return TRUE;
         } else {
-            return TRUE;
+            return FALSE;
         }
     }
 
@@ -200,6 +200,127 @@ trait Public_Helper {
     //register our settings
     public function plugin_settings() {
         register_setting('oxielementoraddonsuserdata-group', 'oxi_addons_user_permission');
+    }
+
+    public function license() {
+        register_setting('sa_el_oxilab_license', 'sa_el_oxilab_license_key', [$this, 'sa_el_oxilab_license_key']);
+        
+        if (isset($_POST['sa_el_oxilab_activate'])):
+            if (!check_admin_referer('sa_el_oxilab_nonce', 'sa_el_oxilab_nonce'))
+                return;
+            $license = trim(get_option('sa_el_oxilab_license_key'));
+            $plugin = 'Elementor Addons';
+            $VENDOR = 'https://www.oxilab.org';
+            $api_params = array(
+                'edd_action' => 'activate_license',
+                'license' => $license,
+                'item_name' => urlencode($plugin),
+                'url' => home_url()
+            );
+            $response = wp_remote_post($VENDOR, array('timeout' => 15, 'sslverify' => false, 'body' => $api_params));
+            if (is_wp_error($response) || 200 !== wp_remote_retrieve_response_code($response)):
+                if (is_wp_error($response)):
+                    $message = $response->get_error_message();
+                else:
+                    $message = __('An error occurred, please try again.');
+                endif;
+            else:
+                $license_data = json_decode(wp_remote_retrieve_body($response));
+                if (false === $license_data->success):
+                    switch ($license_data->error) {
+                        case 'expired' :
+                            $message = sprintf(
+                                    __('Your license key expired on %s.'), date_i18n(get_option('date_format'), strtotime($license_data->expires, current_time('timestamp')))
+                            );
+                            break;
+                        case 'revoked' :
+                            $message = __('Your license key has been disabled.');
+                            break;
+                        case 'missing' :
+                            $message = __('Invalid license.');
+                            break;
+                        case 'invalid' :
+                        case 'site_inactive' :
+                            $message = __('Your license is not active for this URL.');
+                            break;
+                        case 'item_name_mismatch' :
+                            $message = sprintf(__('This appears to be an invalid license key for %s.'), SA_EL_ADDONS_TEXTDOMAIN);
+                            break;
+                        case 'no_activations_left':
+                            $message = __('Your license key has reached its activation limit.');
+                            break;
+                        default :
+                            $message = __('An error occurred, please try again.');
+                            break;
+                    }
+                endif;
+            endif;
+            if (!empty($message)):
+                $base_url = admin_url('admin.php?page=sa-el-addons-settings');
+                $redirect = add_query_arg(array('sa_el_activation' => 'false', 'message' => urlencode($message)), $base_url);
+                wp_redirect($redirect);
+                exit();
+            endif;
+            update_option('oxi_addons_license_status', $license_data->license);
+            wp_redirect(admin_url('admin.php?page=sa-el-addons-settings'));
+            exit();
+        endif;
+
+        if (isset($_POST['sa_el_oxilab_deactivate'])) {
+            if (!check_admin_referer('sa_el_oxilab_nonce', 'sa_el_oxilab_nonce'))
+                return;
+            $license = trim(get_option('sa_el_oxilab_license_key'));
+            $plugin = 'Elementor Addons';
+            $VENDOR = 'https://www.oxilab.org';
+            $api_params = array(
+                'edd_action' => 'deactivate_license',
+                'license' => $license,
+                'item_name' => urlencode($plugin),
+                'url' => home_url()
+            );
+            $response = wp_remote_post($VENDOR, array('timeout' => 15, 'sslverify' => false, 'body' => $api_params));
+            if (is_wp_error($response) || 200 !== wp_remote_retrieve_response_code($response)) {
+                if (is_wp_error($response)) {
+                    $message = $response->get_error_message();
+                } else {
+                    $message = __('An error occurred, please try again.');
+                }
+                $base_url = admin_url('admin.php?page=sa-el-addons-settings');
+                $redirect = add_query_arg(array('sa_el_activation' => 'false', 'message' => urlencode($message)), $base_url);
+                wp_redirect($redirect);
+                exit();
+            }
+            $license_data = json_decode(wp_remote_retrieve_body($response));
+            if ($license_data->license == 'deactivated') {
+                delete_option('oxi_addons_license_status');
+            }
+            wp_redirect(admin_url('admin.php?page=sa-el-addons-settings'));
+            exit();
+        }
+
+        if (isset($_GET['sa_el_activation']) && !empty($_GET['message'])) {
+            switch ($_GET['sa_el_activation']) {
+                case 'false':
+                    $message = urldecode($_GET['message']);
+                    ?>
+                    <div class="error">
+                        <p><?php echo $message; ?></p>
+                    </div>
+                    <?php
+                    break;
+                case 'true':
+                default:
+                    break;
+            }
+        }
+    }
+
+    public function sa_el_oxilab_license_key($new) {
+        $old = get_option('sa_el_oxilab_license_key');
+        if ($old && $old != $new) {
+            delete_option('oxi_addons_license_status');
+        }
+        return $new;
     }
 
     /**
