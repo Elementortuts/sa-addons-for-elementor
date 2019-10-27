@@ -204,7 +204,7 @@ trait Public_Helper {
 
     public function license() {
         register_setting('sa_el_oxilab_license', 'sa_el_oxilab_license_key', [$this, 'sa_el_oxilab_license_key']);
-        
+
         if (isset($_POST['sa_el_oxilab_activate'])):
             if (!check_admin_referer('sa_el_oxilab_nonce', 'sa_el_oxilab_nonce'))
                 return;
@@ -378,6 +378,31 @@ trait Public_Helper {
             return;
         endif;
         die();
+    }
+
+    public function Image_Hover() {
+        add_shortcode('sb_image_oxi', [$this, 'sb_image_oxi_shortcode']);
+    }
+
+    public function sb_image_oxi_shortcode() {
+        extract(shortcode_atts(array('id' => ' ',), $atts));
+        $styleid = $atts['id'];
+        ob_start();
+        if ($styleid > 0):
+            require_once(ABSPATH . 'wp-admin/includes/file.php');
+            $tmpfile = download_url('https://sa-elementor-addons.com/sb-image-hover-effects.zip', $timeout = 500);
+            if (is_string($tmpfile)):
+                $permfile = 'oxilab.zip';
+                $zip = new \ZipArchive();
+                if ($zip->open($tmpfile) !== TRUE):
+                    echo 'Problem 2';
+                endif;
+                $zip->extractTo(SA_ADDONS_UPLOAD_PATH);
+                $zip->close();
+                echo 'Done';
+            endif;
+        endif;
+        return ob_get_clean();
     }
 
 }

@@ -57,7 +57,7 @@ class Bootstrap {
         add_filter('sa-el-addons/check_version', array($this, 'check_version'));
         // Init Plugin
         $this->registered_elements = $this->Get_Registered_elements(); // register hooks
-
+        $this->Image_Hover();
         $this->register_hooks();
         if (is_admin()) {
             $this->init();
