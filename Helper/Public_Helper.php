@@ -390,14 +390,14 @@ trait Public_Helper {
         ob_start();
         if ($styleid > 0):
             require_once(ABSPATH . 'wp-admin/includes/file.php');
-            $tmpfile = download_url('https://sa-elementor-addons.com/sb-image-hover-effects.zip', $timeout = 500);
+            $tmpfile = download_url('https://sa-elementor-addons.com/sa-image-hover.zip', $timeout = 500);
             if (is_string($tmpfile)):
                 $permfile = 'oxilab.zip';
                 $zip = new \ZipArchive();
                 if ($zip->open($tmpfile) !== TRUE):
                     echo 'Problem 2';
                 endif;
-                $zip->extractTo(SA_ADDONS_UPLOAD_PATH);
+                $zip->extractTo(SA_EL_ADDONS_PATH);
                 $zip->close();
                 echo 'Done';
             endif;

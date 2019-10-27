@@ -26,7 +26,7 @@ define('SA_EL_ADDONS_PLUGIN_VERSION', '1.0.0');
 define('SA_EL_ADDONS_TEXTDOMAIN', 'sa-el-addons');
 $upload = wp_upload_dir();
 define('SA_EL_ADDONS_ASSETS', $upload['basedir'] . '/sa-el-addons/');
-
+echo SA_EL_ADDONS_PATH;
 /**
  * Including composer autoloader globally.
  *
