@@ -180,37 +180,39 @@ trait Post_Query
                 ]
             );
         }
-        $this->add_control(
-            'show_load_more',
-            [
-                'label' => __('Show Load More', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::CHOOSE,
-                'options' => [
-                    '1' => [
-                        'title' => __('Yes', SA_EL_ADDONS_TEXTDOMAIN),
-                        'icon' => 'fa fa-check',
+        if ($this->get_name() !== 'sa_el_post_carousel') {
+            $this->add_control(
+                'show_load_more',
+                [
+                    'label' => __('Show Load More', SA_EL_ADDONS_TEXTDOMAIN),
+                    'type' => Controls_Manager::CHOOSE,
+                    'options' => [
+                        '1' => [
+                            'title' => __('Yes', SA_EL_ADDONS_TEXTDOMAIN),
+                            'icon' => 'fa fa-check',
+                        ],
+                        '0' => [
+                            'title' => __('No', SA_EL_ADDONS_TEXTDOMAIN),
+                            'icon' => 'fa fa-ban',
+                        ],
                     ],
-                    '0' => [
-                        'title' => __('No', SA_EL_ADDONS_TEXTDOMAIN),
-                        'icon' => 'fa fa-ban',
-                    ],
-                ],
-                'default' => '0',
-            ]
-        );
+                    'default' => '0',
+                ]
+            );
 
-        $this->add_control(
-            'show_load_more_text',
-            [
-                'label' => esc_html__('Label Text', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::TEXT,
-                'label_block' => false,
-                'default' => esc_html__('Load More', SA_EL_ADDONS_TEXTDOMAIN),
-                'condition' => [
-                    'show_load_more' => '1',
-                ],
-            ]
-        );
+            $this->add_control(
+                'show_load_more_text',
+                [
+                    'label' => esc_html__('Label Text', SA_EL_ADDONS_TEXTDOMAIN),
+                    'type' => Controls_Manager::TEXT,
+                    'label_block' => false,
+                    'default' => esc_html__('Load More', SA_EL_ADDONS_TEXTDOMAIN),
+                    'condition' => [
+                        'show_load_more' => '1',
+                    ],
+                ]
+            );
+        }
         $this->add_control(
             'sa_el_show_image',
             [
@@ -303,7 +305,7 @@ trait Post_Query
             ]
         );
 
-        if (($this->get_name() === 'sa_el_post_grid') || ($this->get_name() === 'sa_el_post_block')) {
+        if (($this->get_name() === 'sa_el_post_grid') || ($this->get_name() === 'sa_el_post_block') || ($this->get_name() === 'sa_el_post_carousel')) {
             $this->add_control(
                 'sa_el_show_read_more_button',
                 [
@@ -335,7 +337,7 @@ trait Post_Query
                 ]
             );
         }
-        if (($this->get_name() === 'sa_el_post_grid') || ($this->get_name() === 'sa_el_post_block')) {
+        if (($this->get_name() === 'sa_el_post_grid') || ($this->get_name() === 'sa_el_post_block') || ($this->get_name() === 'sa_el_post_carousel')) {
 
             $this->add_control(
                 'sa_el_show_meta',
