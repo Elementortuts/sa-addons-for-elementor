@@ -11,7 +11,6 @@ if (!defined('ABSPATH')) {
  *
  * @author biplob018
  */
-use \SA_EL_ADDONS\Classes\Front\Sa_Foreground_Control;
 use Elementor\Icons_Manager;
 use \Elementor\Controls_Manager as Controls_Manager;
 
@@ -36,8 +35,10 @@ trait Elementor_Helper {
      *
      * @since v1.0.0
      */
-    public function register_controls_group($controls_manager) {
-        $controls_manager->add_group_control('saforegroundcolor', new Sa_Foreground_Control);
+    public function register_controls_group() {
+        require( SA_EL_ADDONS_PATH . 'Classes/Front/Sa_Foreground_Control.php' );
+        $ground =   'SA_EL_ADDONS\Classes\Front\Sa_Foreground_Control';
+        \Elementor\Plugin::instance()->controls_manager->add_group_control($ground::get_type(), new $ground());
     }
 
     /**

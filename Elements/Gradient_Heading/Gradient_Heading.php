@@ -12,7 +12,7 @@ use \Elementor\Group_Control_Text_Shadow;
 use \Elementor\Group_Control_Typography;
 use \Elementor\Scheme_Typography;
 use \Elementor\Widget_Base as Widget_Base;
-use SA_EL_ADDONS\Classes\Front\Sa_Foreground_Control as Sa_Foreground_Control;
+use \SA_EL_ADDONS\Classes\Front\Sa_Foreground_Control;
 
 class Gradient_Heading extends Widget_Base {
 
@@ -134,14 +134,14 @@ class Gradient_Heading extends Widget_Base {
 
         $this->add_group_control(
                 Sa_Foreground_Control::get_type(), [
-            'name' => 'title',
+            'name' => 'title-color',
             'selector' => '{{WRAPPER}} .sa-el-gradient-heading',
                 ]
         );
 
         $this->add_group_control(
                 Group_Control_Typography::get_type(), [
-            'name' => 'title',
+            'name' => 'title-typo',
             'selector' => '{{WRAPPER}} .sa-el-gradient-heading',
             'scheme' => Scheme_Typography::TYPOGRAPHY_1,
                 ]
@@ -149,7 +149,7 @@ class Gradient_Heading extends Widget_Base {
 
         $this->add_group_control(
                 Group_Control_Text_Shadow::get_type(), [
-            'name' => 'title',
+            'name' => 'title-shadow',
             'label' => __('Text Shadow', SA_EL_ADDONS_TEXTDOMAIN),
             'selector' => '{{WRAPPER}} .sa-el-gradient-heading',
                 ]
@@ -183,7 +183,7 @@ class Gradient_Heading extends Widget_Base {
 
         $this->add_group_control(
                 Group_Control_Typography::get_type(), [
-            'name' => 'title',
+            'name' => 'title-1',
             'selector' => '{{WRAPPER}} .sa-el-gradient-heading',
             'scheme' => Scheme_Typography::TYPOGRAPHY_1,
                 ]
