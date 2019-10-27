@@ -4,7 +4,7 @@ Donate link: https://www.oxilab.org
 Tags: elementor, elementor extension , elementor addons, elementor elements
 Requires at least: 4.5
 Tested up to: 5.2.4
-Stable tag: 8.0.0
+Stable tag: 8.0
 Requires PHP: 5.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -205,8 +205,8 @@ Our mission and vision is to ensure ultimate user satisfaction. If the users are
 We’ve made it very simple and very easy to use. The installation process of this plugin is very easy. Those who are not even a regular user or even haven’t any prior experience can easily install our product on their WP dashboard. Nevertheless, for your convenience, we left an installation instruction over here: 
 
 > =Option 1=
-> + Download the plugin sa-addons-for-elementor.zip from WordPress Plugin Directory.
-> + Unzip the zip file and extract the plugin folder named **sa-addons-for-elementor.zip
+> + Download the plugin sb-image-hover-effects.zip from WordPress Plugin Directory.
+> + Unzip the zip file and extract the plugin folder named **sb-image-hover-effects.zip
 > + Left that plugin folder into your wp-content/plugins folder.
 > + Go and refresh your Wordpress administration panels and from the menu bar click on Plugins.
 > + Now you may see your plug-in listed under inactive plug-in tab.
@@ -214,8 +214,8 @@ We’ve made it very simple and very easy to use. The installation process of th
 
 > =Option 2=
 > + Like the first option you have to download the zip file from download location.
-> + Unzip the zip file and extract the sa-addons-for-elementor plugin folder.
-> + Double click on the installable folder in order to get sa-addons-for-elementor.zip.
+> + Unzip the zip file and extract the sb-image-hover-effects plugin folder.
+> + Double click on the installable folder in order to get sb-image-hover-effects.zip.
 > + Go to wordpress admin panel and press Add New from the Menu bar under plugins tab.
 > + Select upload link and drug the available image Hover Effects Plugin file and click install now.
 > + After successfully installed finally click on ‘activate’ to turn on.
@@ -255,13 +255,19 @@ Yes, reacts and displays resizing all elements for mobile devices and tablets.
 
 == Screenshots ==
 
-1. Install Elements From Addons List
-2. Demo Elements lookup.
-3. Admin panel With Live Preview.
-4. Admin panel With Live Preview.
+1. Elementor Settings Page with Elementor Addons
+2. Demo Elements of Elementor Addons
+3. Demo Elements of Elementor Addons
+4. Demo Elements of Elementor Addons
+5. Elementor Addons Admin Panel
+6. Elementor Templates Page
+7. Elementor Addons Block Page
 
 == Changelog ==
 
-= 1.0 = 
-* Initial Release
-* responsive layout
+= 8.0 = 
+* Elementor Adddons
+
+== Upgrade Notice ==
+= 8.0 =
+Elementor Adddons

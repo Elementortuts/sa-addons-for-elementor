@@ -40,7 +40,7 @@ class Support_Reviews {
                         <p>Hey, You’ve using <strong>Elementor Addons - Premium Elementor Addons with Templates & Blocks</strong> more than 1 week – that’s awesome! Could you please do me a BIG favor and give it a 5-star rating on WordPress? Just to help us spread the word and boost our motivation.!</p>
                         <ul class="shortcode-addons--notice-link">
                             <li>
-                                <a href="https://wordpress.org/support/plugin/sa-addons-for-elementor/reviews/#new-post" target="_blank">
+                                <a href="https://wordpress.org/support/plugin/sb-image-hover-effects/reviews/#new-post" target="_blank">
                                     <span class="dashicons dashicons-external"></span>Ok, you deserve it!
                                 </a>
                             </li>
@@ -55,7 +55,7 @@ class Support_Reviews {
                                 </a>
                             </li>
                             <li>
-                                <a href="https://wordpress.org/support/plugin/sa-addons-for-elementor/">
+                                <a href="https://wordpress.org/support/plugin/sb-image-hover-effects/">
                                     <span class="dashicons dashicons-sos"></span>I need help
                                 </a>
                             </li>

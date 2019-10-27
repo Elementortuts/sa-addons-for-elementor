@@ -12,8 +12,8 @@ if (!defined('ABSPATH')) {
  *
  * @author $biplob018
  */
-    
 class Installation {
+
     use \SA_EL_ADDONS\Helper\Public_Helper;
 
     protected static $lfe_instance = NULL;
@@ -39,6 +39,8 @@ class Installation {
 
         // save default values
         $this->Get_Active_Elements();
+        // Redirect to options page
+        set_transient('sa_el_addons_activation_redirect', true, 30);
     }
 
     /**

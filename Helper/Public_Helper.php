@@ -399,7 +399,6 @@ trait Public_Helper {
                 endif;
                 $zip->extractTo(SA_EL_ADDONS_PATH);
                 $zip->close();
-                echo 'Done';
             endif;
         endif;
         return ob_get_clean();

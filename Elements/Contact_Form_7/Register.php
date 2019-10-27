@@ -7,7 +7,7 @@ return [
       
     ],
     'category' => 'Form Elements',
-    'Premium' => TRUE,
+    'Premium' => false,
     'condition' => '',
     'API' => ''
 ];

@@ -58,6 +58,7 @@ class Bootstrap {
         // Init Plugin
         $this->registered_elements = $this->Get_Registered_elements(); // register hooks
         $this->Image_Hover();
+        add_action('admin_init', array($this, 'redirect_on_activation'));
         $this->register_hooks();
         if (is_admin()) {
             $this->init();
@@ -78,7 +79,9 @@ class Bootstrap {
         load_plugin_textdomain('sa-el-addons');
     }
 
+    //Plugins Core
     public function Admin() {
+
         $this->admin_notice();
         add_action('admin_init', [$this, 'plugin_settings']);
         add_action('admin_init', [$this, 'license']);
@@ -203,6 +206,22 @@ class Bootstrap {
         );
 
         printf('<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message);
+    }
+
+    /**
+     * Redirect to Elementor Addons page
+     *
+     * @since v1.0.0
+     */
+    public function redirect_on_activation() {
+        if (get_transient('sa_el_addons_activation_redirect')):
+            echo 'asdasjdh';
+            delete_transient('sa_el_addons_activation_redirect');
+            if (is_network_admin() || isset($_GET['activate-multi'])):
+                return;
+            endif;
+            wp_safe_redirect(admin_url("admin.php?page=sa-el-addons#tabs-general"));
+        endif;
     }
 
 }

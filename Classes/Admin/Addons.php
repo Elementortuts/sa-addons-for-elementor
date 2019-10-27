@@ -170,7 +170,7 @@ class Addons {
                                                 </div>
                                                 <div class="sa-el-admin-block-content">
                                                     <p>You can contribute to make Elementor Addons better reporting bugs & creating issues. Our Development team always try to make more powerfull addons day by day with solved Issues</p>
-                                                    <a href="https://wordpress.org/support/plugin/sa-addons-for-elementor/" class="sa-el-button" target="_blank">Report a bug</a>
+                                                    <a href="https://wordpress.org/support/plugin/sb-image-hover-effects/" class="sa-el-button" target="_blank">Report a bug</a>
                                                 </div>
                                             </div>
                                         </div>

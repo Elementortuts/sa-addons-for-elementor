@@ -4,7 +4,7 @@
  * Plugin Name: Elementor Addons - Premium Elementor Addons with Templates & Blocks 
  * Description: Ultimate elements library for Elementor WordPress Page Builder. Premium elements with endless customization options.
  * Plugin URI: https://www.sa-elementor-addons.com
- * Version: 8.0.0
+ * Version: 8.0
  * Author: biplob018
  * Author URI: https://www.oxilab.org/
  * Text Domain: sa-el-addons

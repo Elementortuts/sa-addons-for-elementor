@@ -9,7 +9,7 @@ return [
         ],
     ],
     'category' => 'Creative Elements',
-    'Premium' => TRUE,
+    'Premium' => false,
     'condition' => '',
     'API' => ''
 ];
