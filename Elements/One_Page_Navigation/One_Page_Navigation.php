@@ -28,7 +28,7 @@ class One_Page_Navigation extends Widget_Base {
     }
 
     public function get_icon() {
-        return 'eicon-sidebar oxi-el-admin-icon';
+        return 'eicon-navigation-horizontal oxi-el-admin-icon';
     }
 
     public function get_categories() {

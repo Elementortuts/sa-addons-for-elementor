@@ -33,7 +33,7 @@ class Recipe extends Widget_Base {
     }
 
     public function get_icon() {
-        return 'eicon-countdown  oxi-el-admin-icon';
+        return 'eicon-menu-card oxi-el-admin-icon';
     }
 
     public function get_categories() {
