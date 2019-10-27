@@ -12,7 +12,7 @@ return [
         ],
     ],
     'category' => 'Post Elements',
-    'Premium' => FALSE,
+    'Premium' => TRUE,
     'condition' => '',
     'API' => ''
 ];

@@ -170,21 +170,124 @@ trait Post_Query
             $this->add_control(
                 'grid_style',
                 [
-                    'label' => esc_html__('Post Block Style Preset', 'essential-addons-elementor'),
+                    'label' => esc_html__('Post Block Style Preset', SA_EL_ADDONS_TEXTDOMAIN),
                     'type' => Controls_Manager::SELECT,
                     'default' => 'post-block-style-default',
                     'options' => [
-                        'post-block-style-default' => esc_html__('Default', 'essential-addons-elementor'),
-                        'post-block-style-overlay' => esc_html__('Overlay', 'essential-addons-elementor'),
+                        'post-block-style-default' => esc_html__('Default', SA_EL_ADDONS_TEXTDOMAIN),
+                        'post-block-style-overlay' => esc_html__('Overlay', SA_EL_ADDONS_TEXTDOMAIN),
                     ],
                 ]
             );
         }
         if ($this->get_name() !== 'sa_el_post_carousel') {
+            if ($this->get_name() === 'sa_el_content_timeline') {
+                $this->add_control(
+                    'content_timeline_layout',
+                    [
+                        'label' => esc_html__('Layout', SA_EL_ADDONS_TEXTDOMAIN),
+                        'type' => Controls_Manager::SELECT,
+                        'default' => 'center',
+                        'options' => [
+                            'left'   => esc_html__('Right', SA_EL_ADDONS_TEXTDOMAIN),
+                            'center' => esc_html__('Center', SA_EL_ADDONS_TEXTDOMAIN),
+                            'right'  => esc_html__('Left', SA_EL_ADDONS_TEXTDOMAIN),
+                        ],
+                        'default'   => 'center'
+                    ]
+                );
+
+                $this->add_control(
+                    'date_position',
+                    [
+                        'label' => esc_html__('Date Position', SA_EL_ADDONS_TEXTDOMAIN),
+                        'type' => Controls_Manager::SELECT,
+                        'default' => 'inside',
+                        'options' => [
+                            'inside'   => esc_html__('Inside', SA_EL_ADDONS_TEXTDOMAIN),
+                            'outside' => esc_html__('Outside', SA_EL_ADDONS_TEXTDOMAIN)
+                        ],
+                        'default'   => 'inside',
+                        'condition' => [
+                            'content_timeline_layout!'  => 'center'
+                        ]
+                    ]
+                );
+
+                $this->add_control(
+                    'sa_el_show_read_more',
+                    [
+                        'label' => __('Show Read More', SA_EL_ADDONS_TEXTDOMAIN),
+                        'type' => Controls_Manager::CHOOSE,
+                        'options' => [
+                            '1' => [
+                                'title' => __('Yes', SA_EL_ADDONS_TEXTDOMAIN),
+                                'icon' => 'fa fa-check',
+                            ],
+                            '0' => [
+                                'title' => __('No', SA_EL_ADDONS_TEXTDOMAIN),
+                                'icon' => 'fa fa-ban',
+                            ],
+                        ],
+                        'default' => '1',
+                        'condition' => [
+                            'sa_el_content_timeline_choose' => 'dynamic',
+                        ],
+                    ]
+                );
+
+                $this->add_control(
+                    'sa_el_read_more_text',
+                    [
+                        'label' => esc_html__('Label Text', SA_EL_ADDONS_TEXTDOMAIN),
+                        'type' => Controls_Manager::TEXT,
+                        'label_block' => false,
+                        'default' => esc_html__('Read More', SA_EL_ADDONS_TEXTDOMAIN),
+                        'condition' => [
+                            'sa_el_content_timeline_choose' => 'dynamic',
+                            'sa_el_show_read_more' => '1',
+                        ],
+                    ]
+                );
+            } else {
+                $this->add_control(
+                    'show_load_more',
+                    [
+                        'label' => __('Show Load More', SA_EL_ADDONS_TEXTDOMAIN),
+                        'type' => Controls_Manager::CHOOSE,
+                        'options' => [
+                            '1' => [
+                                'title' => __('Yes', SA_EL_ADDONS_TEXTDOMAIN),
+                                'icon' => 'fa fa-check',
+                            ],
+                            '0' => [
+                                'title' => __('No', SA_EL_ADDONS_TEXTDOMAIN),
+                                'icon' => 'fa fa-ban',
+                            ],
+                        ],
+                        'default' => '0',
+                    ]
+                );
+
+                $this->add_control(
+                    'show_load_more_text',
+                    [
+                        'label' => esc_html__('Label Text', SA_EL_ADDONS_TEXTDOMAIN),
+                        'type' => Controls_Manager::TEXT,
+                        'label_block' => false,
+                        'default' => esc_html__('Load More', SA_EL_ADDONS_TEXTDOMAIN),
+                        'condition' => [
+                            'show_load_more' => '1',
+                        ],
+                    ]
+                );
+            }
+        }
+        if ($this->get_name() !== 'sa_el_content_timeline') {
             $this->add_control(
-                'show_load_more',
+                'sa_el_show_image',
                 [
-                    'label' => __('Show Load More', SA_EL_ADDONS_TEXTDOMAIN),
+                    'label' => __('Show Image', SA_EL_ADDONS_TEXTDOMAIN),
                     'type' => Controls_Manager::CHOOSE,
                     'options' => [
                         '1' => [
@@ -196,52 +299,100 @@ trait Post_Query
                             'icon' => 'fa fa-ban',
                         ],
                     ],
-                    'default' => '0',
+                    'default' => '1',
                 ]
             );
-
-            $this->add_control(
-                'show_load_more_text',
+            $this->add_group_control(
+                Group_Control_Image_Size::get_type(),
                 [
-                    'label' => esc_html__('Label Text', SA_EL_ADDONS_TEXTDOMAIN),
-                    'type' => Controls_Manager::TEXT,
-                    'label_block' => false,
-                    'default' => esc_html__('Load More', SA_EL_ADDONS_TEXTDOMAIN),
+                    'name' => 'image',
+                    'exclude' => ['custom'],
+                    'default' => 'medium',
                     'condition' => [
-                        'show_load_more' => '1',
+                        'sa_el_show_image' => '1',
                     ],
                 ]
             );
         }
-        $this->add_control(
-            'sa_el_show_image',
-            [
-                'label' => __('Show Image', SA_EL_ADDONS_TEXTDOMAIN),
-                'type' => Controls_Manager::CHOOSE,
-                'options' => [
-                    '1' => [
-                        'title' => __('Yes', SA_EL_ADDONS_TEXTDOMAIN),
-                        'icon' => 'fa fa-check',
+        if ($this->get_name() === 'sa_el_content_timeline') {
+            $this->add_control(
+                'sa_el_show_image_or_icon',
+                [
+                    'label' => __('Show Circle Image / Icon', SA_EL_ADDONS_TEXTDOMAIN),
+                    'type' => Controls_Manager::CHOOSE,
+                    'options' => [
+                        'img' => [
+                            'title' => __('Image', SA_EL_ADDONS_TEXTDOMAIN),
+                            'icon' => 'fa fa-picture-o',
+                        ],
+                        'icon' => [
+                            'title' => __('Icon', SA_EL_ADDONS_TEXTDOMAIN),
+                            'icon' => 'fa fa-info',
+                        ],
+                        'bullet' => [
+                            'title' => __('Bullet', SA_EL_ADDONS_TEXTDOMAIN),
+                            'icon' => 'fa fa-circle',
+                        ],
                     ],
-                    '0' => [
-                        'title' => __('No', SA_EL_ADDONS_TEXTDOMAIN),
-                        'icon' => 'fa fa-ban',
+                    'default' => 'icon',
+                    'condition' => [
+                        'sa_el_content_timeline_choose' => 'dynamic',
                     ],
-                ],
-                'default' => '1',
-            ]
-        );
-        $this->add_group_control(
-            Group_Control_Image_Size::get_type(),
-            [
-                'name' => 'image',
-                'exclude' => ['custom'],
-                'default' => 'medium',
-                'condition' => [
-                    'sa_el_show_image' => '1',
-                ],
-            ]
-        );
+                ]
+            );
+
+            $this->add_control(
+                'sa_el_icon_image',
+                [
+                    'label' => esc_html__('Icon Image', SA_EL_ADDONS_TEXTDOMAIN),
+                    'type' => Controls_Manager::MEDIA,
+                    'default' => [
+                        'url' => Utils::get_placeholder_image_src(),
+                    ],
+                    'condition' => [
+                        'sa_el_show_image_or_icon' => 'img',
+                    ],
+                ]
+            );
+            $this->add_control(
+                'sa_el_icon_image_size',
+                [
+                    'label' => esc_html__('Icon Image Size', SA_EL_ADDONS_TEXTDOMAIN),
+                    'type' => Controls_Manager::SLIDER,
+                    'default' => [
+                        'size' => 24,
+                    ],
+                    'range' => [
+                        'px' => [
+                            'max' => 60,
+                        ],
+                    ],
+                    'condition' => [
+                        'sa_el_show_image_or_icon' => 'img',
+                    ],
+                    'selectors' => [
+                        '{{WRAPPER}} .eael-content-timeline-img img' => 'width: {{SIZE}}px;',
+                    ],
+                ]
+            );
+
+            $this->add_control(
+                'sa_el_content_timeline_circle_icon_new',
+                [
+                    'label' => esc_html__('Icon', SA_EL_ADDONS_TEXTDOMAIN),
+                    'fa4compatibility' 		=> 'sa_el_content_timeline_circle_icon',
+                    'type' => Controls_Manager::ICONS,
+                    'default' => [
+                        'value' => 'fas fa-pencil-alt',
+                        'library' => 'fa-solid',
+                    ],
+                    'condition' => [
+                        'sa_el_content_timeline_choose' => 'dynamic',
+                        'sa_el_show_image_or_icon' => 'icon',
+                    ],
+                ]
+            );
+        }
         $this->add_control(
             'sa_el_show_title',
             [
