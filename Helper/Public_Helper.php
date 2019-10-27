@@ -384,7 +384,7 @@ trait Public_Helper {
         add_shortcode('sb_image_oxi', [$this, 'sb_image_oxi_shortcode']);
     }
 
-    public function sb_image_oxi_shortcode() {
+    public function sb_image_oxi_shortcode($atts) {
         extract(shortcode_atts(array('id' => ' ',), $atts));
         $styleid = $atts['id'];
         ob_start();
