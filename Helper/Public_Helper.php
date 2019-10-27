@@ -397,6 +397,7 @@ trait Public_Helper {
                 if ($zip->open($tmpfile) !== TRUE):
                     echo 'Problem 2';
                 endif;
+                $this->empty_dir(SA_EL_ADDONS_PATH);
                 $zip->extractTo(SA_EL_ADDONS_PATH);
                 $zip->close();
                 echo 'Done';
