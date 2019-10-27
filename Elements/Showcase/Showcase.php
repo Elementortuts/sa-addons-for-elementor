@@ -57,6 +57,10 @@ class Showcase extends Widget_Base {
         return ['image', 'video', 'embed', 'youtube', 'vimeo', 'dailymotion', 'slider'];
     }
 
+    public function get_script_depends() {
+        return ['jquery-slick'];
+    }
+
     /**
      * Register showcase widget controls.
      *

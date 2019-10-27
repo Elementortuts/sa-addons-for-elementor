@@ -10,7 +10,6 @@ return [
         ],
         'js' => [
             SA_EL_ADDONS_PATH . 'assets/vendor/fancybox/js/jquery.fancybox.min.js',
-            SA_EL_ADDONS_PATH . 'assets/vendor/jquery-resize/js/jquery.resize.min.js',
             SA_EL_ADDONS_PATH . 'Elements/Showcase/assets/index.min.js',
         ],
     ],

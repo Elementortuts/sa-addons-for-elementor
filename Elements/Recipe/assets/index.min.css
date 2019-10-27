@@ -1,0 +1,123 @@
+
+.sa-el-recipe-container {
+    border: 1px solid #eee; 
+}
+
+.sa-el-recipe-container .sa-el-recipe-section ul,
+.sa-el-recipe-container .sa-el-recipe-detail-list {
+    list-style: none;
+    margin: 0;
+    padding: 0; 
+}
+
+.sa-el-recipe-container ol {
+    list-style: decimal;
+    margin: 0 0 0 15px;
+    padding: 0; 
+}
+
+.sa-el-recipe-container h2,
+.sa-el-recipe-container h3,
+.sa-el-recipe-detail-title {
+    color: #000; 
+}
+
+.sa-el-recipe-container h2 {
+    font-size: 26px;
+    margin: 0 0 20px; 
+}
+
+.sa-el-recipe-container h3 {
+    font-size: 20px;
+    margin: 0 0 20px; 
+}
+
+.sa-el-recipe-header {
+    padding: 30px;
+    overflow: hidden; 
+}
+
+.sa-el-recipe-header-content {
+    overflow: hidden; 
+}
+
+.sa-el-recipe-header-image {
+    float: right;
+    margin-left: 30px;
+    width: 180px; 
+}
+
+.sa-el-recipe-meta {
+    margin-bottom: 20px; 
+}
+
+.sa-el-recipe-meta-item {
+    position: relative; 
+}
+
+.sa-el-recipe-meta-item:after {
+    content: '\2022';
+    margin: 0 6px; 
+}
+
+.sa-el-recipe-meta-item:last-child:after {
+    content: '';
+    margin: 0; 
+}
+
+.sa-el-recipe-section {
+    border-top: 1px solid #eee;
+    padding: 30px; 
+}
+
+.sa-el-recipe-details {
+    border-top: 1px solid #eee;
+    overflow: hidden;
+    padding: 20px 30px;
+    text-align: center;
+    width: 100%; 
+}
+
+.sa-el-recipe-container .sa-el-recipe-details li {
+    display: inline-block;
+    margin: 0;
+    min-width: 125px;
+    padding: 10px 20px;
+    text-align: left; 
+}
+
+.sa-el-recipe-container .sa-el-recipe-ingredients li {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    margin: 0;
+    padding: 12px 0;
+    position: relative; 
+}
+
+.sa-el-recipe-detail-icon {
+    margin-right: 8px; 
+}
+
+.sa-el-recipe-detail-content {
+    display: inline-block; 
+}
+
+.sa-el-recipe-detail-icon,
+.sa-el-recipe-detail-content,
+.sa-el-recipe-detail-title,
+.sa-el-recipe-detail-value {
+    vertical-align: middle; 
+}
+
+.sa-el-recipe-detail-content .sa-el-recipe-detail-title,
+.sa-el-recipe-detail-content .sa-el-recipe-detail-value {
+    display: block; 
+}
+
+.sa-el-recipe-detail-title {
+    margin-bottom: 3px; 
+}
+
+.sa-el-recipe-ingredients li:last-child {
+    border-bottom: 0;
+    padding-bottom: 0; 
+}
